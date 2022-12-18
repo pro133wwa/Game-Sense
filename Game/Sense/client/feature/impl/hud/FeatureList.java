@@ -24,13 +24,17 @@ import java.util.List;
 
 public class FeatureList extends Feature {
     public static ListSetting colorList = new ListSetting("ArrayList Color", "Custom", () -> true, "Custom");
+    public static ListSetting fontList = new ListSetting("ArrayList Font", "Rubik", () -> true, "Rubik", "SF-UI", "Myseo", "Tahoma");
     public static ColorSetting oneColor = new ColorSetting("One Color", new Color(0x00FDF5).getRGB(), () -> colorList.currentMode.equals("Custom") || colorList.currentMode.equals("Fade"));
     public static ColorSetting twoColor = new ColorSetting("Two Color", new Color(0xFFFFFF).getRGB(), () -> colorList.currentMode.equals("Custom"));
+    public static BooleanSetting background = new BooleanSetting("Background", true, () -> true);
     public BooleanSetting onlyBinds = new BooleanSetting("Only Binds", false, () -> true);
     public BooleanSetting noVisualModules = new BooleanSetting("No Visual", true, () -> true);
+    public static ListSetting backGroundColorMode = new ListSetting("Background Color", "Custom", () -> background.getBoolValue(), "Custom", "Client");
+    public BooleanSetting glow = new BooleanSetting("Glow", false, () -> true);
     public FeatureList() {
         super("FeatureList", "Показывает список включанных модулей на экране", FeatureCategory.Hud);
-        addSettings(colorList,oneColor,twoColor, noVisualModules, onlyBinds);
+        addSettings(colorList,oneColor,twoColor, noVisualModules, onlyBinds, fontList, glow, backGroundColorMode, background);
     }
 
 
