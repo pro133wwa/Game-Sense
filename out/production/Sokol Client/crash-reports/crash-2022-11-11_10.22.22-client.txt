@@ -1,0 +1,130 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 2022-11-11 10:22
+Description: Tesselating block model
+
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/java.util.ArrayList.add(ArrayList.java:455)
+	at java.base/java.util.ArrayList.add(ArrayList.java:467)
+	at net.minecraft.world.biome.BiomeCache.getBiomeCacheBlock(BiomeCache.java:38)
+	at net.minecraft.world.biome.BiomeCache.getBiome(BiomeCache.java:47)
+	at net.minecraft.world.biome.BiomeProvider.getBiome(BiomeProvider.java:70)
+	at net.minecraft.world.chunk.Chunk.getBiome(Chunk.java:1290)
+	at net.minecraft.world.ChunkCache.getBiome(ChunkCache.java:117)
+	at optifine.ChunkCacheOF.getBiome(ChunkCacheOF.java:145)
+	at optifine.CustomColors.getColorBiome(CustomColors.java:895)
+	at optifine.CustomColormap.getColor(CustomColormap.java:367)
+	at optifine.CustomColormap.getColor(CustomColormap.java:362)
+	at optifine.CustomColors.getSmoothColorMultiplier(CustomColors.java:965)
+	at optifine.CustomColors.getColorMultiplier(CustomColors.java:807)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderQuadsSmooth(BlockModelRenderer.java:199)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModelSmooth(BlockModelRenderer.java:110)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java:74)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java:53)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java:79)
+	at net.minecraft.client.renderer.chunk.RenderChunk.rebuildChunk(RenderChunk.java:267)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.processTask(ChunkRenderWorker.java:119)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:47)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.base/java.util.ArrayList.add(ArrayList.java:455)
+	at java.base/java.util.ArrayList.add(ArrayList.java:467)
+	at net.minecraft.world.biome.BiomeCache.getBiomeCacheBlock(BiomeCache.java:38)
+	at net.minecraft.world.biome.BiomeCache.getBiome(BiomeCache.java:47)
+	at net.minecraft.world.biome.BiomeProvider.getBiome(BiomeProvider.java:70)
+	at net.minecraft.world.chunk.Chunk.getBiome(Chunk.java:1290)
+	at net.minecraft.world.ChunkCache.getBiome(ChunkCache.java:117)
+	at optifine.ChunkCacheOF.getBiome(ChunkCacheOF.java:145)
+	at optifine.CustomColors.getColorBiome(CustomColors.java:895)
+	at optifine.CustomColormap.getColor(CustomColormap.java:367)
+	at optifine.CustomColormap.getColor(CustomColormap.java:362)
+	at optifine.CustomColors.getSmoothColorMultiplier(CustomColors.java:965)
+	at optifine.CustomColors.getColorMultiplier(CustomColors.java:807)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderQuadsSmooth(BlockModelRenderer.java:199)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModelSmooth(BlockModelRenderer.java:110)
+
+-- Block model being tesselated --
+Details:
+	Block: minecraft:stone[variant=stone]
+	Block location: World: (0,48,0), Chunk: (at 0,3,0 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Using AO: true
+Stacktrace:
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java:74)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java:53)
+
+-- Block being tesselated --
+Details:
+	Block type: ID #1 (tile.stone // net.minecraft.block.BlockStone)
+	Block data value: 0 / 0x0 / 0b0000
+	Block location: World: (0,48,0), Chunk: (at 0,3,0 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+Stacktrace:
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java:79)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 23 total; [EntityPlayerSP['xTeRuXx'/183, l='MpServer', x=8.50, y=65.00, z=8.50], EntityOtherPlayerMP['Target_lox_b'/37867033, l='MpServer', x=8.85, y=77.00, z=0.38], EntityOtherPlayerMP['4dhgvvae2'/38201510, l='MpServer', x=1.01, y=81.00, z=0.28], EntityOtherPlayerMP['CloudyMan'/38250425, l='MpServer', x=1.10, y=77.50, z=5.40], EntityOtherPlayerMP['Rockess'/38291802, l='MpServer', x=-4.41, y=78.00, z=0.21], EntityOtherPlayerMP['lolik2si3'/31457247, l='MpServer', x=1.54, y=79.00, z=-0.53], EntityOtherPlayerMP['ShitFreeiJ63H'/38423787, l='MpServer', x=1.37, y=79.50, z=-1.60], EntityOtherPlayerMP['DeadedLirco'/37748235, l='MpServer', x=4.69, y=78.00, z=-1.17], EntityOtherPlayerMP['chokaladvpopke'/38461721, l='MpServer', x=2.09, y=80.67, z=-0.83], EntityOtherPlayerMP['wasddddd'/38164147, l='MpServer', x=11.09, y=77.00, z=-0.35], EntityOtherPlayerMP['0_Astro_0'/38451326, l='MpServer', x=21.33, y=71.00, z=1.86], EntityOtherPlayerMP['Wayper555'/38323032, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['bebidre1858'/38231647, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['Wh0_Nerp'/38428119, l='MpServer', x=-10.62, y=77.00, z=-6.98], EntityOtherPlayerMP['zxczxcurs'/38374506, l='MpServer', x=-15.27, y=77.00, z=-2.73], EntityOtherPlayerMP['golodniy_pes23'/38352926, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['ShitFreeTYn3w'/38390308, l='MpServer', x=-3.03, y=79.50, z=-1.13], EntityOtherPlayerMP['Devo4ku'/38287802, l='MpServer', x=-0.19, y=79.00, z=-3.40], EntityOtherPlayerMP['fitif123'/33918298, l='MpServer', x=23.94, y=71.00, z=-1.43], EntityOtherPlayerMP['§8'/445, l='MpServer', x=46.50, y=73.00, z=5.59], EntityOtherPlayerMP['§8'/442, l='MpServer', x=47.51, y=73.00, z=-0.53], EntityOtherPlayerMP['§8'/448, l='MpServer', x=46.52, y=73.00, z=-6.52], EntityOtherPlayerMP['Sho_Hamga'/38481310, l='MpServer', x=43.87, y=73.00, z=-3.36]]
+	Chunk stats: MultiplayerChunkCache: 27, 27
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (8,64,8), Chunk: (at 8,4,8 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 0 game time, 0 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 51 total; [EntityOtherPlayerMP['lolik2si3'/31457247, l='MpServer', x=1.54, y=79.00, z=-0.53], EntityOtherPlayerMP['Wayper555'/38323032, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['Rockess'/38291802, l='MpServer', x=-4.41, y=78.00, z=0.21], EntityOtherPlayerMP['bebidre1858'/38231647, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['Wh0_Nerp'/38428119, l='MpServer', x=-10.62, y=77.00, z=-6.98], EntityOtherPlayerMP['ShitFreeiJ63H'/38423787, l='MpServer', x=1.37, y=79.50, z=-1.60], EntityOtherPlayerMP['zxczxcurs'/38374506, l='MpServer', x=-15.27, y=77.00, z=-2.73], EntityArmorStand['§6⚠ §6§lКВЕСТЫ §6⚠'/426, l='MpServer', x=47.51, y=75.48, z=-0.52], EntityArmorStand['§7Нажмите, чтобы открыть меню'/427, l='MpServer', x=47.51, y=75.23, z=-0.52], EntityArmorStand['§d⚠ §d§lТИТУЛЫ §d⚠'/428, l='MpServer', x=46.49, y=75.48, z=5.39], EntityArmorStand['§7Нажмите, чтобы открыть меню'/429, l='MpServer', x=46.49, y=75.23, z=5.39], EntityArmorStand['§d⚠ §f§lБЕСПЛАТНЫЙ §c§lＳＴＯＲＭ §d⚠'/430, l='MpServer', x=46.48, y=75.48, z=-6.51], EntityArmorStand['§7Нажмите, чтобы получить'/431, l='MpServer', x=46.48, y=75.23, z=-6.51], EntityOtherPlayerMP['DeadedLirco'/37748235, l='MpServer', x=4.69, y=78.00, z=-1.17], EntityOtherPlayerMP['0_Astro_0'/38451326, l='MpServer', x=21.33, y=71.00, z=1.86], EntityOtherPlayerMP['§8'/442, l='MpServer', x=47.51, y=73.00, z=-0.53], EntityOtherPlayerMP['§8'/445, l='MpServer', x=46.50, y=73.00, z=5.59], EntityOtherPlayerMP['§8'/448, l='MpServer', x=46.52, y=73.00, z=-6.52], EntityPlayerSP['xTeRuXx'/183, l='MpServer', x=8.50, y=65.00, z=8.50], EntityOtherPlayerMP['chokaladvpopke'/38461721, l='MpServer', x=2.09, y=80.67, z=-0.83], EntityOtherPlayerMP['Target_lox_b'/37867033, l='MpServer', x=8.85, y=77.00, z=0.38], EntityOtherPlayerMP['4dhgvvae2'/38201510, l='MpServer', x=1.01, y=81.00, z=0.28], EntityOtherPlayerMP['Sho_Hamga'/38481310, l='MpServer', x=43.87, y=73.00, z=-3.36], EntityOtherPlayerMP['CloudyMan'/38250425, l='MpServer', x=1.10, y=77.50, z=5.40], EntityOtherPlayerMP['Rockess'/38291802, l='MpServer', x=-4.41, y=78.00, z=0.21], EntityOtherPlayerMP['golodniy_pes23'/38352926, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['Target_lox_b'/37867033, l='MpServer', x=8.85, y=77.00, z=0.38], EntityOtherPlayerMP['lolik2si3'/31457247, l='MpServer', x=1.54, y=79.00, z=-0.53], EntityOtherPlayerMP['ShitFreeiJ63H'/38423787, l='MpServer', x=1.37, y=79.50, z=-1.60], EntityOtherPlayerMP['DeadedLirco'/37748235, l='MpServer', x=4.69, y=78.00, z=-1.17], EntityOtherPlayerMP['chokaladvpopke'/38461721, l='MpServer', x=2.09, y=80.67, z=-0.83], EntityOtherPlayerMP['wasddddd'/38164147, l='MpServer', x=11.09, y=77.00, z=-0.35], EntityOtherPlayerMP['0_Astro_0'/38451326, l='MpServer', x=21.33, y=71.00, z=1.86], EntityOtherPlayerMP['Wayper555'/38323032, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['bebidre1858'/38231647, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['fitif123'/33918298, l='MpServer', x=23.94, y=71.00, z=-1.43], EntityOtherPlayerMP['4dhgvvae2'/38201510, l='MpServer', x=1.01, y=81.00, z=0.28], EntityOtherPlayerMP['Wh0_Nerp'/38428119, l='MpServer', x=-10.62, y=77.00, z=-6.98], EntityOtherPlayerMP['zxczxcurs'/38374506, l='MpServer', x=-15.27, y=77.00, z=-2.73], EntityOtherPlayerMP['golodniy_pes23'/38352926, l='MpServer', x=-0.45, y=81.06, z=-0.53], EntityOtherPlayerMP['ShitFreeTYn3w'/38390308, l='MpServer', x=-3.03, y=79.50, z=-1.13], EntityOtherPlayerMP['Devo4ku'/38287802, l='MpServer', x=-0.19, y=79.00, z=-3.40], EntityOtherPlayerMP['fitif123'/33918298, l='MpServer', x=23.94, y=71.00, z=-1.43], EntityOtherPlayerMP['§8'/445, l='MpServer', x=46.50, y=73.00, z=5.59], EntityOtherPlayerMP['ShitFreeTYn3w'/38390308, l='MpServer', x=-3.03, y=79.50, z=-1.13], EntityOtherPlayerMP['§8'/442, l='MpServer', x=47.51, y=73.00, z=-0.53], EntityOtherPlayerMP['§8'/448, l='MpServer', x=46.52, y=73.00, z=-6.52], EntityOtherPlayerMP['Sho_Hamga'/38481310, l='MpServer', x=43.87, y=73.00, z=-3.36], EntityOtherPlayerMP['Devo4ku'/38287802, l='MpServer', x=-0.19, y=79.00, z=-3.40], EntityOtherPlayerMP['wasddddd'/38164147, l='MpServer', x=11.09, y=77.00, z=-0.35], EntityOtherPlayerMP['CloudyMan'/38250425, l='MpServer', x=1.10, y=77.50, z=5.40]]
+	Retry entities: 0 total; []
+	Server brand: StormHVH
+	Server type: Non-integrated multiplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:520)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2619)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 18.0.2.1, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 1342069784 bytes (1279 MB) / 2090860544 bytes (1994 MB) up to 4276092928 bytes (4078 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: PurplePack.zip
+	Current Language: ~~ERROR~~ NullPointerException: Cannot invoke "net.minecraft.client.resources.Language.toString()" because the return value of "net.minecraft.client.resources.LanguageManager.getCurrentLanguage()" is null
+	Profiler Position: N/A (disabled)
+	CPU: 12x Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+	OptiFine Version: OptiFine_1.12.2_HD_U_C6
+	Render Distance Chunks: 8
+	Mipmaps: 4
+	Anisotropic Filtering: 1
+	Antialiasing: 0
+	Multitexture: false
+	Shaders: null
+	OpenGlVersion: 4.6.0 NVIDIA 516.94
+	OpenGlRenderer: NVIDIA GeForce RTX 3070 Ti/PCIe/SSE2
+	OpenGlVendor: NVIDIA Corporation
+	CpuCount: 12
