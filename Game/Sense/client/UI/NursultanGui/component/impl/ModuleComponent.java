@@ -170,12 +170,12 @@ public final class ModuleComponent extends ExpandableComponent {
         if (module.isEnabled()) {
 
             if (!ClickGUI.potato_mode.getBoolValue() && ClickGUI.glow.getBoolValue()) {
-                mc.rubik_16.drawCenteredBlurredString(binding ? "∆ми кнопку.. " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, (int) ClickGUI.glowRadius2.getNumberValue(), module.isEnabled() ? RenderUtils.injectAlpha(new Color(new Color(color.getRed(), color.getGreen(), color.getBlue()).getRGB()), 100) : Color.WHITE, module.isEnabled() ? ClickGUI.color.getColorValue() : Color.WHITE.getRGB());
+                mc.rubik_16.drawCenteredBlurredString(binding ? "∆ми кнопку... " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, (int) ClickGUI.glowRadius2.getNumberValue(), module.isEnabled() ? RenderUtils.injectAlpha(new Color(new Color(color.getRed(), color.getGreen(), color.getBlue()).getRGB()), 100) : Color.WHITE, module.isEnabled() ? ClickGUI.color.getColorValue() : Color.WHITE.getRGB());
             } else {
-                mc.rubik_16.drawCenteredString(binding ? "∆ми кнопку.. " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, module.isEnabled() ? color.getRGB() : Color.WHITE.getRGB());
+                mc.rubik_16.drawCenteredString(binding ? "∆ми кнопку... " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, module.isEnabled() ? color.getRGB() : Color.WHITE.getRGB());
             }
         } else {
-            mc.rubik_16.drawCenteredString(binding ? "∆ми кнопку.. " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, module.isEnabled() ? new Color(color.getRGB()).getRGB() : Color.WHITE.getRGB());
+            mc.rubik_16.drawCenteredString(binding ? "∆ми кнопку... " + Keyboard.getKeyName(module.getBind()) : getName(), x + 53.5f, y + height / 2F - 3, module.isEnabled() ? new Color(color.getRGB()).getRGB() : Color.WHITE.getRGB());
         }
     }
 

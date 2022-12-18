@@ -12,5 +12,17 @@ public class UwU_ {
 
     4) new Baza
 
+    5) new Baza2
+
+    6)
+
+    7)
+
+    8)
+
+    9)
+
+    10)
+
      */
 }

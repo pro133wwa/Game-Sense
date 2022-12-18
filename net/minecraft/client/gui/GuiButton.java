@@ -114,8 +114,8 @@ public class GuiButton extends Gui {
                 }
             }
 
-
-            RoundedUtil.drawVerticalGradientOutlinedRoundedRect(this.xPosition, this.yPosition, this.width, this.height - 1, 3, 1, new Color(140, 0, 255, 255), new Color(0, 81, 255,255));
+            RoundedUtil.drawVerticalGradientOutlinedRoundedRect(this.xPosition - 1, this.yPosition - 1, this.width + 2, this.height + 1, 3, 1, new Color(255, 255, 255, 255), new Color(255, 255, 255,255));
+            RoundedUtil.drawVerticalGradientOutlinedRoundedRect(this.xPosition, this.yPosition, this.width, this.height - 1, 3, 1, new Color(0, 0, 0, 255), new Color(0, 0, 0,255));
             mc.neverlose900_20.drawCenteredString(this.displayString, this.xPosition + this.width / 2F, this.yPosition + (this.height - 7.5f) / 2F, text.getRGB());
 
 
