@@ -4,8 +4,10 @@ public class UwU_ {
         /*
     что добавили и где
     ------------------
-    1)
+    1)UID.java, GameSense(UID)
+
     2)
+
     3)
 
      */

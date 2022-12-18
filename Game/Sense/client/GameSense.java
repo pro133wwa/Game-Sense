@@ -14,6 +14,7 @@ import Game.Sense.client.files.impl.FriendConfig;
 import Game.Sense.client.files.impl.HudConfig;
 import Game.Sense.client.files.impl.MacroConfig;
 import Game.Sense.client.friend.FriendManager;
+import Game.Sense.client.ui.newalt.UID;
 import ViaMCP.ViaMCP;
 import Game.Sense.client.ui.clickgui.ClickGuiScreen;
 import Game.Sense.client.ui.config.ConfigManager;
@@ -54,6 +55,7 @@ public class GameSense {
     public String name = "GameSense";
     public String type = "Premium";
     public String version = "0.1";
+    public String uid = UID.getUid();
     public String coder = "UwU_, toperov, DiGGeR";
 
     public void init() {
