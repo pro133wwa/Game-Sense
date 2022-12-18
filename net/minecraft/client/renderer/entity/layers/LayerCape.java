@@ -25,7 +25,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 
                 if (itemstack.getItem() != Items.ELYTRA) {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                    this.playerRenderer.bindTexture(new ResourceLocation("rich/yfas.png"));
+                    //this.playerRenderer.bindTexture(new ResourceLocation("rich/yfas.png"));
                     GlStateManager.pushMatrix();
                     GlStateManager.translate(0.0F, 0.0F, 0.125F);
                     double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * (double) partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * (double) partialTicks);
