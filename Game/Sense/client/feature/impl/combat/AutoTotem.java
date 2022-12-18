@@ -33,16 +33,13 @@ public class AutoTotem extends Feature {
     private final NumberSetting radiusCrystal;
     private final NumberSetting swapBackDelay;
     private final NumberSetting fallDistance;
-
-    private final BooleanSetting switchBack = new BooleanSetting("Swap Back", "Возвращает прошлый предмет после сноса тотема.", true, () -> true);
+    private final BooleanSetting switchBack = new BooleanSetting("Swap Back", "Автоматически свапает предмет после сноса тотема.", true, () -> true);
     private final BooleanSetting checkFall;
-
     private final List<Integer> lastItem = new ArrayList<>();
     private final TimerHelper timerHelper = new TimerHelper();
     private boolean swap = false;
-
     public AutoTotem() {
-        super("AutoTotem", "Автоматически берет в руку тотем при опредленном здоровье", FeatureCategory.Combat);
+        super("AutoTotem", "Автоматически берет тотем в нужном случае", FeatureCategory.Combat);
         health = new NumberSetting("Health Amount", 3.5f, 1.f, 20.f, 0.5F, () -> true);
         inventoryOnly = new BooleanSetting("Only Inventory", false, () -> true);
         swapBackDelay = new NumberSetting("Swap back delay", "Задержка между свапом прошлого предмета и тотема", 100, 10, 500, 5, switchBack::getBoolValue);
@@ -53,7 +50,6 @@ public class AutoTotem extends Feature {
         radiusCrystal = new NumberSetting("Distance to Crystal", 6, 1, 8, 1, checkCrystal::getBoolValue);
         addSettings(switchBack, swapBackDelay, health, inventoryOnly, countTotem, checkFall, fallDistance, checkCrystal, radiusCrystal, checkTnt, radiusTnt);
     }
-
     private int fountTotemCount() {
         int count = 0;
         for (int i = 0; i < mc.player.inventory.getSizeInventory(); i++) {
@@ -64,8 +60,6 @@ public class AutoTotem extends Feature {
         }
         return count;
     }
-
-
     @EventTarget
     public void onRender2D(EventRender2D event) {
         if (fountTotemCount() > 0 && countTotem.getBoolValue()) {
@@ -81,7 +75,6 @@ public class AutoTotem extends Feature {
             }
         }
     }
-
     @EventTarget
     public void onUpdate(EventUpdate event) {
         if (inventoryOnly.getBoolValue() && !(mc.currentScreen instanceof GuiInventory)) {
@@ -98,7 +91,6 @@ public class AutoTotem extends Feature {
                 totemCount++;
             }
         }
-
         if ((mc.player.getHealth() < health.getNumberValue() || checkCrystal() || checkTNT() || checkFall(fallDistance.getNumberValue())) && totemCount != 0 && tIndex != -1) {
             if (mc.player.getHeldItemOffhand().getItem() != Items.Totem) {
                 mc.playerController.windowClick(0, tIndex < 9 ? tIndex + 36 : tIndex, 1, ClickType.PICKUP, mc.player);
@@ -110,27 +102,22 @@ public class AutoTotem extends Feature {
         } else if (switchBack.getBoolValue() && (swap || totemCount == 0) && lastItem.size() > 0) {
             if (!(mc.player.inventory.getStackInSlot(lastItem.get(0)).getItem() instanceof ItemAir)) {
                 if (timerHelper.hasReached(swapBackDelay.getNumberValue())) {
-
                     mc.playerController.windowClick(0, lastItem.get(0) < 9 ? lastItem.get(0) + 36 : lastItem.get(0), 0, ClickType.PICKUP, mc.player);
-
                     mc.playerController.windowClick(0, 45, 0, ClickType.PICKUP, mc.player);
                     mc.playerController.windowClick(0, lastItem.get(0) < 9 ? lastItem.get(0) + 36 : lastItem.get(0), 0, ClickType.PICKUP, mc.player);
                     timerHelper.reset();
-
                 }
             }
             swap = false;
             lastItem.clear();
         }
     }
-
     private boolean checkFall(float fallDist) {
         if (!checkFall.getBoolValue()) {
             return false;
         }
         return mc.player.fallDistance > fallDist;
     }
-
     private boolean checkTNT() {
         if (!checkTnt.getBoolValue()) {
             return false;
@@ -145,7 +132,6 @@ public class AutoTotem extends Feature {
         }
         return false;
     }
-
     private boolean checkCrystal() {
         if (!checkCrystal.getBoolValue()) {
             return false;
