@@ -14,7 +14,7 @@ import Game.Sense.client.files.impl.FriendConfig;
 import Game.Sense.client.files.impl.HudConfig;
 import Game.Sense.client.files.impl.MacroConfig;
 import Game.Sense.client.friend.FriendManager;
-import Game.Sense.client.ui.newalt.UID;
+import Game.Sense.client.utils.render.ScaleUtils;
 import ViaMCP.ViaMCP;
 import Game.Sense.client.ui.clickgui.ClickGuiScreen;
 import Game.Sense.client.ui.config.ConfigManager;
@@ -31,7 +31,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameSense {
-    public static scaleUtils scale;
+    public static ScaleUtils scale = new ScaleUtils(2);
     public Long time;
 
     public FeatureManager featureManager;
@@ -55,7 +55,6 @@ public class GameSense {
     public String name = "GameSense";
     public String type = "Premium";
     public String version = "0.1";
-    public String uid = UID.getUid();
     public String coder = "UwU_, toperov, DiGGeR";
 
     public void init() {
