@@ -22,10 +22,10 @@ import Game.Sense.client.utils.render.RoundedUtil;
 /*    */ public class Timer
         /*    */   extends Feature {
 
-    /* 21 */   public int ticks = 0;
+    /* 21 */   public static int ticks = 0;
     /*    */   public boolean active;
     /* 23 */   private final NumberSetting timerSpeed = new NumberSetting("Timer Amount", 2.0F, 0.1F, 10.0F, 0.1F, () -> Boolean.valueOf(true));
-    /* 24 */   public static BooleanSetting smart = new BooleanSetting("Smart", false, () -> Boolean.valueOf(true));
+    /* 24 */   public static BooleanSetting smart = new BooleanSetting("Smart", true, () -> Boolean.valueOf(true));
     /*    */
     /*    */   public Timer() {
         /* 27 */     super("Timer", "Увеличивает скорость игры", FeatureCategory.Movement);
@@ -56,25 +56,33 @@ import Game.Sense.client.utils.render.RoundedUtil;
             /*    */     }
         /*    */   }
     /*    */
-    /*    */   @EventTarget
-    /*    */   public void onRender(EventRender2D event2D) {
-             if (smart.getBoolValue()) {
-                 DraggableTimer dt = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
-                dt.setWidth(150);
-                   dt.setHeight(25);
-                            Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
-                            Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
 
-            Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0,onecolor,twocolor);
-            Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90,onecolor,twocolor );
-            Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor,twocolor);
-            Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor,twocolor);/* 61 */
-                 RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - this.ticks * 2.0F), 10.0f, 4,gradientColor1.brighter(),gradientColor2.brighter(),gradientColor3.brighter(),gradientColor4.brighter());
-                 mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - this.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY()+2), -1);
-                 RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
-                 mc.sfui18.drawCenteredString("Smart Timer",dt.getX(), (dt.getY() + 16),-1);
-        }
-          }
+
+
+
+//    @EventTarget
+//    public void onRender(EventRender2D event2D) {
+//             if (smart.getBoolValue()) {
+//                 DraggableTimer dt = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
+//                dt.setWidth(150);
+//                   dt.setHeight(25);
+//                            Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
+//                            Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
+//
+//            Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0,onecolor,twocolor);
+//            Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90,onecolor,twocolor );
+//            Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor,twocolor);
+//            Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor,twocolor);/* 61 */
+//                 RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - this.ticks * 2.0F), 10.0f, 4,gradientColor1.brighter(),gradientColor2.brighter(),gradientColor3.brighter(),gradientColor4.brighter());
+//                 mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - this.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY()+2), -1);
+//                 RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
+//                 mc.sfui18.drawCenteredString("Smart Timer",dt.getX(), (dt.getY() + 16),-1);
+//        }
+//          }
+
+
+
+
     /*    */
     /*    */   public void onDisable() {
         /* 68 */     super.onDisable();

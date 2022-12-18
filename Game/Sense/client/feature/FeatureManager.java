@@ -26,6 +26,7 @@ public class FeatureManager {
         features.add(new TargetHUD());
         features.add(new NoOverlay());
         features.add(new ShulkerViewer());
+        features.add(new TimerSmart());
         features.add(new ClickGUI());
         features.add(new Hud());
         //features.add(new StaffList());

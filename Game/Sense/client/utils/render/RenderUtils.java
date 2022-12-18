@@ -33,6 +33,7 @@ public class RenderUtils implements Helper {
     protected static float zLevel;
     public static Frustum frustum = new Frustum();
     private static ShaderGroup blurShader;
+
     private static Framebuffer buffer;
     private static int lastScale;
     private static int lastScaleWidth;
@@ -1271,5 +1272,8 @@ public class RenderUtils implements Helper {
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_DONT_CARE);
         GL11.glHint(GL11.GL_POLYGON_SMOOTH_HINT, GL11.GL_DONT_CARE);
+    }
+    public static int rgba1(int r, int g, int b, int a) {
+        return a << 24 | r << 16 | g << 8 | b;
     }
 }
