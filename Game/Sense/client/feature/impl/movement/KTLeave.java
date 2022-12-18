@@ -32,6 +32,7 @@ public class KTLeave extends Feature
                 mc.player.connection.sendPacket(new CPacketPlayer.Position(endX, endY + 109, endZ, true));
                 mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5, endY, endZ - 0.5, true));
             }
+
         }
     }
 }
