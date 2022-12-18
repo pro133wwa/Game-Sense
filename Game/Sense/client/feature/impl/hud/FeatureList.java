@@ -64,9 +64,9 @@ public class FeatureList extends Feature {
                     if (feature.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && feature.getCategory() == FeatureCategory.Visuals || onlyBinds.getBoolValue() && feature.getBind() == 0)
                         continue;
                     stringWidth = this.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) + 3;
-                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 5), 255).getRGB());
+                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 25), 255).getRGB());
                     Helper.mc.rubik_15.drawString(feature.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 4f, y + Helper.mc.rubik_15.getFontHeight() + (float)offset - 4, -1);
-                    RenderUtils.drawRect4(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.WHITE.getRGB());
+                    RenderUtils.drawRect4(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.RED.getRGB());
 
                     y += 8 * feature.animYto;
                 }
@@ -85,12 +85,12 @@ public class FeatureList extends Feature {
                         continue;
                     stringWidth = this.mc.rubik_15.getStringWidth(module.getLabel().toLowerCase()) + 3;
                     GlStateManager.pushMatrix();
-                    RenderUtils.drawBlurredShadow(displayWidth -2, y + (float)offset - 3.5f + 2, stringWidth + 5f, 10, 5, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), 150));
+                    RenderUtils.drawBlurredShadow(displayWidth -2, y + (float)offset - 3.5f + 2, stringWidth + 5f, 10, 2, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), 150));
                     GL11.glTranslated(1, y, 1);
                     GL11.glTranslated(-1, -y, 1);
-                    RenderUtils.drawRect(displayWidth, y - 0.5f -2 + offset + 2, displayWidth + (float)stringWidth + 3.5f, y + (float)offset + 8.0f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), (int) (animYto * 255)).getRGB());
-                    this.mc.rubik_15.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float)offset + 2, Color.WHITE.getRGB());
-                    RenderUtils.drawRect(displayWidth - 1.5f, y - 0.5f -2 + offset + 2, displayWidth + 1 , y + (float)offset +8f,  Color.WHITE.getRGB());
+                    RenderUtils.drawRect(displayWidth, y - 0.5f -2 + offset + 2, displayWidth + (float)stringWidth + 3.5f, y + (float)offset + 8.0f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 25), (int) (animYto * 255)).getRGB());
+                    this.mc.rubik_15.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float)offset + 2, Color.RED.getRGB());
+                    RenderUtils.drawRect(displayWidth - 1.5f, y - 0.5f -2 + offset + 2, displayWidth + 1 , y + (float)offset +8f,  Color.RED.getRGB());
                     GlStateManager.popMatrix();
 
                 }
