@@ -598,13 +598,13 @@ public abstract class EntityPlayer extends EntityLivingBase implements CapeHolde
         }
     }
 
-    private void func_192028_j(@Nullable NBTTagCompound p_192028_1_) {
-        if (p_192028_1_ != null && !p_192028_1_.hasKey("Silent") || !p_192028_1_.getBoolean("Silent")) {
-            String s = p_192028_1_.getString("id");
+    private void func_192028_j(@Nullable NBTTagCompound p_1920281) {
+        if (p_1920281 != null && !p_1920281.hasKey("Silent") || !p_1920281.getBoolean("Silent")) {
+            String s = p_1920281.getString("id");
 
-            if (s.equals(EntityList.getKey(EntityParrot.class).toString())) {
-                EntityParrot.func_192005_a(this.world, this);
-            }
+//            if (s.equals(EntityList.getKey(EntityParrot.class).toString())) {
+//                EntityParrot.func_192005_a(this.world, this);
+//            }
         }
     }
 

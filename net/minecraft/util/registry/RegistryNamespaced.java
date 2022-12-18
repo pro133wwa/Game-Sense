@@ -5,6 +5,8 @@ import com.google.common.collect.HashBiMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.annotation.Nullable;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.util.IObjectIntIterable;
 import net.minecraft.util.IntIdentityHashBiMap;
 
@@ -74,5 +76,10 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     public Iterator<V> iterator()
     {
         return this.underlyingIntegerMap.iterator();
+    }
+
+    public K getNameForObject(Class<? extends Entity> p_191306_0_) {
+
+        return null;
     }
 }
