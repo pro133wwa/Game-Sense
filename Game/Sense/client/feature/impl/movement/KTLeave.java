@@ -4,34 +4,34 @@ import Game.Sense.client.event.EventTarget;
 
 
 import Game.Sense.client.event.events.impl.player.EventPreMotion;
+import Game.Sense.client.event.events.impl.player.EventUpdate;
 import Game.Sense.client.feature.Feature;
 import Game.Sense.client.feature.impl.FeatureCategory;
 import Game.Sense.client.utils.other.ChatUtils;
 import net.minecraft.network.play.client.CPacketPlayer;
 
 
-public class KTLeave extends Feature {
+public class KTLeave extends Feature
+{
 
     public KTLeave() {
-        super("KTLeave", "Ливает в небо", FeatureCategory.Movement);
+        super("KTLeave", "", FeatureCategory.Movement);
     }
 
 
     @EventTarget
-    public void onPreMotion(EventPreMotion event) {
-        float endX = 1337.0F;
-        float endZ = 2674.0F;
-        float endY = 75.0F;
-        if (mc.player.ticksExisted % 8 == 0) {
-            mc.player.motionY += 1.0;
-            this.mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5D, endY + 0.1D, endZ - 0.5D, true));
-            this.mc.player.connection.sendPacket(new CPacketPlayer.Position(endX, endY, endZ, false));
-            this.mc.player.connection.sendPacket( new CPacketPlayer.Position(endX + 0.5D, endY + 0.1D, endZ - 0.5D, true));
-            return;
-        }
-        if (mc.player.posX == endX && mc.player.posZ == endZ) {
-            ChatUtils.addChatMessage("leaved");
-            toggle();
+    public void onUpdate(final EventUpdate event) {
+        float endX = 15900;
+        float endZ = -1000;
+        float endY = 70;
+        if(mc.player.isSneaking() && mc.player.ticksExisted % 8 == 0) {
+            ChatUtils.addChatMessage("  ??????????? ?? ???????? ??? ?????????? " + endX + " " + endY + " " + endZ);
+            if (mc.player.posX != endX && mc.player.posZ != endZ) {
+                mc.player.motionY = 0.05f;
+                mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5, endY, endZ - 0.5, false));
+                mc.player.connection.sendPacket(new CPacketPlayer.Position(endX, endY + 109, endZ, true));
+                mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5, endY, endZ - 0.5, true));
+            }
         }
     }
 }
