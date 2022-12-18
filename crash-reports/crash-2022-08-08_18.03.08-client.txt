@@ -4,7 +4,7 @@
 Time: 2022-08-08 18:03
 Description: Ticking entity
 
-java.lang.NullPointerException: Cannot invoke "Game.Sense.client.feature.Feature.isEnabled()" because the return value of "Game.Sense.client.feature.FeatureManager.getFeature(java.lang.Class)" is null
+java.lang.NullPointerException: Cannot invoke "Game.Sense.client.module.feature.isEnabled()" because the return value of "Game.Sense.client.module.ModuleManager.getFeature(java.lang.Class)" is null
 	at net.minecraft.entity.player.EntityPlayer.getEyeHeight(EntityPlayer.java:2040)
 	at net.minecraft.entity.Entity.isInsideOfMaterial(Entity.java:1306)
 	at net.minecraft.entity.EntityLivingBase.onEntityUpdate(EntityLivingBase.java:360)

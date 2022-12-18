@@ -109,19 +109,19 @@ public class ProtocolInfoCollection
     );
 
     public static ProtocolInfo R1_9_3 = new ProtocolInfo(
-            "Combat Update", NO_DESC, "May 10, 2016"
+            "COMBAT Update", NO_DESC, "May 10, 2016"
     );
 
     public static ProtocolInfo R1_9_2 = new ProtocolInfo(
-            "Combat Update", NO_DESC, "March 30, 2016"
+            "COMBAT Update", NO_DESC, "March 30, 2016"
     );
 
     public static ProtocolInfo R1_9_1 = new ProtocolInfo(
-            "Combat Update", NO_DESC, "March 30, 2016"
+            "COMBAT Update", NO_DESC, "March 30, 2016"
     );
 
     public static ProtocolInfo R1_9 = new ProtocolInfo(
-            "Combat Update", NO_DESC, "February 29, 2016"
+            "COMBAT Update", NO_DESC, "February 29, 2016"
     );
 
     public static ProtocolInfo R1_8 = new ProtocolInfo(

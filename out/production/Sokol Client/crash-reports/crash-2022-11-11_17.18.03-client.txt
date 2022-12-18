@@ -5,7 +5,7 @@ Time: 2022-11-11 17:18
 Description: Initializing game
 
 java.lang.ExceptionInInitializerError
-	at Game.Sense.client.feature.FeatureManager.<init>(FeatureManager.java:30)
+	at Game.Sense.client.module.ModuleManager.<init>(FeatureManager.java:30)
 	at Game.Sense.client.GameSense.init(Rich.java:61)
 	at net.minecraft.client.Minecraft.startGame(Minecraft.java:699)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:532)
@@ -13,8 +13,8 @@ java.lang.ExceptionInInitializerError
 	at Start.main(Start.java:11)
 Caused by: java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 6
 	at java.base/java.util.Arrays$ArrayList.get(Arrays.java:4165)
-	at Game.Sense.client.ui.settings.impl.ListSetting.<init>(ListSetting.java:19)
-	at Game.Sense.client.feature.impl.hud.ClickGUI.<clinit>(ClickGUI.java:18)
+	at Game.Sense.client.UI.Settings.impl.ListSetting.<init>(ListSetting.java:19)
+	at Game.Sense.client.module.feature.RENDER.ClickGUI.<clinit>(ClickGUI.java:18)
 	... 6 more
 
 
@@ -24,7 +24,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at Game.Sense.client.feature.FeatureManager.<init>(FeatureManager.java:30)
+	at Game.Sense.client.module.ModuleManager.<init>(FeatureManager.java:30)
 	at Game.Sense.client.GameSense.init(Rich.java:61)
 	at net.minecraft.client.Minecraft.startGame(Minecraft.java:699)
 

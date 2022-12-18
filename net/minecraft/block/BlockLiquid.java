@@ -3,8 +3,8 @@ package net.minecraft.block;
 import java.util.Random;
 import javax.annotation.Nullable;
 
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.player.EventLiquidSolid;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.player.EventLiquidSolid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;

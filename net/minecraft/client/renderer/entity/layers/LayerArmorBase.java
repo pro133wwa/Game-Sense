@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.visual.CustomModel;
+import Game.Sense.client.module.feature.RENDER.CustomModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;

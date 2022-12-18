@@ -5,9 +5,9 @@ Time: 2022-12-05 12:28
 Description: Rendering screen
 
 java.lang.IllegalStateException: Failed to compile shader
-	at Game.Sense.client.utils.render.GLSLSandboxShader.createShader(GLSLSandboxShader.java:73)
-	at Game.Sense.client.utils.render.GLSLSandboxShader.<init>(GLSLSandboxShader.java:24)
-	at Game.Sense.client.ui.mainmenu.GameSenseMainMenu.drawScreen(RichMainMenu.java:51)
+	at Game.Sense.client.Helper.Utility.render.GLSLSandboxShader.createShader(GLSLSandboxShader.java:73)
+	at Game.Sense.client.Helper.Utility.render.GLSLSandboxShader.<init>(GLSLSandboxShader.java:24)
+	at Game.Sense.client.UI.Minecraft.GameSenseMainMenu.drawScreen(RichMainMenu.java:51)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1302)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1218)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:556)
@@ -21,13 +21,13 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at Game.Sense.client.utils.render.GLSLSandboxShader.createShader(GLSLSandboxShader.java:73)
-	at Game.Sense.client.utils.render.GLSLSandboxShader.<init>(GLSLSandboxShader.java:24)
-	at Game.Sense.client.ui.mainmenu.GameSenseMainMenu.drawScreen(RichMainMenu.java:51)
+	at Game.Sense.client.Helper.Utility.render.GLSLSandboxShader.createShader(GLSLSandboxShader.java:73)
+	at Game.Sense.client.Helper.Utility.render.GLSLSandboxShader.<init>(GLSLSandboxShader.java:24)
+	at Game.Sense.client.UI.Minecraft.GameSenseMainMenu.drawScreen(RichMainMenu.java:51)
 
 -- Screen render details --
 Details:
-	Screen name: Game.Sense.client.ui.mainmenu.GameSenseMainMenu
+	Screen name: Game.Sense.client.UI.Minecraft.GameSenseMainMenu
 	Mouse location: Scaled: (0, 239). Absolute: (0, 0)
 	Screen size: Scaled: (427, 240). Absolute: (854, 480). Scale factor of 2
 Stacktrace:

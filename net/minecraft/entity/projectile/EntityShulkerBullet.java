@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.visual.DamageParticles;
+import Game.Sense.client.module.feature.RENDER.DamageParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

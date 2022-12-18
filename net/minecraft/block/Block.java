@@ -9,8 +9,8 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.player.AutoTool;
-import Game.Sense.client.feature.impl.player.NoInteract;
+import Game.Sense.client.module.feature.PLAYER.AutoTool;
+import Game.Sense.client.module.feature.RENDER.NoInteract;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

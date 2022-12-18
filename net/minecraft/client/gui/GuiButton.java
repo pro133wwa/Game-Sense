@@ -1,12 +1,9 @@
 package net.minecraft.client.gui;
 
-import Game.Sense.client.utils.render.ClientHelper;
-import Game.Sense.client.utils.render.RenderUtils;
-import Game.Sense.client.utils.render.RoundedUtil;
+import Game.Sense.client.Helper.Utility.render.RoundedUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 

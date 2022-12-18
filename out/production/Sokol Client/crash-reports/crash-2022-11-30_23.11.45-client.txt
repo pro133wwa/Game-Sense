@@ -4,9 +4,9 @@
 Time: 2022-11-30 23:11
 Description: Rendering screen
 
-java.lang.NullPointerException: Cannot invoke "Game.Sense.client.font.MCFontRenderer.drawCenteredString(String, float, float, int)" because "this.mc.latoBig" is null
-	at Game.Sense.client.ui.clickgui.Panel.drawComponent(Panel.java:88)
-	at Game.Sense.client.ui.clickgui.ClickGuiScreen.drawScreen(ClickGuiScreen.java:105)
+java.lang.NullPointerException: Cannot invoke "Game.Sense.client.mine.Font.MCFontRenderer.drawCenteredString(String, float, float, int)" because "this.mc.latoBig" is null
+	at Game.Sense.client.UI.NursultanGui.Panel.drawComponent(Panel.java:88)
+	at Game.Sense.client.UI.NursultanGui.ClickGuiScreen.drawScreen(ClickGuiScreen.java:105)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1302)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1216)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:555)
@@ -20,12 +20,12 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at Game.Sense.client.ui.clickgui.Panel.drawComponent(Panel.java:88)
-	at Game.Sense.client.ui.clickgui.ClickGuiScreen.drawScreen(ClickGuiScreen.java:105)
+	at Game.Sense.client.UI.NursultanGui.Panel.drawComponent(Panel.java:88)
+	at Game.Sense.client.UI.NursultanGui.ClickGuiScreen.drawScreen(ClickGuiScreen.java:105)
 
 -- Screen render details --
 Details:
-	Screen name: Game.Sense.client.ui.clickgui.ClickGuiScreen
+	Screen name: Game.Sense.client.UI.NursultanGui.ClickGuiScreen
 	Mouse location: Scaled: (480, 254). Absolute: (960, 508)
 	Screen size: Scaled: (960, 509). Absolute: (1920, 1017). Scale factor of 2
 

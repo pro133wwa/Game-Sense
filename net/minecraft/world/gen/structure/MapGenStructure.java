@@ -52,7 +52,7 @@ public abstract class MapGenStructure extends MapGenBase
             catch (Throwable throwable)
             {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception preparing structure feature");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Feature being prepared");
+                CrashReportCategory crashreportcategory = crashreport.makeCategory("Module being prepared");
                 crashreportcategory.setDetail("Is feature chunk", new ICrashReportDetail<String>()
                 {
                     public String call() throws Exception

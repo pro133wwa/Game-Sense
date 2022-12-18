@@ -1,28 +1,27 @@
 package Game.Sense.client;
 
 
-import Game.Sense.client.command.CommandManager;
-import Game.Sense.client.command.macro.MacroManager;
-import Game.Sense.client.draggable.DraggableHUD;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.EventTarget;
-import Game.Sense.client.event.events.impl.input.EventInputKey;
-import Game.Sense.client.feature.Feature;
-import Game.Sense.client.feature.FeatureManager;
-import Game.Sense.client.files.FileManager;
-import Game.Sense.client.files.impl.FriendConfig;
-import Game.Sense.client.files.impl.HudConfig;
-import Game.Sense.client.files.impl.MacroConfig;
-import Game.Sense.client.friend.FriendManager;
-import Game.Sense.client.utils.render.ScaleUtils;
+import Game.Sense.client.mine.cmd.CommandManager;
+import Game.Sense.client.mine.cmd.macro.MacroManager;
+import Game.Sense.client.mine.drag.DraggableHUD;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.EventTarget;
+import Game.Sense.client.Helper.events.impl.input.EventInputKey;
+import Game.Sense.client.module.Module;
+import Game.Sense.client.module.ModuleManager;
+import Game.Sense.client.mine.SRC.FileManager;
+import Game.Sense.client.mine.SRC.impl.FriendConfig;
+import Game.Sense.client.mine.SRC.impl.HudConfig;
+import Game.Sense.client.mine.SRC.impl.MacroConfig;
+import Game.Sense.client.UI.UwU.NAXNADO.FriendManager;
+import Game.Sense.client.Helper.Utility.render.ScaleUtils;
 import ViaMCP.ViaMCP;
-import Game.Sense.client.ui.clickgui.ClickGuiScreen;
-import Game.Sense.client.ui.config.ConfigManager;
-import Game.Sense.client.utils.math.TPSUtils;
-import Game.Sense.client.utils.other.DiscordHelper;
-import Game.Sense.client.utils.render.cosmetic.CosmeticRender;
-import Game.Sense.client.utils.render.cosmetic.impl.DragonWing;
-import Game.Sense.client.utils.scaleUtils;
+import Game.Sense.client.UI.NursultanGui.ClickGuiScreen;
+import Game.Sense.client.UI.dop.CFG.ConfigManager;
+import Game.Sense.client.Helper.Utility.math.TPSUtils;
+import Game.Sense.client.Helper.Utility.other.DiscordHelper;
+import Game.Sense.client.Helper.Utility.render.cosmetic.CosmeticRender;
+import Game.Sense.client.Helper.Utility.render.cosmetic.impl.DragonWing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.lwjgl.opengl.Display;
@@ -34,7 +33,7 @@ public class GameSense {
     public static ScaleUtils scale = new ScaleUtils(2);
     public Long time;
 
-    public FeatureManager featureManager;
+    public ModuleManager featureManager;
     public FileManager fileManager;
     public static long playTimeStart = 0;
     public DraggableHUD draggableHUD;
@@ -64,7 +63,7 @@ public class GameSense {
         (fileManager = new FileManager()).loadFiles();
 
         friendManager = new FriendManager();
-        featureManager = new FeatureManager();
+        featureManager = new ModuleManager();
 
         macroManager = new MacroManager();
         configManager = new ConfigManager();
@@ -109,7 +108,7 @@ public class GameSense {
 
     @EventTarget
     public void onInputKey(EventInputKey event) {
-        featureManager.getAllFeatures().stream().filter(module -> module.getBind() == event.getKey()).forEach(Feature::toggle);
+        featureManager.getAllFeatures().stream().filter(module -> module.getBind() == event.getKey()).forEach(Module::toggle);
         macroManager.getMacros().stream().filter(macros -> macros.getKey() == event.getKey()).forEach(macros -> Minecraft.getMinecraft().player.sendChatMessage(macros.getValue()));
     }
     public static final Color getClientColor() {

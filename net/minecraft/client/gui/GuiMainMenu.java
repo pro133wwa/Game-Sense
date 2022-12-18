@@ -1,10 +1,9 @@
 package net.minecraft.client.gui;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.ui.altmanager.GuiAlt;
+import Game.Sense.client.UI.Minecraft.ALT.GuiAlt;
 
-import Game.Sense.client.utils.render.animbackground;
-import net.minecraft.client.gui.*;
+import Game.Sense.client.Helper.Utility.render.animbackground;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;

@@ -3,9 +3,9 @@ package net.minecraft.client.renderer.entity;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.combat.AntiBot;
-import Game.Sense.client.feature.impl.misc.NameProtect;
-import Game.Sense.client.feature.impl.visual.NameTags;
+import Game.Sense.client.module.feature.COMBAT.AntiBot;
+import Game.Sense.client.module.feature.OTHER.NameProtect;
+import Game.Sense.client.module.feature.RENDER.NameTags;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

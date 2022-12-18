@@ -3,10 +3,10 @@ package net.minecraft.client.model;
 import java.awt.Color;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.visual.CustomModel;
-import Game.Sense.client.utils.render.ClientHelper;
-import Game.Sense.client.utils.render.ColorUtils;
-import Game.Sense.client.utils.render.RenderUtils;
+import Game.Sense.client.module.feature.RENDER.CustomModel;
+import Game.Sense.client.Helper.Utility.render.ClientHelper;
+import Game.Sense.client.Helper.Utility.render.ColorUtils;
+import Game.Sense.client.Helper.Utility.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

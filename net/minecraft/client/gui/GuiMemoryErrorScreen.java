@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 
-import Game.Sense.client.ui.mainmenu.GameSenseMainMenu;
+import Game.Sense.client.UI.Minecraft.GameSenseMainMenu;
 import net.minecraft.client.resources.I18n;
 
 public class GuiMemoryErrorScreen extends GuiScreen

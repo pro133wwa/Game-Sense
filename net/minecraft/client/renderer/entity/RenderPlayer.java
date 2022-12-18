@@ -2,10 +2,9 @@ package net.minecraft.client.renderer.entity;
 
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.visual.Chams;
-import Game.Sense.client.feature.impl.visual.CustomModel;
-import Game.Sense.client.utils.render.RenderUtils;
-import Game.Sense.client.wavecapes.renderlayers.CustomCapeRenderLayer;
+import Game.Sense.client.module.feature.RENDER.Chams;
+import Game.Sense.client.module.feature.RENDER.CustomModel;
+import Game.Sense.client.mine.wavecapes.renderlayers.CustomCapeRenderLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;

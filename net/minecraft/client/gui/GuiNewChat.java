@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.player.EventReceiveMessage;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.player.EventReceiveMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;

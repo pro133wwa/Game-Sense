@@ -15,9 +15,9 @@ import java.util.Properties;
 import java.util.Random;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.command.impl.FakeNameCommand;
-import Game.Sense.client.feature.impl.misc.NameProtect;
-import Game.Sense.client.utils.render.RenderUtils;
+import Game.Sense.client.mine.cmd.impl.FakeNameCommand;
+import Game.Sense.client.module.feature.OTHER.NameProtect;
+import Game.Sense.client.Helper.Utility.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

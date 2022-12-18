@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
-import static Game.Sense.client.utils.render.RenderUtils.setColor;
+import static Game.Sense.client.Helper.Utility.render.RenderUtils.setColor;
 
 public class RenderHelper
 {

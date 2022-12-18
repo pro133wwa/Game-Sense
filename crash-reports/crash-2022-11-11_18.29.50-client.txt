@@ -4,7 +4,7 @@
 Time: 2022-11-11 18:29
 Description: Unexpected error
 
-java.lang.NullPointerException: Cannot invoke "Game.Sense.client.feature.Feature.isEnabled()" because the return value of "Game.Sense.client.feature.FeatureManager.getFeature(java.lang.Class)" is null
+java.lang.NullPointerException: Cannot invoke "Game.Sense.client.module.feature.isEnabled()" because the return value of "Game.Sense.client.module.ModuleManager.getFeature(java.lang.Class)" is null
 	at net.minecraft.entity.player.EntityPlayer.getEyeHeight(EntityPlayer.java:2040)
 	at net.minecraft.entity.Entity.getBrightnessForRender(Entity.java:1355)
 	at net.minecraft.client.renderer.entity.RenderManager.renderEntityStatic(RenderManager.java:378)

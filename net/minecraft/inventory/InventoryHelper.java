@@ -2,7 +2,7 @@ package net.minecraft.inventory;
 
 import java.util.Random;
 
-import Game.Sense.client.utils.Helper;
+import Game.Sense.client.Helper.Utility.Helper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;

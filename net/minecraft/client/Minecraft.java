@@ -40,15 +40,15 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.input.EventInputKey;
-import Game.Sense.client.event.events.impl.input.EventMouse;
-import Game.Sense.client.feature.impl.misc.ChatHistory;
-import Game.Sense.client.ui.SplashProgress;
-import Game.Sense.client.ui.font.FontUtil;
-import Game.Sense.client.ui.font.MCFontRenderer;
-import Game.Sense.client.ui.mainmenu.GameSenseMainMenu;
-import Game.Sense.client.utils.other.DiscordHelper;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.input.EventInputKey;
+import Game.Sense.client.Helper.events.impl.input.EventMouse;
+import Game.Sense.client.module.feature.OTHER.ChatHistory;
+import Game.Sense.client.UI.UwU.SplashProgress;
+import Game.Sense.client.UI.UwU.font.FontUtil;
+import Game.Sense.client.UI.UwU.font.MCFontRenderer;
+import Game.Sense.client.UI.Minecraft.GameSenseMainMenu;
+import Game.Sense.client.Helper.Utility.other.DiscordHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -241,8 +241,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
      * The player's GameProfile properties
      */
     private final PropertyMap profileProperties;
-    public Game.Sense.client.font.MCFontRenderer latoBig;
-    public Game.Sense.client.font.MCFontRenderer latoFontRender;
+    public Game.Sense.client.mine.Font.MCFontRenderer latoBig;
+    public Game.Sense.client.mine.Font.MCFontRenderer latoFontRender;
     private ServerData currentServerData;
 
     /**

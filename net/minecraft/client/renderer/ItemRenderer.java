@@ -1,17 +1,17 @@
 package net.minecraft.client.renderer;
 
-import Game.Sense.client.event.events.Event;
+import Game.Sense.client.Helper.events.Event;
 import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.player.EventTransformSideFirstPerson;
-import Game.Sense.client.feature.impl.combat.KillAura;
-import Game.Sense.client.feature.impl.player.NoOverlay;
-import Game.Sense.client.feature.impl.visual.SwingAnimations;
-import Game.Sense.client.feature.impl.visual.ViewModel;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.player.EventTransformSideFirstPerson;
+import Game.Sense.client.module.feature.COMBAT.KillAura;
+import Game.Sense.client.module.feature.RENDER.NoOverlay;
+import Game.Sense.client.module.feature.RENDER.SwingAnimations;
+import Game.Sense.client.module.feature.RENDER.ViewModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,7 +30,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;

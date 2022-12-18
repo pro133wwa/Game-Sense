@@ -14,12 +14,12 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.render.EventRender2D;
-import Game.Sense.client.event.events.impl.render.EventRenderScoreboard;
-import Game.Sense.client.event.types.EventType;
-import Game.Sense.client.feature.impl.misc.NameProtect;
-import Game.Sense.client.feature.impl.visual.ScoreboardFeatures;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.render.EventRender2D;
+import Game.Sense.client.Helper.events.impl.render.EventRenderScoreboard;
+import Game.Sense.client.Helper.types.EventType;
+import Game.Sense.client.module.feature.OTHER.NameProtect;
+import Game.Sense.client.module.feature.RENDER.ScoreboardFeatures;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

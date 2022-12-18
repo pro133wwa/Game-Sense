@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import Game.Sense.client.ui.font.MCFontRenderer;
+import Game.Sense.client.UI.UwU.font.MCFontRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;

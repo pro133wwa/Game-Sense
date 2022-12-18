@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import Game.Sense.client.feature.impl.visual.BabyBoy;
+import Game.Sense.client.module.feature.RENDER.BabyBoy;
 import com.google.common.collect.Lists;
 
 import java.awt.*;
@@ -8,10 +8,10 @@ import java.nio.FloatBuffer;
 import java.util.List;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.render.EventRenderPlayerName;
-import Game.Sense.client.feature.impl.visual.Chams;
-import Game.Sense.client.utils.render.ClientHelper;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.render.EventRenderPlayerName;
+import Game.Sense.client.module.feature.RENDER.Chams;
+import Game.Sense.client.Helper.Utility.render.ClientHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBase;

@@ -14,10 +14,10 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.combat.HitBox;
-import Game.Sense.client.feature.impl.combat.KillAura;
-import Game.Sense.client.feature.impl.player.NoPush;
-import Game.Sense.client.friend.Friend;
+import Game.Sense.client.module.feature.COMBAT.HitBox;
+import Game.Sense.client.module.feature.COMBAT.KillAura;
+import Game.Sense.client.module.feature.PLAYER.NoPush;
+import Game.Sense.client.UI.UwU.NAXNADO.Friend;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;

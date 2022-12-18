@@ -5,11 +5,11 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.mojang.authlib.GameProfile;
 import Game.Sense.client.GameSense;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.player.RespawnEvent;
-import Game.Sense.client.feature.impl.combat.Velocity;
-import Game.Sense.client.feature.impl.visual.DamageParticles;
-import Game.Sense.client.ui.mainmenu.GameSenseMainMenu;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.player.RespawnEvent;
+import Game.Sense.client.module.feature.COMBAT.Velocity;
+import Game.Sense.client.module.feature.RENDER.DamageParticles;
+import Game.Sense.client.UI.Minecraft.GameSenseMainMenu;
 import io.netty.buffer.Unpooled;
 
 import java.io.File;

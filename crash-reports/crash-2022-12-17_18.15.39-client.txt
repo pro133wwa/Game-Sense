@@ -4,7 +4,7 @@
 Time: 2022-12-17 18:15
 Description: Unexpected error
 
-java.lang.NullPointerException: Cannot invoke "Game.Sense.client.feature.FeatureManager.getFeature(java.lang.Class)" because "Game.Sense.client.GameSense.instance.featureManager" is null
+java.lang.NullPointerException: Cannot invoke "Game.Sense.client.module.ModuleManager.getFeature(java.lang.Class)" because "Game.Sense.client.GameSense.instance.featureManager" is null
 	at net.minecraft.client.renderer.EntityRenderer.updateLightmap(EntityRenderer.java:1026)
 	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1392)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1245)

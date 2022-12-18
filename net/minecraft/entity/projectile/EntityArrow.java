@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.visual.DamageParticles;
+import Game.Sense.client.module.feature.RENDER.DamageParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

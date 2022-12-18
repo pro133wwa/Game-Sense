@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import Game.Sense.client.utils.render.GLUtil;
-import Game.Sense.client.utils.render.RenderUtils;
+import Game.Sense.client.Helper.Utility.render.GLUtil;
+import Game.Sense.client.Helper.Utility.render.RenderUtils;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

@@ -1,9 +1,9 @@
 package net.minecraft.client.multiplayer;
 
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.packet.EventAttackSilent;
-import Game.Sense.client.event.events.impl.player.EventBlockInteract;
-import Game.Sense.client.event.events.impl.player.EventPostAttackSilent;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.events.impl.packet.EventAttackSilent;
+import Game.Sense.client.Helper.events.impl.player.EventBlockInteract;
+import Game.Sense.client.Helper.events.impl.player.EventPostAttackSilent;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;

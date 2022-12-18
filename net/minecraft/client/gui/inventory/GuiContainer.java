@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.Set;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.player.ItemScroller;
-import Game.Sense.client.utils.math.TimerHelper;
+import Game.Sense.client.module.feature.PLAYER.ItemScroller;
+import Game.Sense.client.Helper.Utility.math.TimerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;

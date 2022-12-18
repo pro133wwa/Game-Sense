@@ -5,7 +5,7 @@ package net.minecraft.client.renderer.entity;
 import java.util.Random;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.movement.ItemPhysics;
+import Game.Sense.client.module.feature.RENDER.ItemPhysics;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

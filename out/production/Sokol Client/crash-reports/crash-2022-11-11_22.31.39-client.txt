@@ -4,7 +4,7 @@
 Time: 2022-11-11 22:31
 Description: Unexpected error
 
-java.lang.NullPointerException: Cannot invoke "Game.Sense.client.feature.Feature.isEnabled()" because the return value of "Game.Sense.client.feature.FeatureManager.getFeature(java.lang.Class)" is null
+java.lang.NullPointerException: Cannot invoke "Game.Sense.client.module.feature.isEnabled()" because the return value of "Game.Sense.client.module.ModuleManager.getFeature(java.lang.Class)" is null
 	at net.minecraft.entity.player.EntityPlayer.getEyeHeight(EntityPlayer.java:2040)
 	at net.minecraft.client.audio.SoundManager.setListener(SoundManager.java:547)
 	at net.minecraft.client.audio.SoundHandler.setListener(SoundHandler.java:257)

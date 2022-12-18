@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.feature.impl.player.NoOverlay;
+import Game.Sense.client.module.feature.RENDER.NoOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.play.server.SPacketUpdateBossInfo;
