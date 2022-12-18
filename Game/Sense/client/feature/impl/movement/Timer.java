@@ -15,6 +15,7 @@ import Game.Sense.client.ui.settings.Setting;
 /*    */ import Game.Sense.client.utils.movement.MovementUtils;
 /*    */
 /*    */ import Game.Sense.client.utils.render.ColorUtils2;
+import Game.Sense.client.utils.render.RenderUtils;
 import Game.Sense.client.utils.render.RoundedUtil;
 /*    */ import java.awt.Color;
 /*    */
@@ -68,10 +69,10 @@ import Game.Sense.client.utils.render.RoundedUtil;
             Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90,onecolor,twocolor );
             Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor,twocolor);
             Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor,twocolor);/* 61 */
-                        RoundedUtil.drawGradientRound((dt.getX() - 52), (dt.getY() - 14), 105.0F, 23.0F, 8, gradientColor1,gradientColor2,gradientColor3,gradientColor4);
-                 mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - this.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY() - 10), -1);
-                  RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - this.ticks * 2.0F), 5.0f, 4,gradientColor1.brighter(),gradientColor2.brighter(),gradientColor3.brighter(),gradientColor4.brighter());
-                           mc.sfui18.drawCenteredString("Smart Timer",dt.getX(), (dt.getY() + 14),-1);
+                 RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - this.ticks * 2.0F), 10.0f, 4,gradientColor1.brighter(),gradientColor2.brighter(),gradientColor3.brighter(),gradientColor4.brighter());
+                 mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - this.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY()+2), -1);
+                 RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
+                 mc.sfui18.drawCenteredString("Smart Timer",dt.getX(), (dt.getY() + 16),-1);
         }
           }
     /*    */
