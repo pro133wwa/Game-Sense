@@ -1,75 +1,117 @@
 package Game.Sense.client.feature.impl.movement;
 
 import Game.Sense.client.event.EventTarget;
+import Game.Sense.client.event.events.impl.packet.EventSendPacket;
+import Game.Sense.client.event.events.impl.player.EventMove;
 import Game.Sense.client.event.events.impl.player.EventUpdate;
 import Game.Sense.client.feature.Feature;
 import Game.Sense.client.feature.impl.FeatureCategory;
+import Game.Sense.client.ui.newalt.InventoryUtil;
 import Game.Sense.client.ui.notification.NotificationMode;
 import Game.Sense.client.ui.notification.NotificationRenderer;
 import Game.Sense.client.ui.settings.impl.BooleanSetting;
+import Game.Sense.client.ui.settings.impl.ListSetting;
+import Game.Sense.client.ui.settings.impl.NumberSetting;
+import Game.Sense.client.utils.Helper;
 import Game.Sense.client.utils.movement.MovementUtils;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.network.play.client.CPacketEntityAction;
 
 public class Strafe extends Feature {
-    public static BooleanSetting smart = new BooleanSetting("Smart", false, () -> true);
+    public ListSetting strafeMode = new ListSetting("Strafe Mode", "Matrix", () -> true, "Matrix");
+    public final NumberSetting strafeSpeed = new NumberSetting("Strafe Speed", 0.2F, 0.01f, 0.3f, 0.01F, () -> strafeMode.currentMode.equals("Elytra"));
 
     public Strafe() {
-        super("Strafe", "Позволяет стрейфить на матриксе", FeatureCategory.Movement);
-        addSettings(smart);
+        super("Strafe", "Стрейфы", FeatureCategory.Movement);
+        addSettings(strafeMode, strafeSpeed);
     }
 
-    public double boost;
     @EventTarget
-    public void onUpdate(EventUpdate eventUpdate) {
+    public void onPre(EventMove eventPreMotion) {
+        if (strafeMode.currentMode.equalsIgnoreCase("Elytra")) {
+            eventPreMotion.setCancelled(true);
 
-            if (mc.player.onGround) {
+            int emptySlot = InventoryUtil.getItemIndex(Item.getItemFromBlock(Blocks.AIR));
+            if (emptySlot != -1 && Helper.mc.player.inventory.getItemStack().getItem() == Items.ELYTRA && InventoryUtil.getItemIndex(Items.ELYTRA) == -1) {
+                Helper.mc.playerController.windowClick(0, emptySlot < 9 ? emptySlot + 36 : emptySlot, 1, ClickType.PICKUP, Helper.mc.player);
+            }
+            if (InventoryUtil.getItemIndex(Items.ELYTRA) == -1 || Helper.mc.player.otherCheck()) {
                 return;
             }
-            int eIndex = -1;
-            for (int i = 0; i < 45; i++) {
-                if (mc.player.inventory.getStackInSlot(i).getItem() == Items.ELYTRA) {
-                    eIndex = i;
-                    break;
+
+            if (Helper.mc.player.inventory.getItemStack().getItem() instanceof ItemArmor && Helper.mc.player.inventory.armorItemInSlot(2).isEmpty()) {
+                ItemArmor armor = (ItemArmor) Helper.mc.player.inventory.getItemStack().getItem();
+
+                if (armor.armorType == EntityEquipmentSlot.CHEST) {
+                    Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
                 }
             }
-
-            if (eIndex == -1) {
-                if (mc.player.getHeldItemOffhand().getItem() != Items.ELYTRA) {
-                    NotificationRenderer.queue("§6Matrix Exploit", "§cВозьмите элитры в инвентарь!", 6, NotificationMode.WARNING);
-                    toggle();
-                    return;
+            if (Helper.mc.player.inventory.getItemStack().getItem() instanceof ItemArmor && !Helper.mc.player.inventory.armorItemInSlot(2).isEmpty()) {
+                Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
+                int emptySlot2 = InventoryUtil.getItemIndex(Item.getItemFromBlock(Blocks.AIR));
+                if (emptySlot2 != -1 && Helper.mc.player.inventory.getItemStack().getItem() == Items.ELYTRA && InventoryUtil.getItemIndex(Items.ELYTRA) == -1) {
+                    Helper.mc.playerController.windowClick(0, emptySlot2 < 9 ? emptySlot2 + 36 : emptySlot2, 1, ClickType.PICKUP, Helper.mc.player);
                 }
             }
-
-            if (mc.player.ticksExisted % 4 == 0) {
-                mc.playerController.windowClick(0, eIndex, 0, ClickType.PICKUP, mc.player);
-                mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, mc.player);
+            if (Helper.mc.player.ticksExisted % 25 == 0) {
+                disabler();
             }
-        if (!mc.player.onGround) {
-            MovementUtils.strafe();
-        }
-
-            if (mc.player.ticksExisted % 4 == 0) {
-                mc.player.motionX *= 0.8D;
-                mc.player.motionZ *= 0.8D;
-                mc.player.connection
-                        .sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
-            }
-            mc.player.motionX *= 1.1D;
-            mc.player.motionZ *= 1.1D;
-            if (mc.player.ticksExisted % 4 == 0) {
-                mc.playerController.windowClick(0, 6, 0, ClickType.PICKUP, mc.player);
-                mc.playerController.windowClick(0, eIndex, 1, ClickType.PICKUP, mc.player);
+            if(!Helper.mc.player.onGround) {
+                MovementUtils.setMotion((MovementUtils.getSpeed() * 1) + (strafeSpeed.getNumberValue()));
+                MovementUtils.strafe();
             }
         }
     }
 
+    @EventTarget
+    public void onUpdate(EventUpdate eventUpdate) {
+        if (!isEnabled()) {
+            return;
+        }
+        if (strafeMode.currentMode.equals("Matrix")) {
+            if (MovementUtils.isMoving()) {
+                Helper.mc.player.setSprinting(true);
+                if (MovementUtils.getSpeed() < 0.2177f) {
+                    Helper.mc.player.jumpMovementFactor = 0.033f;
+                    MovementUtils.strafe();
+                    if (Math.abs(Helper.mc.player.movementInput.moveStrafe) < 0.1 && Helper.mc.gameSettings.keyBindForward.pressed) {
+                        MovementUtils.strafe();
+                    }
+                    if (Helper.mc.player.onGround) {
+                        MovementUtils.strafe();
+                    }
+                }
+            }
+        }
+    }
 
+    private void disabler() {
 
+        int elytra = InventoryUtil.getItemIndex(Items.ELYTRA);
 
+        if (Helper.mc.player.inventory.getItemStack().getItem() != Items.ELYTRA)
+            Helper.mc.playerController.windowClick(0, elytra < 9 ? elytra + 36 : elytra, 1, ClickType.PICKUP, Helper.mc.player);
 
+        Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
+        Helper.mc.player.connection.sendPacket(new CPacketEntityAction(Helper.mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+        Helper.mc.player.connection.sendPacket(new CPacketEntityAction(Helper.mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+        Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
+        Helper.mc.playerController.windowClick(0, elytra < 9 ? elytra + 36 : elytra, 1, ClickType.PICKUP, Helper.mc.player);
 
+    }
 
+    @EventTarget
+    public void on(EventSendPacket event) {
+        if (strafeMode.currentMode.equals("Elytra")) {
+            if (Helper.mc.player.isOnLadder() || Helper.mc.player.isInLiquid() || InventoryUtil.getSlotWithElytra() == -1) {
+                return;
 
+            }
+        }
+    }
+}
