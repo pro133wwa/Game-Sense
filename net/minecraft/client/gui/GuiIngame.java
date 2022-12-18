@@ -18,7 +18,7 @@ import Game.Sense.client.Helper.EventManager;
 import Game.Sense.client.Helper.events.impl.render.EventRender2D;
 import Game.Sense.client.Helper.events.impl.render.EventRenderScoreboard;
 import Game.Sense.client.Helper.types.EventType;
-import Game.Sense.client.module.feature.OTHER.NameProtect;
+import Game.Sense.client.module.feature.RENDER.NameProtect;
 import Game.Sense.client.module.feature.RENDER.ScoreboardFeatures;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

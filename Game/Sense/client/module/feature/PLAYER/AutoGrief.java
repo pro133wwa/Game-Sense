@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventTarget;
@@ -10,7 +10,7 @@ import Game.Sense.client.UI.Settings.impl.NumberSetting;
 public class AutoGrief extends Module {
     public static NumberSetting on = new NumberSetting("Grief", 1, 1, 23, 1, () -> true);
     public AutoGrief(){
-        super("AutoGrief", ModuleCategory.OTHER);
+        super("AutoGrief", ModuleCategory.PLAYER);
         addSettings(on);
     }
     @EventTarget

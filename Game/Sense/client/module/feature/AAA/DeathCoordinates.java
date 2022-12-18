@@ -12,7 +12,7 @@ import net.minecraft.client.gui.GuiGameOver;
 public class DeathCoordinates
         extends Module {
     public DeathCoordinates() {
-        super("DeathCoordinates", "ѕоказывает координаты смерти игрока", ModuleCategory.OTHER);
+        super("DeathCoordinates", "ѕоказывает координаты смерти игрока", ModuleCategory.PLAYER);
     }
 
     @EventTarget

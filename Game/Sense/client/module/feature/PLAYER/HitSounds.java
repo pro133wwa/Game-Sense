@@ -1,9 +1,10 @@
-package Game.Sense.client.module.feature.COMBAT;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.player.EventPostAttackSilent;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
 import Game.Sense.client.module.Module;
+import Game.Sense.client.module.feature.COMBAT.KillAura;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.UI.Settings.impl.ListSetting;
 import Game.Sense.client.UI.Settings.impl.NumberSetting;
@@ -15,7 +16,7 @@ public class HitSounds
     private final NumberSetting volume = new NumberSetting("Volume", 50.0f, 1.0f, 100.0f, 1.0f, () -> true);
 
     public HitSounds() {
-        super("HitSounds", "Воспроизводит звук при ударе", ModuleCategory.COMBAT);
+        super("HitSounds", "Воспроизводит звук при ударе", ModuleCategory.PLAYER);
         this.addSettings(this.soundMode, this.volume);
     }
 

@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.module.Module;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -15,7 +15,7 @@ public class MiddleClickFriend extends Module {
 
 
     public MiddleClickFriend() {
-        super("MiddleClickFriend", "Добавляет игрока в френд лист при нажатии на кнопку мыши", ModuleCategory.OTHER);
+        super("MiddleClickFriend", "Добавляет игрока в френд лист при нажатии на кнопку мыши", ModuleCategory.PLAYER);
     }
 
     @EventTarget

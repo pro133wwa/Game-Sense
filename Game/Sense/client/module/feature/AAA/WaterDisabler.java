@@ -11,7 +11,7 @@ import static java.lang.Thread.sleep;
 public class WaterDisabler extends Module {
 
     public WaterDisabler(){
-        super("WaterDisabler", ModuleCategory.OTHER);
+        super("WaterDisabler", ModuleCategory.MOVEMENT);
     }
 
 

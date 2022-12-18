@@ -4,8 +4,8 @@ public enum ModuleCategory {
     COMBAT("COMBAT"),
     MOVEMENT("MOVEMENT"),
     RENDER("RENDER"),
-    PLAYER("PLAYER"),
-    OTHER("OTHER");
+    PLAYER("PLAYER");
+
 
     private final String displayName;
 

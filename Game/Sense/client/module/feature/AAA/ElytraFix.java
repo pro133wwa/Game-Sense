@@ -8,7 +8,7 @@ import Game.Sense.client.Helper.Utility.movement.MovementUtils;
 
 public class ElytraFix extends Module {
     public ElytraFix() {
-        super("ElytraFix", "", ModuleCategory.OTHER);
+        super("ElytraFix", "", ModuleCategory.MOVEMENT);
     }
 
     @EventTarget

@@ -13,7 +13,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.module.feature.PLAYER.NoPush;
+import Game.Sense.client.module.feature.MOVEMENT.NoPush;
 import Game.Sense.client.module.feature.RENDER.SwingAnimations;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;

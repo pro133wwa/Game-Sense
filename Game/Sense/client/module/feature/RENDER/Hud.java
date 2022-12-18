@@ -7,7 +7,6 @@ import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.render.EventRender2D;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
-import Game.Sense.client.module.feature.OTHER.NameProtect;
 import net.minecraft.util.ResourceLocation;
 import Game.Sense.client.UI.Settings.impl.BooleanSetting;
 import Game.Sense.client.UI.Settings.impl.ListSetting;

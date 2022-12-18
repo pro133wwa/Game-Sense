@@ -11,7 +11,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import Game.Sense.client.GameSense;
-import Game.Sense.client.module.feature.OTHER.NameProtect;
+import Game.Sense.client.module.feature.RENDER.NameProtect;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 

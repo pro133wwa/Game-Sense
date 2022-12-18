@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.RENDER;
 
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.packet.EventReceivePacket;
@@ -20,7 +20,7 @@ public class BetterChat extends Module {
     private int line;
 
     public BetterChat() {
-        super("BetterChat", "Убирает спам", ModuleCategory.OTHER);
+        super("BetterChat", "Убирает спам", ModuleCategory.RENDER);
     }
 
     @EventTarget

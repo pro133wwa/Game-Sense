@@ -9,7 +9,6 @@ import Game.Sense.client.Helper.events.impl.render.EventRender2D;
 import Game.Sense.client.Helper.events.impl.render.EventRender3D;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.module.feature.COMBAT.AntiBot;
-import Game.Sense.client.module.feature.OTHER.NameProtect;
 import Game.Sense.client.UI.Settings.impl.BooleanSetting;
 import Game.Sense.client.UI.Settings.impl.ListSetting;
 import Game.Sense.client.UI.Settings.impl.NumberSetting;

@@ -9,7 +9,7 @@ import Game.Sense.client.Helper.events.impl.packet.EventMessage;
 import Game.Sense.client.Helper.events.impl.player.*;
 import Game.Sense.client.module.feature.PLAYER.FreeCam;
 import Game.Sense.client.module.feature.MOVEMENT.NoClip;
-import Game.Sense.client.module.feature.PLAYER.NoPush;
+import Game.Sense.client.module.feature.MOVEMENT.NoPush;
 import Game.Sense.client.module.feature.PLAYER.NoSlowDown;
 import Game.Sense.client.module.feature.RENDER.DamageParticles;
 import net.minecraft.block.state.IBlockState;

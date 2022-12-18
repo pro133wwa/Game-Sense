@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import Game.Sense.client.GameSense;
 import Game.Sense.client.module.feature.COMBAT.HitBox;
 import Game.Sense.client.module.feature.COMBAT.KillAura;
-import Game.Sense.client.module.feature.PLAYER.NoPush;
+import Game.Sense.client.module.feature.MOVEMENT.NoPush;
 import Game.Sense.client.UI.UwU.NAXNADO.Friend;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;

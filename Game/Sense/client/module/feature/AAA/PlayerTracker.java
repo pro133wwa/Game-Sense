@@ -20,7 +20,7 @@ public class PlayerTracker extends Module {
     public NumberSetting radius = new NumberSetting("Radius", 1000, 100, 5000, 10, () -> true);
 
     public PlayerTracker() {
-        super("PlayerTracker", "Поиск игроков.", ModuleCategory.OTHER);
+        super("PlayerTracker", "Поиск игроков.", ModuleCategory.PLAYER);
         addSettings(radius);
     }
 

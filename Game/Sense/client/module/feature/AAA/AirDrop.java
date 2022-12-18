@@ -33,7 +33,7 @@ package Game.Sense.client.module.feature.AAA;
     /* 33 */
     /*    */
     /*    */   public AirDrop() {
-        /* 36 */     super("AirStealer", "", ModuleCategory.OTHER);
+        /* 36 */     super("AirStealer", "", ModuleCategory.PLAYER);
         /* 37 */     addSettings(new Setting[] { (Setting)this.delay });
         /*    */   }
     /*    */

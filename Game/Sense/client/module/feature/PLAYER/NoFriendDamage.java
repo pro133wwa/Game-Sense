@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.COMBAT;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventTarget;
@@ -10,7 +10,7 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 public class NoFriendDamage extends Module {
 
     public NoFriendDamage() {
-        super("NoFriendDamage", "Не дает ударить друга", ModuleCategory.COMBAT);
+        super("NoFriendDamage", "Не дает ударить друга", ModuleCategory.PLAYER);
     }
 
     @EventTarget

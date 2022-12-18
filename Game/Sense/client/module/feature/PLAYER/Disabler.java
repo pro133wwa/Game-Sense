@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.packet.EventSendPacket;
@@ -28,7 +28,7 @@ public class Disabler extends Module {
     static boolean oa = false;
 
     public Disabler() {
-        super("Disabler", "Ослабляет воздействие античитов на вас", ModuleCategory.OTHER);
+        super("Disabler", "Ослабляет воздействие античитов на вас", ModuleCategory.PLAYER);
         addSettings();
     }
 

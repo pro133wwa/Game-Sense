@@ -5,7 +5,7 @@ import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventManager;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.module.feature.RENDER.Notifications;
-import Game.Sense.client.module.feature.OTHER.ModuleSoundAlert;
+import Game.Sense.client.module.feature.PLAYER.ModuleSoundAlert;
 import Game.Sense.client.UI.NursultanGui.ScreenHelper;
 import Game.Sense.client.UI.dop.Notif.NotificationMode;
 import Game.Sense.client.UI.dop.Notif.NotificationRenderer;

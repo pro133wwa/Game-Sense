@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
@@ -11,7 +11,7 @@ public class ModuleSoundAlert extends Module {
     public static NumberSetting pitch;
 
     public ModuleSoundAlert() {
-        super("ModuleSoundAlert", "Воспроизводит звуки включения/выключения модуля", ModuleCategory.OTHER);
+        super("ModuleSoundAlert", "Воспроизводит звуки включения/выключения модуля", ModuleCategory.PLAYER);
         soundMode = new ListSetting("Sound Mode", "Wav", () -> true, "Wav", "Button");
         volume = new NumberSetting("Volume", 50.0f, 1.0f, 100.0f, 1.0f, () -> true);
         pitch = new NumberSetting("Pitch", 2.0f, 0.5f, 2.0f, 0.1f, () -> ModuleSoundAlert.soundMode.currentMode.equals("Button"));

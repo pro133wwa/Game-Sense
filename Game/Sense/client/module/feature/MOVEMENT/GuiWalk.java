@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.PLAYER;
+package Game.Sense.client.module.feature.MOVEMENT;
 
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiWalk extends Module {
     public GuiWalk() {
-        super("GuiWalk", "ѕозвол€ет ходить в открытом контейнере", ModuleCategory.PLAYER);
+        super("GuiWalk", "ѕозвол€ет ходить в открытом контейнере", ModuleCategory.MOVEMENT);
     }
 
     @EventTarget

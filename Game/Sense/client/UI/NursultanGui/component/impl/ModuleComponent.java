@@ -120,52 +120,52 @@ public final class ModuleComponent extends ExpandableComponent {
         }
 
         components.sort(new SorterHelper());
-        if (hovered && module.getDesc() != null) {
-            RenderUtils.drawShadow(5, 1, () -> {
-
-                ScaledResolution sr = new ScaledResolution(mc);
-
-                if (!hovered) {
-                    i = " ";
-                }
-                RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight(), new Color(0, 0, 0, 150).getRGB());
-                mc.sfui16.drawCenteredStringWithShadow(module == null ? "null pointer :(" : getI(module.getDesc()), sr.getScaledWidth() / 2f, sr.getScaledHeight() - 10, -1);
-
-
-                RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight() - 26, color2.getRGB());
-                if (!ClickGUI.potato_mode.getBoolValue()) {
-                    mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
-
-                } else {
-                    mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
-
-                }
-            });
-
-            ScaledResolution sr = new ScaledResolution(mc);
-
-            if (!hovered) {
-                i = " ";
-            }
-            RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight(), new Color(0, 0, 0, 150).getRGB());
-            mc.sfui16.drawCenteredStringWithShadow(module == null ? "null pointer :(" : getI(module.getDesc()), sr.getScaledWidth() / 2f, sr.getScaledHeight() - 10, Color.white.getRGB());
-
-
-            RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight() - 26, color2.getRGB());
-            if (!ClickGUI.potato_mode.getBoolValue()) {
-                mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21,  Color.white.getRGB());
-
-            } else {
-                mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
-
-            }
-            if (module == null) i = "";
-            else {
-                if (ready && !i.equals(module.getDesc())) i = "";
-            }
-        } else {
-            ready = false;
-        }
+//        if (hovered && module.getDesc() != null) {
+//            RenderUtils.drawShadow(5, 1, () -> {
+//
+//                ScaledResolution sr = new ScaledResolution(mc);
+//
+//                if (!hovered) {
+//                    i = " ";
+//                }
+//                RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight(), new Color(0, 0, 0, 150).getRGB());
+//                mc.sfui16.drawCenteredStringWithShadow(module == null ? "null pointer :(" : getI(module.getDesc()), sr.getScaledWidth() / 2f, sr.getScaledHeight() - 10, -1);
+//
+//
+//                RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight() - 26, color2.getRGB());
+//                if (!ClickGUI.potato_mode.getBoolValue()) {
+//                    mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
+//
+//                } else {
+//                    mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
+//
+//                }
+//            });
+//
+//            ScaledResolution sr = new ScaledResolution(mc);
+//
+//            if (!hovered) {
+//                i = " ";
+//            }
+//            RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight(), new Color(0, 0, 0, 150).getRGB());
+//            mc.sfui16.drawCenteredStringWithShadow(module == null ? "null pointer :(" : getI(module.getDesc()), sr.getScaledWidth() / 2f, sr.getScaledHeight() - 10, Color.white.getRGB());
+//
+//
+//            RenderUtils.drawRect(sr.getScaledWidth() / 2 - mc.sfui16.getStringWidth(module.getDesc()) / 2 - 10, sr.getScaledHeight() - 25, sr.getScaledWidth() / 2 + mc.sfui16.getStringWidth(module.getDesc()) / 2 + 10, sr.getScaledHeight() - 26, color2.getRGB());
+//            if (!ClickGUI.potato_mode.getBoolValue()) {
+//                mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21,  Color.white.getRGB());
+//
+//            } else {
+//                mc.rubik_16.drawCenteredString(module.getLabel(), sr.getScaledWidth() / 2, sr.getScaledHeight() - 21, Color.white.getRGB());
+//
+//            }
+//            if (module == null) i = "";
+//            else {
+//                if (ready && !i.equals(module.getDesc())) i = "";
+//            }
+//        } else {
+//            ready = false;
+//        }
 
         if (module.isEnabled()) {
 

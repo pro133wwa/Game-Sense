@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.PLAYER;
 
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
@@ -8,7 +8,7 @@ import Game.Sense.client.Helper.Utility.movement.MovementUtils;
 
 public class FastWorldLoading extends Module {
     public FastWorldLoading() {
-        super("FastWorldLoading", "", ModuleCategory.OTHER);
+        super("FastWorldLoading", "", ModuleCategory.PLAYER);
     }
 
     @EventTarget

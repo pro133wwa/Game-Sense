@@ -3,7 +3,6 @@ package Game.Sense.client.module;
 import Game.Sense.client.module.feature.AAA.DeathCoordinates;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.module.feature.COMBAT.*;
-import Game.Sense.client.module.feature.OTHER.*;
 import Game.Sense.client.module.feature.MOVEMENT.*;
 import Game.Sense.client.module.feature.PLAYER.*;
 import Game.Sense.client.module.feature.RENDER.*;

@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.OTHER;
+package Game.Sense.client.module.feature.RENDER;
 
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
@@ -12,7 +12,7 @@ public class NameProtect extends Module {
     public static BooleanSetting scoreboardSpoof = new BooleanSetting("Scoreboard Spoof", true, () -> true);
 
     public NameProtect() {
-        super("NameProtect", "Позволяет скрывать информацию о себе и других игроках", ModuleCategory.OTHER);
+        super("NameProtect", "Позволяет скрывать информацию о себе и других игроках", ModuleCategory.RENDER);
         addSettings(myName, otherName,friends, tabSpoof, scoreboardSpoof);
     }
 }

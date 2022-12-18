@@ -17,7 +17,7 @@ public class DeathSound
     public NumberSetting volume = new NumberSetting("Volume", 50.0f, 1.0f, 100.0f, 1.0f, () -> true);
 
     public DeathSound() {
-        super("DeathSounds", "Воспроизводит звуки при смерти какого либо игрока", ModuleCategory.OTHER);
+        super("DeathSounds", "Воспроизводит звуки при смерти какого либо игрока", ModuleCategory.PLAYER);
         this.addSettings(this.deathSoundMode, this.volume);
     }
 

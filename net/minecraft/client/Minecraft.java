@@ -43,7 +43,7 @@ import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventManager;
 import Game.Sense.client.Helper.events.impl.input.EventInputKey;
 import Game.Sense.client.Helper.events.impl.input.EventMouse;
-import Game.Sense.client.module.feature.OTHER.ChatHistory;
+import Game.Sense.client.module.feature.RENDER.ChatHistory;
 import Game.Sense.client.UI.UwU.SplashProgress;
 import Game.Sense.client.UI.UwU.font.FontUtil;
 import Game.Sense.client.UI.UwU.font.MCFontRenderer;

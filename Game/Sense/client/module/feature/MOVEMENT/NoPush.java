@@ -1,4 +1,4 @@
-package Game.Sense.client.module.feature.PLAYER;
+package Game.Sense.client.module.feature.MOVEMENT;
 
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
@@ -10,7 +10,7 @@ public class NoPush extends Module {
     public static BooleanSetting blocks = new BooleanSetting("Blocks", true, () -> true);
 
     public NoPush() {
-        super("NoPush", "Убирает отталкивание от игроков, воды и блоков", ModuleCategory.PLAYER);
+        super("NoPush", "Убирает отталкивание от игроков, воды и блоков", ModuleCategory.MOVEMENT);
         addSettings(players, water, blocks);
     }
 }
