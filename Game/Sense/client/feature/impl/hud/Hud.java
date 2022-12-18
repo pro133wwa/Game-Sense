@@ -71,7 +71,7 @@ public class Hud extends Feature {
                 mc.nurik.drawString(ChatFormatting.WHITE + "sokol recode | delay: 20 | 0.1", 10, 11, new Color(255,255,255).getRGB());
             } else if (waterMarkMode.currentMode.equals("Simple")) {
                 DraggableWaterMark dwm = (DraggableWaterMark) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableWaterMark.class);
-                dwm.setWidth(140);
+                dwm.setWidth(150);
                 dwm.setHeight(15);
                 GLUtils.INSTANCE.rescale(this.scale);
                 String text = "GameSense | " + mc.player.getName() + " | " + mc.getDebugFPS() + " fps" + " | " + mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime() + "ms";
@@ -84,7 +84,7 @@ public class Hud extends Feature {
 
                 DraggableWaterMark dwm = (DraggableWaterMark) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableWaterMark.class);
 
-                dwm.setWidth(130);
+                dwm.setWidth(134);
 
                 dwm.setHeight(15);
 
@@ -107,15 +107,15 @@ public class Hud extends Feature {
 
                 float headerHeight = 0;
 
-                RoundedUtil.drawGradientRound(dwm.getX() + 5, dwm.getY() + 6, dwm.getWidth(), dwm.getHeight(), 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
+                RoundedUtil.drawGradientRound(dwm.getX() + 7, dwm.getY() + 6, dwm.getWidth(), dwm.getHeight(), 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
 
-                RoundedUtil.drawGradientRound(dwm.getX() + 6, dwm.getY() + 7, dwm.getWidth() -2, dwm.getHeight()-2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker(), gradientColor1.darker(), gradientColor3.darker(), gradientColor2.darker());
+                RoundedUtil.drawGradientRound(dwm.getX() + 8, dwm.getY() + 7, dwm.getWidth() -2, dwm.getHeight()-2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker(), gradientColor1.darker(), gradientColor3.darker(), gradientColor2.darker());
 
                 RenderUtils.drawBlurredShadow(dwm.getX() + 4.9f, dwm.getY() + 5.9f, dwm.getWidth(), dwm.getHeight(),12, new Color(152, 152, 152, 111));
 
-                Minecraft.getMinecraft().rubik_17.drawStringWithShadow("", dwm.getX() + 11, dwm.getY() + 11.0f, -1);
+                Minecraft.getMinecraft().rubik_17.drawStringWithShadow("", dwm.getX() + 13, dwm.getY() + 11.0f, -1);
 
-                Minecraft.getMinecraft().rubik_17.drawString(time, (float)(dwm.getX() + 7 + Minecraft.getMinecraft().rubik_17.getStringWidth("")), (float)(dwm.getY() + 11.0), -1);
+                Minecraft.getMinecraft().rubik_17.drawString(time, (float)(dwm.getX() + 11 + Minecraft.getMinecraft().rubik_17.getStringWidth("")), (float)(dwm.getY() + 11.0), -1);
 
                 GLUtils.INSTANCE.rescaleMC();
 

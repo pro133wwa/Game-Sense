@@ -25,7 +25,7 @@ public class KTLeave extends Feature
         float endZ = -1000;
         float endY = 70;
         if(mc.player.isSneaking() && mc.player.ticksExisted % 8 == 0) {
-            ChatUtils.addChatMessage("  ??????????? ?? ???????? ??? ?????????? " + endX + " " + endY + " " + endZ);
+            ChatUtils.addChatMessage("  Вы телепортированы на:" + endX + " " + endY + " " + endZ);
             if (mc.player.posX != endX && mc.player.posZ != endZ) {
                 mc.player.motionY = 0.05f;
                 mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5, endY, endZ - 0.5, false));
