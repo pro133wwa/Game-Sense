@@ -15,8 +15,8 @@ public class DraggableHUD {
         screen = new DraggableScreen();
         components = Lists.newArrayList();
         components.add(new DraggableTargetHUD());
-        components.add(new DraggableWaterMark());
         components.add(new DragModuleList());
+        components.add(new DraggableWaterMark());
         components.add(new DraggableRadar());
         components.add(new DraggableStaff());
         components.add(new DraggableCoordsInfo());
