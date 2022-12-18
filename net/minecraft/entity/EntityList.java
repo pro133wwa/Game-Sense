@@ -105,7 +105,7 @@ public class EntityList
     public static final ResourceLocation field_191307_a = new ResourceLocation("lightning_bolt");
     private static final ResourceLocation field_191310_e = new ResourceLocation("player");
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final RegistryNamespaced < ResourceLocation, Class <? extends Entity >> field_191308_b = new RegistryNamespaced < ResourceLocation, Class <? extends Entity >> ();
+    public static final RegistryNamespaced < ResourceLocation, Class <? extends Entity >> REGISTRY = new RegistryNamespaced < ResourceLocation, Class <? extends Entity >> ();
     public static final Map<ResourceLocation, EntityList.EntityEggInfo> ENTITY_EGGS = Maps.<ResourceLocation, EntityList.EntityEggInfo>newLinkedHashMap();
     public static final Set<ResourceLocation> field_191309_d = Sets.<ResourceLocation>newHashSet();
     private static final List<String> field_191311_g = Lists.<String>newArrayList();
@@ -113,13 +113,13 @@ public class EntityList
     @Nullable
     public static ResourceLocation func_191301_a(Entity p_191301_0_)
     {
-        return func_191306_a(p_191301_0_.getClass());
+        return getKey(p_191301_0_.getClass());
     }
 
     @Nullable
-    public static ResourceLocation func_191306_a(Class <? extends Entity > p_191306_0_)
+    public static ResourceLocation getKey(Class <? extends Entity > p_191306_0_)
     {
-        return field_191308_b.getNameForObject(p_191306_0_);
+        return REGISTRY.getNameForObject(p_191306_0_);
     }
 
     @Nullable
@@ -129,27 +129,27 @@ public class EntityList
      */
     public static String getEntityString(Entity entityIn)
     {
-        int i = field_191308_b.getIDForObject(entityIn.getClass());
+        int i = REGISTRY.getIDForObject(entityIn.getClass());
         return i == -1 ? null : (String)field_191311_g.get(i);
     }
 
     @Nullable
     public static String func_191302_a(@Nullable ResourceLocation p_191302_0_)
     {
-        int i = field_191308_b.getIDForObject(field_191308_b.getObject(p_191302_0_));
+        int i = REGISTRY.getIDForObject(REGISTRY.getObject(p_191302_0_));
         return i == -1 ? null : (String)field_191311_g.get(i);
     }
 
     @Nullable
     public static Class <? extends Entity > getClassFromID(int entityID)
     {
-        return (Class)field_191308_b.getObjectById(entityID);
+        return (Class) REGISTRY.getObjectById(entityID);
     }
 
     @Nullable
     public static Class <? extends Entity > func_192839_a(String p_192839_0_)
     {
-        return (Class)field_191308_b.getObject(new ResourceLocation(p_192839_0_));
+        return (Class) REGISTRY.getObject(new ResourceLocation(p_192839_0_));
     }
 
     @Nullable
@@ -186,7 +186,7 @@ public class EntityList
     @Nullable
     public static Entity createEntityByIDFromName(ResourceLocation name, World worldIn)
     {
-        return func_191304_a(field_191308_b.getObject(name), worldIn);
+        return func_191304_a(REGISTRY.getObject(name), worldIn);
     }
 
     @Nullable
@@ -218,7 +218,7 @@ public class EntityList
 
     public static boolean isStringEntityName(Entity entityIn, ResourceLocation entityName)
     {
-        ResourceLocation resourcelocation = func_191306_a(entityIn.getClass());
+        ResourceLocation resourcelocation = getKey(entityIn.getClass());
 
         if (resourcelocation != null)
         {
@@ -401,7 +401,7 @@ public class EntityList
         else
         {
             ResourceLocation resourcelocation = new ResourceLocation(p_191303_1_);
-            field_191308_b.register(p_191303_0_, resourcelocation, p_191303_2_);
+            REGISTRY.register(p_191303_0_, resourcelocation, p_191303_2_);
             field_191309_d.add(resourcelocation);
 
             while (field_191311_g.size() <= p_191303_0_)

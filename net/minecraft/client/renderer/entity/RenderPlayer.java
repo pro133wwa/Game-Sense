@@ -1,8 +1,11 @@
 package net.minecraft.client.renderer.entity;
 
+
 import Game.Sense.client.GameSense;
 import Game.Sense.client.feature.impl.visual.Chams;
 import Game.Sense.client.feature.impl.visual.CustomModel;
+import Game.Sense.client.utils.render.RenderUtils;
+import Game.Sense.client.wavecapes.renderlayers.CustomCapeRenderLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
@@ -40,6 +43,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerDeadmau5Head(this));
         this.addLayer(new LayerCape(this));
+        this.addLayer(new CustomCapeRenderLayer(this, getMainModel()));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
         this.addLayer(new LayerElytra(this));
         this.addLayer(new LayerEntityOnShoulder(renderManager));
@@ -90,7 +94,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
             ModelBiped.ArmPose modelbiped$armpose = ModelBiped.ArmPose.EMPTY;
             ModelBiped.ArmPose modelbiped$armpose1 = ModelBiped.ArmPose.EMPTY;
             EnumAction enumaction1;
-            if (!itemstack.func_190926_b()) {
+            if (!itemstack.isEmpty()) {
                 modelbiped$armpose = ModelBiped.ArmPose.ITEM;
                 if (clientPlayer.getItemInUseCount() > 0) {
                     enumaction1 = itemstack.getItemUseAction();
@@ -102,7 +106,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
                 }
             }
 
-            if (!itemstack1.func_190926_b()) {
+            if (!itemstack1.isEmpty()) {
                 modelbiped$armpose1 = ModelBiped.ArmPose.ITEM;
                 if (clientPlayer.getItemInUseCount() > 0) {
                     enumaction1 = itemstack1.getItemUseAction();
@@ -126,23 +130,19 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
     public ResourceLocation getEntityTexture(AbstractClientPlayer entity) {
         if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && (!CustomModel.onlyMe.getBoolValue() || entity == Minecraft.getMinecraft().player || GameSense.instance.friendManager.isFriend(entity.getName()) && CustomModel.friends.getBoolValue())) {
             if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("Amogus")) {
-                return new ResourceLocation("Rich/models/amogus.png");
+                return new ResourceLocation("rich/models/amogus.png");
             }
 
             if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("Jeff Killer")) {
-                return new ResourceLocation("Rich/models/jeff.png");
+                return new ResourceLocation("rich/models/jeff.png");
             }
 
-            if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("Demon")) {
-                return new ResourceLocation("Rich/models/demon.png");
-            }
+            return new ResourceLocation("minced/models/demon.png");
 
-            if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("Rabbit")) {
-                return new ResourceLocation("Rich/models/rabbit.png");
-            }
-            if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("GameSense")) {
-                return new ResourceLocation("Rich/models/sokol.png");
-            }
+        }
+
+        if (GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() && CustomModel.modelMode.currentMode.equals("Rabbit")) {
+            return new ResourceLocation("minced/models/rabbit.png");
         }
 
         return entity.getLocationSkin();

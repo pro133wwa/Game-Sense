@@ -1,5 +1,18 @@
 package net.minecraft.entity.player;
 
+import Game.Sense.client.GameSense;
+import Game.Sense.client.command.impl.FakeNameCommand;
+import Game.Sense.client.event.EventManager;
+import Game.Sense.client.event.events.impl.player.EventUpdateLiving;
+import Game.Sense.client.feature.impl.combat.KeepSprint;
+import Game.Sense.client.feature.impl.misc.NameProtect;
+import Game.Sense.client.feature.impl.movement.Speed;
+import Game.Sense.client.feature.impl.movement.Strafe;
+import Game.Sense.client.feature.impl.player.FreeCam;
+import Game.Sense.client.feature.impl.player.NoClip;
+import Game.Sense.client.feature.impl.player.NoPush;
+import Game.Sense.client.wavecapes.CapeHolder;
+import Game.Sense.client.wavecapes.stim.StickSimulation;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
@@ -9,18 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
 
-import Game.Sense.client.GameSense;
-import Game.Sense.client.command.impl.FakeNameCommand;
-import Game.Sense.client.event.EventManager;
-import Game.Sense.client.event.events.impl.player.EventUpdateLiving;
-import Game.Sense.client.feature.impl.combat.KeepSprint;
-import Game.Sense.client.feature.impl.misc.Disabler;
-import Game.Sense.client.feature.impl.misc.NameProtect;
-import Game.Sense.client.feature.impl.movement.ElytraStrafe;
-import Game.Sense.client.feature.impl.movement.Flight;
-import Game.Sense.client.feature.impl.player.FreeCam;
-import Game.Sense.client.feature.impl.player.NoClip;
-import Game.Sense.client.feature.impl.player.NoPush;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockHorizontal;
@@ -104,7 +106,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 @SuppressWarnings("incomplete-switch")
-public abstract class EntityPlayer extends EntityLivingBase {
+public abstract class EntityPlayer extends EntityLivingBase implements CapeHolder {
     private static final DataParameter<Float> ABSORPTION = EntityDataManager.<Float>createKey(EntityPlayer.class, DataSerializers.FLOAT);
     private static final DataParameter<Integer> PLAYER_SCORE = EntityDataManager.<Integer>createKey(EntityPlayer.class, DataSerializers.VARINT);
     protected static final DataParameter<Byte> PLAYER_MODEL_FLAG = EntityDataManager.<Byte>createKey(EntityPlayer.class, DataSerializers.BYTE);
@@ -140,10 +142,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
     protected int flyToggleTimer;
     public float prevCameraYaw;
     public float cameraYaw;
+    private StickSimulation stickSimulation = new StickSimulation();
 
     /**
      * Used by EntityPlayer to prevent too many xp orbs from getting absorbed at once.
      */
+    public StickSimulation getSimulation() {
+        return stickSimulation;
+    }
     public int xpCooldown;
     public double prevChasingPosX;
     public double prevChasingPosY;
@@ -328,7 +334,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 this.resetCooldown();
             }
 
-            this.itemStackMainHand = itemstack.func_190926_b() ? ItemStack.field_190927_a : itemstack.copy();
+            this.itemStackMainHand = itemstack.isEmpty() ? ItemStack.field_190927_a : itemstack.copy();
         }
 
         this.cooldownTracker.tick();
@@ -596,7 +602,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         if (p_192028_1_ != null && !p_192028_1_.hasKey("Silent") || !p_192028_1_.getBoolean("Silent")) {
             String s = p_192028_1_.getString("id");
 
-            if (s.equals(EntityList.func_191306_a(EntityParrot.class).toString())) {
+            if (s.equals(EntityList.getKey(EntityParrot.class).toString())) {
                 EntityParrot.func_192005_a(this.world, this);
             }
         }
@@ -661,7 +667,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         for (int i = 0; i < this.inventory.getSizeInventory(); ++i) {
             ItemStack itemstack = this.inventory.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b() && EnchantmentHelper.func_190939_c(itemstack)) {
+            if (!itemstack.isEmpty() && EnchantmentHelper.func_190939_c(itemstack)) {
                 this.inventory.removeStackFromSlot(i);
             }
         }
@@ -686,7 +692,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
      * entire stack is dropped.
      */
     public EntityItem dropItem(boolean dropAll) {
-        return this.dropItem(this.inventory.decrStackSize(this.inventory.currentItem, dropAll && !this.inventory.getCurrentItem().func_190926_b() ? this.inventory.getCurrentItem().func_190916_E() : 1), false, true);
+        return this.dropItem(this.inventory.decrStackSize(this.inventory.currentItem, dropAll && !this.inventory.getCurrentItem().isEmpty() ? this.inventory.getCurrentItem().func_190916_E() : 1), false, true);
     }
 
     @Nullable
@@ -700,7 +706,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     @Nullable
     public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem) {
-        if (droppedItem.func_190926_b()) {
+        if (droppedItem.isEmpty()) {
             return null;
         } else {
             double d0 = this.posY - 0.30000001192092896D + (double) this.getEyeHeight();
@@ -732,7 +738,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             ItemStack itemstack = this.dropItemAndGetStack(entityitem);
 
             if (traceItem) {
-                if (!itemstack.func_190926_b()) {
+                if (!itemstack.isEmpty()) {
                     this.addStat(StatList.getDroppedObjectStats(itemstack.getItem()), droppedItem.func_190916_E());
                 }
 
@@ -753,7 +759,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
         if (f > 1.0F) {
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, itemstack);
-            if (i > 0 && !itemstack.func_190926_b()) {
+            if (i > 0 && !itemstack.isEmpty()) {
                 f += (float) (i * i + 1);
             }
         }
@@ -972,7 +978,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             int i = 1 + MathHelper.floor(damage);
             this.activeItemStack.damageItem(i, this);
 
-            if (this.activeItemStack.func_190926_b()) {
+            if (this.activeItemStack.isEmpty()) {
                 EnumHand enumhand = this.getActiveHand();
 
                 if (enumhand == EnumHand.MAIN_HAND) {
@@ -995,7 +1001,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         int i = 0;
 
         for (ItemStack itemstack : this.inventory.armorInventory) {
-            if (!itemstack.func_190926_b()) {
+            if (!itemstack.isEmpty()) {
                 ++i;
             }
         }
@@ -1067,7 +1073,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return EnumActionResult.PASS;
         } else {
             ItemStack itemstack = this.getHeldItem(p_190775_2_);
-            ItemStack itemstack1 = itemstack.func_190926_b() ? ItemStack.field_190927_a : itemstack.copy();
+            ItemStack itemstack1 = itemstack.isEmpty() ? ItemStack.field_190927_a : itemstack.copy();
 
             if (p_190775_1_.processInitialInteract(this, p_190775_2_)) {
                 if (this.capabilities.isCreativeMode && itemstack == this.getHeldItem(p_190775_2_) && itemstack.func_190916_E() < itemstack1.func_190916_E()) {
@@ -1076,13 +1082,13 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
                 return EnumActionResult.SUCCESS;
             } else {
-                if (!itemstack.func_190926_b() && p_190775_1_ instanceof EntityLivingBase) {
+                if (!itemstack.isEmpty() && p_190775_1_ instanceof EntityLivingBase) {
                     if (this.capabilities.isCreativeMode) {
                         itemstack = itemstack1;
                     }
 
                     if (itemstack.interactWithEntity(this, (EntityLivingBase) p_190775_1_, p_190775_2_)) {
-                        if (itemstack.func_190926_b() && !this.capabilities.isCreativeMode) {
+                        if (itemstack.isEmpty() && !this.capabilities.isCreativeMode) {
                             this.setHeldItem(p_190775_2_, ItemStack.field_190927_a);
                         }
 
@@ -1186,8 +1192,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
                             }
 
                             if (GameSense.instance.featureManager.getFeature(KeepSprint.class).isEnabled()) {
-                                this.motionX *= KeepSprint.speed.getNumberValue();
-                                this.motionZ *= KeepSprint.speed.getNumberValue();
+                                this.motionX *= KeepSprint.speed.getIncrement();
+                                this.motionZ *= KeepSprint.speed.getIncrement();
                                 this.setSprinting(KeepSprint.setSprinting.getBoolValue());
                             } else {
                                 this.motionX *= 0.6D;
@@ -1253,10 +1259,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
                             }
                         }
 
-                        if (!itemstack1.func_190926_b() && entity instanceof EntityLivingBase) {
+                        if (!itemstack1.isEmpty() && entity instanceof EntityLivingBase) {
                             itemstack1.hitEntity((EntityLivingBase) entity, this);
 
-                            if (itemstack1.func_190926_b()) {
+                            if (itemstack1.isEmpty()) {
                                 this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.field_190927_a);
                             }
                         }
@@ -1834,7 +1840,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public boolean canPlayerEdit(BlockPos pos, EnumFacing facing, ItemStack stack) {
         if (this.capabilities.allowEdit) {
             return true;
-        } else if (stack.func_190926_b()) {
+        } else if (stack.isEmpty()) {
             return false;
         } else {
             BlockPos blockpos = pos.offset(facing.getOpposite());
@@ -2036,7 +2042,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             f = 0.2F;
         } else if (!this.isSneaking() && this.height != 1.65F) {
             if (this.isElytraFlying() || this.height == 0.6F) {
-                if (GameSense.instance.featureManager.getFeature(Flight.class).isEnabled() && Flight.flyMode.currentMode.equals("Matrix Elytra") || GameSense.instance.featureManager.getFeature(ElytraStrafe.class).isEnabled() || GameSense.instance.featureManager.getFeature(Disabler.class).isEnabled()) {
+                if (GameSense.instance.featureManager.getFeature(Strafe.class).isEnabled() || GameSense.instance.featureManager.getFeature(Speed.class).isEnabled() && Speed.speedMode.currentMode.equals("Matrix Elytra")) {
                     f = 1.62F;
                 } else {
                     f = 0.4F;
@@ -2088,7 +2094,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return true;
         } else {
             ItemStack itemstack = this.getHeldItemMainhand();
-            return !itemstack.func_190926_b() && itemstack.hasDisplayName() ? itemstack.getDisplayName().equals(code.getLock()) : false;
+            return !itemstack.isEmpty() && itemstack.hasDisplayName() ? itemstack.getDisplayName().equals(code.getLock()) : false;
         }
     }
 
@@ -2138,7 +2144,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     return false;
                 }
             } else {
-                if (!itemStackIn.func_190926_b()) {
+                if (!itemStackIn.isEmpty()) {
                     if (!(itemStackIn.getItem() instanceof ItemArmor) && !(itemStackIn.getItem() instanceof ItemElytra)) {
                         if (entityequipmentslot != EntityEquipmentSlot.HEAD) {
                             return false;
