@@ -30,7 +30,7 @@ public class Main
     public static String user11;
     public static void main(String[] p_main_0_)
     {
-
+        System.out.println("    ¬ведите ваш UserName");
         Scanner qq = new Scanner(System.in);
         user11 = qq.nextLine();
         final String path = "uid.txt";
