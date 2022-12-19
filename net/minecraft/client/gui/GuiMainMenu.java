@@ -45,6 +45,50 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.glu.Project;
 
 
+import Game.Sense.client.UI.Minecraft.ALT.GuiAlt;
+import Game.Sense.client.Helper.Utility.render.animbackground;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.GlStateManager;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+
+import java.io.IOException;
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.Runnables;
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Random;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.client.settings.GameSettings.Options;
+import net.minecraft.realms.RealmsBridge;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.WorldServerDemo;
+import net.minecraft.world.storage.ISaveFormat;
+import net.minecraft.world.storage.WorldInfo;
+import optifine.CustomPanorama;
+import optifine.CustomPanoramaProperties;
+import optifine.Reflector;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.util.glu.Project;
+
+
 public class GuiMainMenu extends GuiScreen {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Random RANDOM = new Random();
@@ -439,15 +483,17 @@ public class GuiMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         ScaledResolution sr = new ScaledResolution(this.mc);
         //(new DiscordHelper()).update("In MainMenu");
-        Gui.drawRect(0.0, 0.0, width, height, (new Color(14, 14, 14)).getRGB());
+
+        GlStateManager.disableCull();
 
         this.backgroundShader.useShader(this.width, this.height, (float)sr.getScaledWidth(), (float)sr.getScaledHeight(), (float)(System.currentTimeMillis() - this.initTime) / 1000.0F);
-        GL11.glBegin(7);
+        GL11.glBegin(GL11.GL_QUADS);
         GL11.glVertex2f(-1.0F, -1.0F);
         GL11.glVertex2f(-1.0F, 1.0F);
         GL11.glVertex2f(1.0F, 1.0F);
         GL11.glVertex2f(1.0F, -1.0F);
         GL11.glEnd();
+        GlStateManager.disableCull();
         GL20.glUseProgram(0);
         this.mc.neverlose900_30.drawCenteredStringWithShadow("GAME SENSE", (float)(sr.getScaledWidth() / 2), (float)((double)sr.getScaledHeight() / 3.2), -1);
         //this.mc.neverlose900_20.drawCenteredStringWithOutline("Developer: UwU_#5276", 100.0F, (float)(sr.getScaledHeight() - 20), -1);
@@ -482,3 +528,9 @@ public class GuiMainMenu extends GuiScreen {
 
     }
 }
+
+
+
+
+
+
