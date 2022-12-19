@@ -24,13 +24,13 @@ public class JumpCircle extends Module {
     static final int TYPE = 0;
     static final byte MAX_JC_TIME = 20;
     static List<Circle> circles = new ArrayList();
-    private ListSetting jumpcircleMode = new ListSetting("JumpCircle Mode", "Default", () -> true, "Default", "Disc");
+    private ListSetting jumpcircleMode = new ListSetting("JumpCircle Mode", "Disc", () -> true,  "Disc");
     public static ColorSetting jumpCircleColor = new ColorSetting("JumpCircle Color", new Color(0xFFFFFF).getRGB(), () -> true);
     static float pt;
 
     public JumpCircle() {
         super("JumpCircles", "Показывает круги после прыжка", ModuleCategory.RENDER);
-        addSettings(jumpcircleMode, jumpCircleColor);
+        addSettings( jumpCircleColor);
     }
 
     @EventTarget
