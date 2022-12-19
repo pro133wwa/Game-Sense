@@ -25,7 +25,7 @@ public class SwingAnimations
 
     public SwingAnimations() {
         super("SwingAnimations", "Добавляет анимацию на меч", ModuleCategory.RENDER);
-        swordAnim = new ListSetting("Blocking Animation Mode", "GlobalSpin", () -> Boolean.valueOf(true), new String[] { "GlobalSpin", "Nursultan", "Glide" });
+        swordAnim = new ListSetting("Blocking Animation Mode", "Nursultan", () -> Boolean.valueOf(true), new String[] { "GlobalSpin", "Nursultan", "Glide" });
         auraOnly = new BooleanSetting("Aura Only", false, () -> Boolean.valueOf(true));
         swingSpeed = new NumberSetting("Swing Speed", "Скорость удара меча", 8.0F, 1.0F, 20.0F, 1.0F, () -> Boolean.valueOf(true));
         spinSpeed = new NumberSetting("Spin Speed", 10.0F, 1.0F, 10.0F, 1.0F, () -> Boolean.valueOf(swordAnim.currentMode.equals("GlobalSpin")));
