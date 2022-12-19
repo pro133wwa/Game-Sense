@@ -440,15 +440,17 @@ public class GameSenseMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         ScaledResolution sr = new ScaledResolution(this.mc);
         //(new DiscordHelper()).update("In MainMenu");
-        Gui.drawRect(0.0, 0.0, width, height, (new Color(14, 14, 14)).getRGB());
+
+        GlStateManager.disableCull();
 
         this.backgroundShader.useShader(this.width, this.height, (float)sr.getScaledWidth(), (float)sr.getScaledHeight(), (float)(System.currentTimeMillis() - this.initTime) / 1000.0F);
-        GL11.glBegin(7);
+        GL11.glBegin(GL11.GL_QUADS);
         GL11.glVertex2f(-1.0F, -1.0F);
         GL11.glVertex2f(-1.0F, 1.0F);
         GL11.glVertex2f(1.0F, 1.0F);
         GL11.glVertex2f(1.0F, -1.0F);
         GL11.glEnd();
+        GlStateManager.disableCull();
         GL20.glUseProgram(0);
         this.mc.neverlose900_30.drawCenteredStringWithShadow("GAME SENSE", (float)(sr.getScaledWidth() / 2), (float)((double)sr.getScaledHeight() / 3.2), -1);
         //this.mc.neverlose900_20.drawCenteredStringWithOutline("Developer: UwU_#5276", 100.0F, (float)(sr.getScaledHeight() - 20), -1);

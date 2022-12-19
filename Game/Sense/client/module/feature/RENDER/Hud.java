@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Hud extends Module {
     public static BooleanSetting waterMark = new BooleanSetting("WaterMark", true, () -> true);
-    public static ListSetting waterMarkMode = new ListSetting("WaterMark Mode", "Nursultan", () -> waterMark.getBoolValue(), "Celestial", "Nursultan","Simple","Akrien");
+    public static ListSetting waterMarkMode = new ListSetting("WaterMark Mode", "Nursultan", () -> waterMark.getBoolValue(), "Celestial", "Nursultan");
     public static BooleanSetting coords = new BooleanSetting("Coordinates", false, () -> true);
     public static BooleanSetting sessionInfo = new BooleanSetting("Info of Session", true, () -> true);
     public static BooleanSetting Radar = new BooleanSetting("Radar", false, () -> true);
@@ -43,20 +43,28 @@ public class Hud extends Module {
 
     public Hud() {
         super("Hud", "Показывает информацию на экране", ModuleCategory.RENDER);
-        addSettings(sessionInfo, potions, armor);
+        addSettings(sessionInfo, potions, armor,waterMarkMode);
     }
 
     @EventTarget
     public void onRender(EventRender2D eventRender2D) {
         if (waterMark.getBoolValue()) {
             if (waterMarkMode.currentMode.equals("Celestial")) {
+
+                DraggableWaterMark dci = (DraggableWaterMark) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableWaterMark.class);
+                dci.setWidth(150);
+                dci.setHeight(150);
                 GLUtils.INSTANCE.rescale(scale);
-                RoundedUtil.drawGradientCornerLR(36,12,80,28,4,new Color(ClientHelper.getClientColor().getRGB()),Color.white);
-                RoundedUtil.drawGradientRound(5, 6, 40 , 40,20, new Color(ClientHelper.getClientColor().getRGB()),new Color(ClientHelper.getClientColor().getRGB()),Color.white,new Color(ClientHelper.getClientColor().getRGB()));
-                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "GameSense Recode", 48, 18, new Color(255,255,255).getRGB());
-                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "Free" + ChatFormatting.GRAY + " Version", 48, 28, new Color(255,255,255).getRGB());
-                RenderUtils.drawImage(new ResourceLocation("rich/logo.png"), 9, 10, 30, 30,Color.WHITE);
+                RoundedUtil.drawGradientCornerLR(dci.getX()+5, dci.getY(), 80,28,4,new Color(ClientHelper.getClientColor().getRGB()),Color.white);
+                RoundedUtil.drawGradientRound(dci.getX()-13,  dci.getY()-6, 40 , 40,20, new Color(ClientHelper.getClientColor().getRGB()),new Color(ClientHelper.getClientColor().getRGB()),Color.white,new Color(ClientHelper.getClientColor().getRGB()));
+                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "GameSense", dci.getX()+30, dci.getY()+6, new Color(255,255,255).getRGB());
+                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "UID" + ChatFormatting.GRAY + " null",  dci.getX()+30, dci.getY()+ 16, new Color(255,255,255).getRGB());
+                RenderUtils.drawImage(new ResourceLocation("rich/logo.png"),  dci.getX()-8,  dci.getY()-1, 30, 30,Color.WHITE);
                 GLUtils.INSTANCE.rescaleMC();
+
+
+
+
             } else if (waterMarkMode.currentMode.equals("Nursultantest")) {
                 Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
                 Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());

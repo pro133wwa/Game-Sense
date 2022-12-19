@@ -64,7 +64,7 @@ public final class NotificationRenderer implements Helper {
                     RoundedUtil.drawGradientRound((float) notification.x-27, (float)notification.y - 14.0f,(float) notification.notificationTimeBarWidth, 17, 4,gradientColor1.brighter().brighter(),gradientColor2.brighter().brighter(),gradientColor3.brighter().brighter(),gradientColor4.brighter().brighter() );
                     RoundedUtil.drawGradientRound((float) notification.x-26, (float)notification.y - 13.0f,(float) notification.notificationTimeBarWidth, 15, 4,gradientColor1,gradientColor2,gradientColor3,gradientColor4 );
 
-                    Minecraft.getMinecraft().rubik_18.drawString("GameSense:", (float) (notification.x - 22), (float) (notification.y - 8), -1);
+                    Minecraft.getMinecraft().rubik_18.drawString("Sense:", (float) (notification.x - 22), (float) (notification.y - 8), -1);
                     Minecraft.getMinecraft().nurik.drawString(notification.getContent(), (float) (notification.x + 10), (float) (notification.y - 8), -1);
                     GlStateManager.popMatrix();
                     y -= 30;
