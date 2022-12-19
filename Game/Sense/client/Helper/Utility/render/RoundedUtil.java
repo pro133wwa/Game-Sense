@@ -107,7 +107,15 @@ public class RoundedUtil {
         roundedTexturedShader.unload();
         GlStateManager.disableBlend();
     }
+    public static void drawHorizontalGradientOutlinedRoundedRectWithGlow(float x, float y, float width, float height, float radius, float expand, int glowIntencivity, Color color, Color color2) {
+        RenderUtils.drawBlurredShadow(x + 1,y,width,height, glowIntencivity,color2.brighter());
 
+        drawGradientHorizontal(x,y,width,height,radius,color.brighter(),color2.brighter());
+
+        float e = expand;
+
+        drawGradientHorizontal(x + e,y + e,width - e - e,height - e - e,radius - 1, color,color2);
+    }
     private static void setupRoundedRectUniforms(float x, float y, float width, float height, float radius, ShaderUtil roundedTexturedShader) {
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         roundedTexturedShader.setUniformf("location", x * sr.getScaleFactor(),

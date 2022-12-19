@@ -13,8 +13,10 @@ import Game.Sense.client.Helper.Utility.Helper;
 import Game.Sense.client.Helper.Utility.math.AnimationHelper;
 import Game.Sense.client.Helper.Utility.render.ClientHelper;
 import Game.Sense.client.Helper.Utility.render.RenderUtils;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -47,27 +49,27 @@ public class ModuleList extends Module {
         activeModules.sort(Comparator.comparingDouble(s -> -Helper.mc.rubik_13.getStringWidth(s.getLabel().toLowerCase())));
         float displayWidth = di.getX();
         float y = di.getY();
+        float x = di.getX();
+            RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
         ScaledResolution rs = new ScaledResolution(this.mc);
         int width = GameSense.scale.calc(rs.getScaledWidth());
         int height = GameSense.scale.calc(rs.getScaledHeight());
-        boolean reverse = displayWidth > (float)(width / 2);
-        boolean reverseY = y > (float)(height / 2);
+        boolean reverse = displayWidth > (float) (width / 2);
+        boolean reverseY = y > (float) (height / 2);
         int yTotal = 0;
         int offset = 1;
-
         for (int i = 0; i < GameSense.instance.featureManager.getAllFeatures().size(); ++i) {
             yTotal += Helper.mc.rubik_13.getFontHeight() + 3;
         }
-        if(reverse){
+        if (reverse) {
             for (Module module : activeModules) {
                 module.animYto = AnimationHelper.Move(module.animYto, (float) (module.isEnabled() ? 1 : 0), (float) (6.5f * GameSense.deltaTime()), (float) (6.5f * GameSense.deltaTime()), (float) GameSense.deltaTime());
                 if (module.animYto > 0.01f) {
                     if (module.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && module.getCategory() == ModuleCategory.RENDER || onlyBinds.getBoolValue() && module.getBind() == 0)
                         continue;
                     stringWidth = this.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) + 3;
-                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 20), 255).getRGB());
-                    RenderUtils.drawRect4(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.WHITE.getRGB());
-
+                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float) offset + 8.2f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 20), 255).getRGB());
+                    RenderUtils.drawRect4(displayWidth + 49, y, displayWidth + 51.5f, y + 8.2f + (float) offset, Color.WHITE.getRGB());
                     y += 8 * module.animYto;
                 }
 
@@ -75,7 +77,7 @@ public class ModuleList extends Module {
         }
 
 
-        if(!reverse){
+        if (!reverse) {
             for (Module module : activeModules) {
                 module.animYto = AnimationHelper.Move(module.animYto, (float) (module.isEnabled() ? 1 : 0), (float) (6.5f * GameSense.deltaTime()), (float) (6.5f * GameSense.deltaTime()), (float) GameSense.deltaTime());
 
@@ -85,18 +87,17 @@ public class ModuleList extends Module {
                         continue;
                     stringWidth = this.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) + 3;
                     GlStateManager.pushMatrix();
-                    RenderUtils.drawBlurredShadow(displayWidth -2, y + (float)offset - 3.5f + 2, stringWidth + 5f, 10, 5, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), 150));
+                    RenderUtils.drawBlurredShadow(displayWidth - 2, y + (float) offset - 3.5f + 2, stringWidth + 5f, 10, 5, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), 150));
                     GL11.glTranslated(1, y, 1);
                     GL11.glTranslated(-1, -y, 1);
-                    RenderUtils.drawRect(displayWidth, y - 0.5f -2 + offset + 2, displayWidth + (float)stringWidth + 3.5f, y + (float)offset + 8.0f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), (int) (animYto * 255)).getRGB());
-                    this.mc.rubik_13.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float)offset + 2, Color.WHITE.getRGB());
-                    RenderUtils.drawRect(displayWidth - 1.5f, y - 0.5f -2 + offset + 2, displayWidth + 1 , y + (float)offset +8f,  Color.WHITE.getRGB());
+                    RenderUtils.drawRect(displayWidth, y - 0.5f - 2 + offset + 2, displayWidth + (float) stringWidth + 3.5f, y + (float) offset + 8.0f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), (int) (animYto * 255)).getRGB());
+                    this.mc.rubik_13.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float) offset + 2, Color.WHITE.getRGB());
+                    RenderUtils.drawRect(displayWidth - 1.5f, y - 0.5f - 2 + offset + 2, displayWidth + 1, y + (float) offset + 8f, Color.WHITE.getRGB());
                     GlStateManager.popMatrix();
 
+                    y += 8 * module.animYto * offset;
+
                 }
-
-                y += 8 * module.animYto * offset;
-
             }
         }
     }

@@ -11,6 +11,7 @@ public class DraggableTargetHUD extends DraggableComponent {
         super("TargetHUD", 350, 25, 1, 1);
     }
 
+
     @Override
     public boolean allowDraw() {
         return GameSense.instance.featureManager.getFeature(TargetHUD.class).isEnabled() && KillAura.target != null;

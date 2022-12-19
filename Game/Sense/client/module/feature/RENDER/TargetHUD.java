@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -35,7 +36,7 @@ public class TargetHUD extends Module {
     public static TimerHelper thudTimer = new TimerHelper();
     private float healthBarWidth;
     private ArrayList<Particles> particles = new ArrayList<>();
-    public ListSetting targetHudMode = new ListSetting("TargetHUD Mode", "Style", () -> true, "Style", "Nurik","Celka");
+    public ListSetting targetHudMode = new ListSetting("TargetHUD Mode", "Style", () -> true, "Style", "Nurik","Celestial");
     public static ListSetting thudColorMode = new ListSetting("TargetHUD Color", "Astolfo", () -> true, "Astolfo", "Rainbow", "Client", "Custom");
     public BooleanSetting particles2 = new BooleanSetting("Particles", thudColorMode.currentMode.equals("Custom"), () -> targetHudMode.currentMode.equals("Style") && thudColorMode.currentMode.equals("Custom"));
     public static ColorSetting targetHudColor = new ColorSetting("THUD Color", Color.PINK.getRGB(), () -> thudColorMode.currentMode.equals("Custom"));
@@ -130,8 +131,7 @@ public class TargetHUD extends Module {
                     }
                 }
             }
-        }
-        else if (targetHudMode.currentMode.equals("NewGen")) {
+        } else if (targetHudMode.currentMode.equals("NewGen")) {
             DraggableTargetHUD dth = (DraggableTargetHUD) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTargetHUD.class);
             float x = dth.getX();
             float y = dth.getY();
@@ -155,15 +155,15 @@ public class TargetHUD extends Module {
                         GL11.glTranslated(-(x + 50), -(y + 31), 0);
                         if (blurThud.getBoolValue()) {
                             RenderUtils.drawBlur(7, () -> {
-                                RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(),new Color(17, 17, 17, 200).getRGB());
+                                RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(), new Color(17, 17, 17, 200).getRGB());
                             });
                         }
                         if (shadowThud.getBoolValue()) {
                             RenderUtils.drawShadow(5, 1, () -> {
-                                RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(),new Color(17, 17, 17, 200).getRGB());
+                                RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(), new Color(17, 17, 17, 200).getRGB());
                             });
                         }
-                        RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(),new Color(17, 17, 17, 200).getRGB());
+                        RenderUtils.drawSmoothRect(x, y, x + dth.getWidth(), y + dth.getHeight(), new Color(17, 17, 17, 200).getRGB());
 
 
                         double healthWid = (curTarget.getHealth() / curTarget.getMaxHealth() * 110);
@@ -204,23 +204,22 @@ public class TargetHUD extends Module {
                     }
                 }
             }
-        }
-
-
-
-
-
-        else if (targetHudMode.currentMode.equals("Nurik")) {
+        } else if (targetHudMode.currentMode.equals("Nurik")) {
             DraggableTargetHUD dth = (DraggableTargetHUD) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTargetHUD.class);
             float x = dth.getX();
             float y = dth.getY();
             dth.setWidth(163);
             dth.setHeight(42);
-            if (KillAura.target != null) {
+            if (KillAura.target == null) {
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    curTarget = mc.player;
+                    scale = AnimationHelper.animation((float) scale, (float) 1, (float) (6 * GameSense.deltaTime()));
+                } else {
+                    scale = AnimationHelper.animation((float) scale, (float) 0, (float) (6 * GameSense.deltaTime()));
+                }
+            } else {
                 curTarget = KillAura.target;
                 scale = AnimationHelper.animation((float) scale, (float) 1, (float) (6 * GameSense.deltaTime()));
-            } else {
-                scale = AnimationHelper.animation((float) scale, (float) 0, (float) (6 * GameSense.deltaTime()));
             }
             EntityLivingBase target = KillAura.target;
             if (curTarget != null) {
@@ -236,14 +235,14 @@ public class TargetHUD extends Module {
 
                         Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
                         Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
-                        Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0,onecolor,twocolor);
-                        Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90,onecolor,twocolor );
-                        Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor,twocolor);
-                        Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor,twocolor);
+                        Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0, onecolor, twocolor);
+                        Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90, onecolor, twocolor);
+                        Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor, twocolor);
+                        Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);
 
                         RoundedUtil.drawGradientRound(dth.getX() + 5, dth.getY() + 6, dth.getWidth(), dth.getHeight(), 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f), gradientColor1, gradientColor3, gradientColor2);
 
-                        RoundedUtil.drawGradientRound(dth.getX() + 6, dth.getY() + 7, dth.getWidth() -2, dth.getHeight()-2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker().darker(), gradientColor1.darker().darker(), gradientColor3.darker().darker(), gradientColor2.darker().darker());
+                        RoundedUtil.drawGradientRound(dth.getX() + 6, dth.getY() + 7, dth.getWidth() - 2, dth.getHeight() - 2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker().darker(), gradientColor1.darker().darker(), gradientColor3.darker().darker(), gradientColor2.darker().darker());
 
 
                         double healthWid = (curTarget.getHealth() / curTarget.getMaxHealth() * 110);
@@ -253,7 +252,7 @@ public class TargetHUD extends Module {
                         String distance = "" + MathematicHelper.round(mc.player.getDistanceToEntity(curTarget), 1);
                         mc.rubik_15.drawString("Name: " + curTarget.getName(), x + 52, y + 12, -1);
                         mc.rubik_14.drawString(curTarget.getHealth() >= 3 ? health : "", x + 24 + healthBarWidth, y + 20F, new Color(200, 200, 200).getRGB());
-                        RoundedUtil.drawGradientRound(x+50,y+30,this.healthBarWidth,10,4,onecolor,onecolor,twocolor,twocolor);
+                        RoundedUtil.drawGradientRound(x + 50, y + 30, this.healthBarWidth, 10, 4, onecolor, onecolor, twocolor, twocolor);
                         mc.getRenderItem().renderItemOverlays(mc.rubik_13, curTarget.getHeldItem(EnumHand.OFF_HAND), (int) x + 142, (int) y + 12);
                         mc.getRenderItem().renderItemIntoGUI(curTarget.getHeldItem(EnumHand.OFF_HAND), (int) x + 145, (int) y + 5);
 
@@ -262,11 +261,10 @@ public class TargetHUD extends Module {
                                 if (mc.world.getPlayerEntityByUUID(targetHead.getGameProfile().getId()) == curTarget) {
                                     mc.getTextureManager().bindTexture(targetHead.getLocationSkin());
                                     final int scaleOffset = (int) (curTarget.hurtTime * 0.55f);
-
                                     float hurtPercent = getHurtPercent(curTarget);
                                     GL11.glPushMatrix();
                                     GL11.glColor4f(1, 1 - hurtPercent, 1 - hurtPercent, 1);
-                                    Gui.drawScaledCustomSizeModalRect((int) x +12, y +9, 8.0f, 8.0f, 8, 8, 32, 35, 64.0f, 64.0f);
+                                    Gui.drawScaledCustomSizeModalRect((int) x + 12, y + 9, 8.0f, 8.0f, 8, 8, 32, 35, 64.0f, 64.0f);
                                     GL11.glPopMatrix();
                                     GlStateManager.bindTexture(0);
                                 }
@@ -278,6 +276,67 @@ public class TargetHUD extends Module {
                         GlStateManager.popMatrix();
                     }
                 }
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                }
+            }
+        } else if (targetHudMode.currentMode.equals("Celestial")) {
+            DraggableTargetHUD dth = (DraggableTargetHUD) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTargetHUD.class);
+            float x = dth.getX();
+            float y = dth.getY();
+            dth.setWidth(130);
+            dth.setHeight(42 - 5);
+            if (KillAura.target == null) {
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    curTarget = mc.player;
+                    scale = AnimationHelper.animation((float) scale, (float) 1, (float) (6 * GameSense.deltaTime()));
+                } else {
+                    scale = AnimationHelper.animation((float) scale, (float) 0, (float) (6 * GameSense.deltaTime()));
+                }
+            } else {
+                curTarget = KillAura.target;
+                scale = AnimationHelper.animation((float) scale, (float) 1, (float) (6 * GameSense.deltaTime()));
+            }
+            if (curTarget != null) {
+                try {
+                    GlStateManager.pushMatrix();
+                    GlStateManager.resetColor();
+                    GL11.glTranslated(x + 36, y + 26, 0);
+                    GL11.glScaled(scale, scale, 0);
+                    GL11.glTranslated(-(x + 36), -(y + 26), 0);
+                    double healthWid = (curTarget.getHealth() / curTarget.getMaxHealth() * 80);
+                    healthWid = MathHelper.clamp(healthWid, 0.0D, 80);
+                    healthBarWidth = AnimationHelper.animation(healthBarWidth, (float) healthWid, (float) (5 * GameSense.deltaTime()));
+                    String health = "" + MathematicHelper.round(curTarget.getHealth(), 1);
+                    RoundedUtil.drawRound(x, y, 125, 35, 1, new Color(0, 0, 0, 220));
+                    RenderUtils.drawGradientSideways(x + 38, y + 15, x + 38 +  healthBarWidth, y + 15 + 8.3f,  ClientHelper.getClientColor(15, 15, 20).getRGB(), new Color(255,255,255).getRGB());
+                    mc.rubik_18.drawStringWithShadow(curTarget.getHealth() >= 3 ? health : "", x + 67, y + 17, new Color(255, 255, 255).getRGB());
+                    mc.rubik_18.drawString(GameSense.instance.featureManager.getFeature(NameProtect.class).isEnabled() && NameProtect.otherName.getBoolValue() ? "Protected" : curTarget.getName(), x + 40, y + 5, new Color(255, 255, 255, 255).getRGB());
+                    healthBarWidth = AnimationHelper.animation((float) healthBarWidth, (float) healthWid, (float) (10 * GameSense.deltaTime()));
+                    for (NetworkPlayerInfo targetHead : mc.player.connection.getPlayerInfoMap()) {
+                        try {
+                            if (mc.world.getPlayerEntityByUUID(targetHead.getGameProfile().getId()) == curTarget && curTarget instanceof EntityPlayer) {
+                                mc.getTextureManager().bindTexture(targetHead.getLocationSkin());
+                                float hurtPercent = getHurtPercent(curTarget);
+                                GL11.glPushMatrix();
+                                GL11.glColor4f(1, 1 - hurtPercent, 1 - hurtPercent, 1);
+                                Gui.drawScaledCustomSizeModalRect((int) x, y, 8.0f, 8.0f, 8, 8, 35, 35, 64.0f, 64.0f);
+                                GL11.glPopMatrix();
+                                GlStateManager.bindTexture(0);
+                                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                            }
+                            }
+                        } catch (Exception exception) {
+                        }
+
+                    }
+
+                } catch (Exception exception) {
+                } finally {
+                    GlStateManager.popMatrix();
+                }
+
             }
         }
 

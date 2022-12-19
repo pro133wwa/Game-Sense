@@ -16,7 +16,11 @@ import Game.Sense.client.Helper.Utility.render.ColorUtils2;
 import Game.Sense.client.Helper.Utility.render.RenderUtils;
 import Game.Sense.client.Helper.Utility.render.RoundedUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -42,24 +46,30 @@ public class TimerSmart extends Module {
             ChatUtils.addChatMessage(ChatFormatting.RED + "Включите Smart в Timer");
         }
 
-        if(SmartMode.currentMode.equals("Type_1")){
+        if(SmartMode.currentMode.equals("Type_1")) {
             if (smart.getBoolValue()) {
                 DraggableTimer dt = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
+
                 dt.setWidth(150);
                 dt.setHeight(25);
                 Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
                 Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
+                Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0, onecolor, twocolor);
+                Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90, onecolor, twocolor);
+                Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor, twocolor);
+                Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);/* 61 */
 
-                Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0,onecolor,twocolor);
-                Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90,onecolor,twocolor );
-                Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor,twocolor);
-                Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor,twocolor);/* 61 */
-                RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - Timer.ticks * 2.0F), 10.0f, 4,gradientColor1.brighter(),gradientColor2.brighter(),gradientColor3.brighter(),gradientColor4.brighter());
-                mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - Timer.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY()+2), -1);
-                //RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
-                mc.sfui18.drawCenteredString("Smart Timer",dt.getX(), (dt.getY() + 16),-1);
+                    RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - Timer.ticks * 2.0F), 10.0f, 4, gradientColor1.brighter(), gradientColor2.brighter(), gradientColor3.brighter(), gradientColor4.brighter());
+                    mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - Timer.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY() + 2), -1);
+                    //RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
+                    mc.sfui18.drawCenteredString("Smart Timer", dt.getX(), (dt.getY() + 16), -1);
+                float y = dt.getY();
+                float x = dt.getX();
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                }
+                }
             }
-        }
         if(SmartMode.currentMode.equals("Type_2")){
             if (smart.getBoolValue()) {
                 DraggableTimer dd = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
@@ -77,7 +87,11 @@ public class TimerSmart extends Module {
                 this.animatedCircleEnd = end = coef * 360.0f;
                 this.drawCircle(getX + 16 + 5, (double) getY + 23.5, 11.5, -5.0f, this.animatedCircleEnd, PaletteHelper.astolfoColors(1, 1), 5.5f);
                 this.mc.rubik_15.drawCenteredString(String.valueOf(String.valueOf(Math.round(this.animWidth))) + "%", (float) (getX + 21), (float) (getY + 22), -1);
-
+                float y = dd.getY();
+                float x = dd.getX();
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                }
             }
         }
 
@@ -89,12 +103,15 @@ public class TimerSmart extends Module {
                 RenderUtils.drawBlurredShadow((float) (dt.getX() - 55), (float) (dt.getY()), 60.0f, 12f, 20, new Color(7, 7, 7, 255));
                 RenderUtils.drawBlurredShadow((float) (dt.getX() - 49.8), (float) (dt.getY()), 50.0f, 11.9f, 0, new Color(7, 7, 7, 255));
                 RenderUtils.drawBlurredShadow(dt.getX() - 37, dt.getY() - -11, 26.0f, 10.0f, 3, new Color(7, 7, 7, 255));
-
                 mc.rubik_18.drawCenteredString("timer", dt.getX() - 24, dt.getY() - -14, ClientHelper.getClientColor().getRGB());
 
                 RenderUtils.drawGradientRected(dt.getX() - 50, dt.getY(), 50.0f - (float) Timer.ticks * 1.0f, 12.0, ClientHelper.getClientColor().getRGB(), ClientHelper.getClientColor().brighter().getRGB());
                 Timer.mc.sfui18.drawCenteredString(MathematicHelper.round(100 - (float) Timer.ticks * 2.0f, 1) + "%", dt.getX() - 24, dt.getY() - -3, -1);
-
+                float y = dt.getY();
+                float x = dt.getX();
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                }
 
             }
         }

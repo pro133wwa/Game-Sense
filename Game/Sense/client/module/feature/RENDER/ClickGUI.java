@@ -27,6 +27,7 @@ public class ClickGUI extends Module {
     public static ColorSetting outlinecolor;
     public static ColorSetting bgonecolor;
     public static ColorSetting bgtwocolor;
+    public static ListSetting mode = new ListSetting("Mode", "Rockstar Styled", () -> true, "Rockstar", "Rockstar Styled", "Rockstar New");
     public static NumberSetting speed = new NumberSetting("Speed", 35, 10, 100, 1, () -> true);
     public static NumberSetting glowRadius2 = new NumberSetting("Glow Radius", 10, 5, 10, 1, () -> !potato_mode.getBoolValue());
 

@@ -15,6 +15,7 @@ import Game.Sense.client.Helper.Utility.math.AnimationHelper;
 import Game.Sense.client.Helper.Utility.render.*;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -38,7 +39,6 @@ public class FeatureList extends Module {
     @EventTarget
     public void Event2D(EventRender2D event) {
         if (!isEnabled()) return;
-
         DragModuleList di = (DragModuleList) GameSense.instance.draggableHUD.getDraggableComponentByClass(DragModuleList.class);
         di.setWidth(145);
         di.setHeight(100);
@@ -47,6 +47,7 @@ public class FeatureList extends Module {
         activeModules.sort(Comparator.comparingDouble(s -> -Helper.mc.rubik_15.getStringWidth(s.getLabel().toLowerCase())));
         float displayWidth = di.getX();
         float y = di.getY();
+        float x = di.getX();
         ScaledResolution rs = new ScaledResolution(this.mc);
         int width = GameSense.scale.calc(rs.getScaledWidth());
         int height = GameSense.scale.calc(rs.getScaledHeight());
