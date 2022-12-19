@@ -27,10 +27,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 public class Main
 {
+    public static String user11;
     public static void main(String[] p_main_0_)
     {
-        String user;
-        Scanner s = new Scanner(System.in);
+
+        Scanner qq = new Scanner(System.in);
+        user11 = qq.nextLine();
         final String path = "uid.txt";
         whiteFile(path, UID.getLine());
         whiteFile(path, UID.getUser());

@@ -1,6 +1,8 @@
 package Game.Sense.client.UI.UwU;
 
 
+import net.minecraft.client.main.Main;
+
 import java.io.File;
 
 public class UID {
@@ -22,7 +24,7 @@ public class UID {
     }
 
     public static String getUser() {
-        return user;
+        return user = Main.user11;
     }
 
     public static String getLine() {
