@@ -16,7 +16,7 @@ public class UwU_ {
 
     6) Button
 
-    7)
+    7) Chat
 
     8)
 
