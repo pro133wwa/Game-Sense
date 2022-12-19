@@ -47,7 +47,7 @@ import Game.Sense.client.module.feature.RENDER.ChatHistory;
 import Game.Sense.client.UI.UwU.SplashProgress;
 import Game.Sense.client.UI.UwU.font.FontUtil;
 import Game.Sense.client.UI.UwU.font.MCFontRenderer;
-import Game.Sense.client.UI.Minecraft.GameSenseMainMenu;
+
 import Game.Sense.client.Helper.Utility.other.DiscordHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -55,21 +55,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.GuiControls;
-import net.minecraft.client.gui.GuiGameOver;
-import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.gui.GuiIngameMenu;
-import net.minecraft.client.gui.GuiMemoryErrorScreen;
-import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.GuiNewChat;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiScreenWorking;
-import net.minecraft.client.gui.GuiSleepMP;
-import net.minecraft.client.gui.GuiWinGame;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.gui.ScreenChatOptions;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
@@ -726,7 +712,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
         if (this.serverName != null) {
             JOptionPane.showMessageDialog(null, "Не получилось , не фортануло");
         } else {
-            this.displayGuiScreen(new GameSenseMainMenu());
+            this.displayGuiScreen(new GuiMainMenu());
         }
 
         this.renderEngine.deleteTexture(this.mojangLogo);
@@ -1094,12 +1080,12 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
         }
 
         if (guiScreenIn == null && this.world == null) {
-            guiScreenIn = new GameSenseMainMenu();
+            guiScreenIn = new GuiMainMenu();
         } else if (guiScreenIn == null && this.player.getHealth() <= 0.0F) {
             guiScreenIn = new GuiGameOver((ITextComponent) null);
         }
 
-        if (guiScreenIn instanceof GameSenseMainMenu || guiScreenIn instanceof GuiMultiplayer) {
+        if (guiScreenIn instanceof GuiMainMenu || guiScreenIn instanceof GuiMultiplayer) {
             this.gameSettings.showDebugInfo = false;
             this.ingameGUI.getChatGUI().clearChatMessages(!GameSense.instance.featureManager.getFeature(ChatHistory.class).isEnabled());
         }
