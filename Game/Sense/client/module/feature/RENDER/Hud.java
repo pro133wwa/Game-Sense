@@ -1,5 +1,6 @@
 package Game.Sense.client.module.feature.RENDER;
 
+import Game.Sense.client.UI.UwU.UID;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import Game.Sense.client.GameSense;
 import Game.Sense.client.mine.drag.component.impl.*;
@@ -197,6 +198,8 @@ public class Hud extends Module {
             mc.rubik_18.drawString("Версия: " + ChatFormatting.WHITE + GameSense.instance.version, dsi.getX() + 5, dsi.getY() + 85, -1);
             mc.rubik_18.drawString("Релиз: " + ChatFormatting.WHITE + GameSense.instance.type, dsi.getX() + 5, dsi.getY() + 95, -1);
             mc.rubik_18.drawString("Coder: " + ChatFormatting.WHITE + GameSense.instance.coder, dsi.getX() + 5, dsi.getY() + 105, -1);
+            mc.rubik_18.drawString("UID: " + ChatFormatting.WHITE + UID.getLine(), dsi.getX() + 5, dsi.getY() + 115, -1);
+            mc.rubik_18.drawString("User: " + ChatFormatting.WHITE + UID.getUser(), dsi.getX() + 5, dsi.getY() + 125, -1);
             GLUtils.INSTANCE.rescaleMC();
 
         }
