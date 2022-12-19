@@ -1,6 +1,10 @@
 package net.minecraft.client.gui;
 
+import Game.Sense.client.Helper.Utility.render.RenderUtils;
+import Game.Sense.client.Helper.Utility.render.RoundedUtil;
 import com.google.common.collect.Lists;
+
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -84,10 +88,10 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                drawRect(-2, j2 - 9, 0 + k + 4, j2, l1 / 2 << 24);
+                                //RenderUtils.drawRect(-2, j2 - 9, 0 + k + 50, j2,  new Color(30, 30, 30, 200).getRGB());
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                this.mc.fontRendererObj.drawStringWithShadow(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                this.mc.neverlose900_20.drawStringWithShadow(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
