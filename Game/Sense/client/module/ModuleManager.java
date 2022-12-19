@@ -142,7 +142,7 @@ public class ModuleManager {
         features.add(new ChinaHat());
         features.add(new PearlESP());
         features.add(new NameTags());
-        //features.add(new Trails());
+        features.add(new Trails());
         //features.add(new ItemESP());
         //features.add(new BlockESP());
         features.add(new Tracers());
