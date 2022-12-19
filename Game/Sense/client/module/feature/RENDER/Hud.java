@@ -58,8 +58,8 @@ public class Hud extends Module {
                 GLUtils.INSTANCE.rescale(scale);
                 RoundedUtil.drawGradientCornerLR(dci.getX()+5, dci.getY(), 80,28,4,new Color(ClientHelper.getClientColor().getRGB()),Color.white);
                 RoundedUtil.drawGradientRound(dci.getX()-13,  dci.getY()-6, 40 , 40,20, new Color(ClientHelper.getClientColor().getRGB()),new Color(ClientHelper.getClientColor().getRGB()),Color.white,new Color(ClientHelper.getClientColor().getRGB()));
-                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "GameSense", dci.getX()+30, dci.getY()+6, new Color(255,255,255).getRGB());
-                mc.neverlose900_18.drawStringWithShadow(ChatFormatting.WHITE + "UID" + ChatFormatting.GRAY + " null",  dci.getX()+30, dci.getY()+ 16, new Color(255,255,255).getRGB());
+                mc.neverlose900_18.drawString(ChatFormatting.WHITE + "GameSense", dci.getX()+30, dci.getY()+6, new Color(255,255,255).getRGB());
+                mc.neverlose900_18.drawString(ChatFormatting.WHITE + "UID" + ChatFormatting.GRAY + " null",  dci.getX()+30, dci.getY()+ 16, new Color(255,255,255).getRGB());
                 RenderUtils.drawImage(new ResourceLocation("rich/logo.png"),  dci.getX()-8,  dci.getY()-1, 30, 30,Color.WHITE);
                 GLUtils.INSTANCE.rescaleMC();
 
