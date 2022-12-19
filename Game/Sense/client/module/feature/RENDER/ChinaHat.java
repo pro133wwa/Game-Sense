@@ -3,7 +3,10 @@ package Game.Sense.client.module.feature.RENDER;
 
 import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventTarget;
+import Game.Sense.client.Helper.Utility.render.ColorUtils3;
 import Game.Sense.client.Helper.events.impl.render.EventRender3D;
+import Game.Sense.client.UI.UwU.DrawHelper;
+import Game.Sense.client.UI.UwU.MathUtil;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.UI.Settings.impl.BooleanSetting;
@@ -14,22 +17,23 @@ import Game.Sense.client.Helper.Utility.render.ClientHelper;
 import Game.Sense.client.Helper.Utility.render.ColorUtils;
 import Game.Sense.client.Helper.Utility.render.RenderUtils;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
 public class ChinaHat extends Module {
-    final ListSetting colorMode = new ListSetting("Hat Color", "Astolfo", () -> true, "Astolfo", "Pulse", "China", "Custom", "Client", "Static");
-    final ColorSetting onecolor = new ColorSetting("One Color", new Color(255, 255, 255).getRGB(), () -> colorMode.currentMode.equalsIgnoreCase("Static") || colorMode.currentMode.equalsIgnoreCase("Custom"));
-    final ColorSetting twocolor = new ColorSetting("Two Color", new Color(255, 255, 255).getRGB(), () -> colorMode.currentMode.equalsIgnoreCase("Custom"));
-    final NumberSetting saturation = new NumberSetting("Saturation", 0.7f, 0.1f, 1f, 0.1f, () -> colorMode.currentMode.equalsIgnoreCase("Astolfo"));
-    final BooleanSetting hideInFirstPerson = new BooleanSetting("Hide In First Person", true, () -> true);
+
+    final BooleanSetting astolfo = new BooleanSetting("Astolfo", false, () -> true);
+
+    final BooleanSetting hideInFirstPerson = new BooleanSetting("шл€пка ахуеена", true, () -> true);
 
     public ChinaHat() {
-        super("ChinaHat", "ѕоказывает китайскую шл€пу", ModuleCategory.RENDER);
-        addSettings(colorMode, onecolor, twocolor, saturation, hideInFirstPerson);
+        super("ChinaHat", "epic hat", ModuleCategory.RENDER);
+        addSettings(astolfo);
     }
 
     @EventTarget
@@ -37,91 +41,79 @@ public class ChinaHat extends Module {
         if (ChinaHat.mc.gameSettings.thirdPersonView == 0 && this.hideInFirstPerson.getBoolValue()) {
             return;
         }
-        ItemStack stack = mc.player.getEquipmentInSlot(4);
-        final double height = stack.getItem() instanceof ItemArmor ? mc.player.isSneaking() ? -0.1
-                : 0.12 : GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() &&
-                CustomModel.modelMode.currentMode.equalsIgnoreCase("Amogus") && mc.player.isSneaking() ? -0.42f :
-                GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() &&
-                        CustomModel.modelMode.currentMode.equalsIgnoreCase("GameSense")
-                        && mc.player.isSneaking() ?
-                        0.1f : CustomModel.modelMode.currentMode.equalsIgnoreCase("Jeff Killer") && mc.player.isSneaking() ?
-                        0.09f : CustomModel.modelMode.currentMode.equalsIgnoreCase("Rabbit") && mc.player.isSneaking() ?
-                        -0.01 : mc.player.isSneaking() ? -0.22 : GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled()
-                        && CustomModel.modelMode.currentMode.equalsIgnoreCase("Amogus") ? -0.42f :
-                        GameSense.instance.featureManager.getFeature(CustomModel.class).isEnabled() &&
-                                CustomModel.modelMode.currentMode.equalsIgnoreCase("GameSense") ? 0.2f :
-                                CustomModel.modelMode.currentMode.equalsIgnoreCase("Jeff Killer") ? 0.09f : 0;
-        GlStateManager.pushMatrix();
-        GL11.glDisable(GL11.GL_CULL_FACE);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_ALPHA_TEST);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glShadeModel(GL11.GL_SMOOTH);
-        GL11.glTranslatef(0f, (float) (mc.player.height + height), 0f);
-        GL11.glRotatef(-mc.player.rotationYaw, 0f, 1f, 0f);
-        Color color2 = Color.WHITE;
-        Color firstcolor2 = new Color(onecolor.getColorValue());
-        switch (colorMode.currentMode) {
-            case "Client":
-                color2 = ClientHelper.getClientColor();
-                break;
-            case "Astolfo":
-                color2 = ColorUtils.astolfo(5, 5, saturation.getNumberValue(), 10);
-                break;
-            case "Pulse":
-                color2 = ColorUtils.TwoColoreffect(new Color(255, 50, 50), new Color(79, 9, 9), Math.abs(System.currentTimeMillis() / 10L) / 100.0 + 6.0F * (1 / 16) / 60);
-                break;
-            case "China":
-                color2 = ColorUtils.TwoColoreffect(new Color(255, 50, 50), new Color(79, 9, 9), Math.abs(System.currentTimeMillis() / 10L) / 100.0 + 6.0F * (0 / 16) / 60);
-                break;
-            case "Custom":
-                color2 = ColorUtils.TwoColoreffect(new Color(onecolor.getColorValue()), new Color(twocolor.getColorValue()), Math.abs(System.currentTimeMillis() / 10) / 100.0 + 3.0F * (1 / 16) / 60);
-                break;
-            case "Static":
-                color2 = firstcolor2;
-                break;
+        if (mc.player == null || mc.world == null || mc.player.isInvisible() || mc.player.isDead) return;
+        if (!hideInFirstPerson.getBoolValue() && mc.gameSettings.thirdPersonView == 0) return;
+
+        mc.getRenderManager(); double posX = mc.player.lastTickPosX + (mc.player.posX - mc.player.lastTickPosX) * mc.timer.renderPartialTicks - mc.getRenderManager().renderPosX;
+        mc.getRenderManager(); double posY = mc.player.lastTickPosY + (mc.player.posY - mc.player.lastTickPosY) * mc.timer.renderPartialTicks - mc.getRenderManager().renderPosY;
+        mc.getRenderManager(); double posZ = mc.player.lastTickPosZ + (mc.player.posZ - mc.player.lastTickPosZ) * mc.timer.renderPartialTicks - mc.getRenderManager().renderPosZ;
+
+        AxisAlignedBB axisalignedbb = mc.player.getEntityBoundingBox();
+        double height = axisalignedbb.maxY - axisalignedbb.minY + 0.02D;
+        double radius = axisalignedbb.maxX - axisalignedbb.minX;
+
+        GL11.glPushMatrix();
+        GlStateManager.disableCull();
+        GL11.glDisable(2929);
+        GL11.glDepthMask(false);
+        GL11.glDisable(3553);
+        GL11.glShadeModel(7425);
+        GL11.glEnable(3042);
+        GlStateManager.disableLighting();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+
+        float yaw = MathUtil.interpolate(mc.player.prevRotationYaw, mc.player.rotationYaw, mc.timer.renderPartialTicks).floatValue();
+        float pitchInterpolate = MathUtil.interpolate(mc.player.prevRenderArmPitch, mc.player.renderArmPitch, mc.timer.renderPartialTicks).floatValue();
+
+        GL11.glTranslated(posX, posY, posZ);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glRotated(yaw, 0.0D, -1.0D, 0.0D);
+        GL11.glRotated(pitchInterpolate / 3.0D, 0.0D, 0.0D, 0.0D);
+        GL11.glTranslatef(0.0F, 0.0F, pitchInterpolate / 270.0F);
+        GL11.glLineWidth(2.0F);
+        GL11.glBegin(2);
+
+
+        for (int i = 0; i <= 180; i++) {
+            int color1 = !this.astolfo.getBoolValue() ? ColorUtils.rainbow(35, i * 4, 1.0F, 1.0F, 0.5F).getRGB() : DrawHelper.getColorWithOpacity(ColorUtils3.skyRainbow(7, i * 4), 150).getRGB();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderUtils.color(color1);
+            GL11.glVertex3d(posX -
+                    Math.sin((i * 6.2831855F / 90.0F)) * radius, posY + height - (
+                    mc.player.isSneaking() ? 0.23D : 0.0D) - 0.002D, posZ +
+                    Math.cos((i * 6.2831855F / 90.0F)) * radius);
         }
 
-        GL11.glBegin(GL11.GL_TRIANGLE_FAN);
-        RenderUtils.glColor(color2, 255);
-        GL11.glVertex3d(0.0, 0.3, 0.0);
-
-        for (float i = 0; i < 360.5; i += 1) {
-            Color color = Color.WHITE;
-            Color firstcolor = new Color(onecolor.getColorValue());
-            switch (colorMode.currentMode) {
-                case "Client":
-                    color = ClientHelper.getClientColor();
-                    break;
-                case "Astolfo":
-                    color = ColorUtils.astolfo(i - i + 1, i, saturation.getNumberValue(), 10);
-                    break;
-                case "Pulse":
-                    color = ColorUtils.TwoColoreffect(new Color(255, 50, 50), new Color(79, 9, 9), Math.abs(System.currentTimeMillis() / 10L) / 100.0 + 6.0F * (i / 16) / 60);
-                    break;
-                case "China":
-                    color = ColorUtils.TwoColoreffect(new Color(255, 50, 50), new Color(79, 9, 9), Math.abs(System.currentTimeMillis() / 10L) / 100.0 + 6.0F * (i - i / 16) / 60);
-                    break;
-                case "Custom":
-                    color = ColorUtils.TwoColoreffect(new Color(onecolor.getColorValue()), new Color(twocolor.getColorValue()), Math.abs(System.currentTimeMillis() / 10) / 100.0 + 3.0F * (i / 16) / 60);
-                    break;
-                case "Static":
-                    color = firstcolor;
-                    break;
-            }
-
-            RenderUtils.glColor(color, 180);
-            GL11.glVertex3d(Math.cos(i * Math.PI / 180.0) * 0.66, 0, Math.sin(i * Math.PI / 180.0) * 0.66);
-
-        }
         GL11.glEnd();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glShadeModel(GL11.GL_FLAT);
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GlStateManager.resetColor();
-        GlStateManager.popMatrix();
+
+        GL11.glBegin(6);
+        int color12 = !this.astolfo.getBoolValue() ? ColorUtils.rainbow(35, 4, 1.0F, 1.0F, 0.2F).getRGB() : DrawHelper.getColorWithOpacity(ColorUtils3.skyRainbow(7, 4), 80).getRGB();
+        RenderUtils.color(color12);
+        GL11.glVertex3d(posX, posY + height + 0.3D - (mc.player.isSneaking() ? 0.23D : 0.0D), posZ);
+
+
+        for (int j = 0; j <= 180; j++) {
+            int color1 = !this.astolfo.getBoolValue() ? ColorUtils.rainbow(35, j * 4, 1.0F, 1.0F, 0.2F).getRGB() : DrawHelper.getColorWithOpacity(ColorUtils3.skyRainbow(7, j * 4), 80).getRGB();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderUtils.color(color1);
+            GL11.glVertex3d(posX - Math.sin((j * 6.2831855F / 90.0F)) * radius, posY + height - (
+                    mc.player.isSneaking() ? 0.23F : 0.0F), posZ +
+                    Math.cos((j * 6.2831855F / 90.0F)) * radius);
+        }
+
+        //etc ne gey
+        GL11.glVertex3d(posX, posY + height + 0.3D - (mc.player.isSneaking() ? 0.23D : 0.0D), posZ);
+        GL11.glEnd();
+
+
+        GL11.glPopMatrix();
+
+        GL11.glEnable(2884);
+        GL11.glEnable(3553);
+        GL11.glShadeModel(7424);
+        GL11.glDepthMask(true);
+        GL11.glEnable(2929);
     }
 }

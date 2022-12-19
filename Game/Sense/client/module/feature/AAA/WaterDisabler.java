@@ -17,20 +17,10 @@ public class WaterDisabler extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdate event) {
-
-        int i = 0;
-        if (timerHelper.hasReached(1000)) {
             mc.player.sendChatMessage(".wclip 85");
-            i++;
-        }
-        if(i==1){
-
+            mc.player.sendChatMessage("пробую");
             mc.player.sendChatMessage(".wclip 5");
             GameSense.instance.featureManager.getFeature(WaterDisabler.class).setEnabled(false);
-
-        }
-
-
     }
 
     @Override

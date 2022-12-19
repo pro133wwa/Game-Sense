@@ -66,7 +66,7 @@ public class FeatureList extends Module {
                     if (feature.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && feature.getCategory() == ModuleCategory.RENDER || onlyBinds.getBoolValue() && feature.getBind() == 0)
                         continue;
                     stringWidth = this.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) + 3;
-                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 25), 255).getRGB());
+                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,ClientHelper.getClientColor(y, yTotal, 123).getRGB());
                     Helper.mc.rubik_15.drawString(feature.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 4f, y + Helper.mc.rubik_15.getFontHeight() + (float)offset - 4, -1);
                     RenderUtils.drawRect4(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.WHITE.getRGB());
 

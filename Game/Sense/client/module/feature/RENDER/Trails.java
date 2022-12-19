@@ -1,6 +1,7 @@
 package Game.Sense.client.module.feature.RENDER;
 
 import Game.Sense.client.Helper.EventTarget;
+import Game.Sense.client.Helper.Utility.Helper;
 import Game.Sense.client.Helper.events.impl.player.EventPreMotion;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
 import Game.Sense.client.Helper.events.impl.render.EventRender3D;
@@ -24,6 +25,17 @@ import java.util.List;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
 
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
+
 public class Trails extends Module {
 
     ArrayList<Point> points = new ArrayList<Point>();
@@ -34,8 +46,8 @@ public class Trails extends Module {
     public static ListSetting colorMode = new ListSetting("Trails Color", "Astolfo", () -> true, "Astolfo", "Rainbow", "Pulse", "Custom", "Client", "Static");
     public static ColorSetting onecolor = new ColorSetting("One Color", new Color(255, 255, 255).getRGB(), () -> colorMode.currentMode.equalsIgnoreCase("Static") || colorMode.currentMode.equalsIgnoreCase("Custom"));
     public static ColorSetting twocolor = new ColorSetting("Two Color", new Color(255, 255, 255).getRGB(), () -> colorMode.currentMode.equalsIgnoreCase("Custom"));
-    public static NumberSetting removeticks = new NumberSetting("Remove Ticks", "Задержка после которой будут пропадать трейлы", 100, 1, 500, 1, () -> trailsMode.currentMode.equalsIgnoreCase("Line"));
-    public static NumberSetting alpha = new NumberSetting("Alpha Trails", "Прозрачность", 255, 1, 255, 1, () -> trailsMode.currentMode.equalsIgnoreCase("Line"));
+    public static NumberSetting removeticks = new NumberSetting("Remove Ticks", "???????? ????? ??????? ????? ????????? ??????", 100, 1, 500, 1, () -> trailsMode.currentMode.equalsIgnoreCase("Line"));
+    public static NumberSetting alpha = new NumberSetting("Alpha Trails", "????????????", 255, 1, 255, 1, () -> trailsMode.currentMode.equalsIgnoreCase("Line"));
     public static BooleanSetting smoothending = new BooleanSetting("Smooth Ending", true, () -> trailsMode.currentMode.equalsIgnoreCase("Line"));
     public static NumberSetting saturation = new NumberSetting("Saturation", 0.7f, 0.1f, 1f, 0.1f, () -> colorMode.currentMode.equalsIgnoreCase("Astolfo"));
     private final BooleanSetting onlyMeTrails = new BooleanSetting("Only Me", true, () -> true);
@@ -43,21 +55,20 @@ public class Trails extends Module {
     List<Vec3d> path = new ArrayList<>();
 
     public Trails() {
-        super("Trails", "Показывает линию взади вас", ModuleCategory.RENDER);
+        super("Trails", "Очень красиво))", ModuleCategory.RENDER);
         addSettings(trailsMode, colorMode, onecolor, twocolor, timeoutBool, timeout, saturation, removeticks, alpha, smoothending, onlyMeTrails);
     }
 
     @EventTarget
     public void onUpdate(EventUpdate eventUpdate) {
-        this.setSuffix(colorMode.currentMode);
     }
 
     @EventTarget
     public void onPreMotion(EventPreMotion event) {
         if (trailsMode.currentMode.equalsIgnoreCase("Circle")) {
 
-            if (mc.player.lastTickPosX != mc.player.posX || mc.player.lastTickPosY != mc.player.posY || mc.player.lastTickPosZ != mc.player.posZ) {
-                path.add(new Vec3d(mc.player.posX, mc.player.posY, mc.player.posZ));
+            if (Helper.mc.player.lastTickPosX != Helper.mc.player.posX || Helper.mc.player.lastTickPosY != Helper.mc.player.posY || Helper.mc.player.lastTickPosZ != Helper.mc.player.posZ) {
+                path.add(new Vec3d(Helper.mc.player.posX, Helper.mc.player.posY, Helper.mc.player.posZ));
             }
 
             if (timeoutBool.getBoolValue())
@@ -78,13 +89,13 @@ public class Trails extends Module {
     public void onRender(EventRender3D event) {
         if (trailsMode.currentMode.equalsIgnoreCase("Line")) {
 
-            if ((mc.gameSettings.thirdPersonView == 1 || mc.gameSettings.thirdPersonView == 2)) {
+            if ((Helper.mc.gameSettings.thirdPersonView == 0 || Helper.mc.gameSettings.thirdPersonView == 1 || Helper.mc.gameSettings.thirdPersonView == 3)) {
 
                 points.removeIf(p -> p.age >= removeticks.getNumberValue());
 
-                float x = (float) (mc.player.lastTickPosX + (mc.player.posX - mc.player.lastTickPosX) * event.getPartialTicks());
-                float y = (float) (mc.player.lastTickPosY + (mc.player.posY - mc.player.lastTickPosY) * event.getPartialTicks());
-                float z = (float) (mc.player.lastTickPosZ + (mc.player.posZ - mc.player.lastTickPosZ) * event.getPartialTicks());
+                float x = (float) (Helper.mc.player.lastTickPosX + (Helper.mc.player.posX - Helper.mc.player.lastTickPosX) * event.getPartialTicks());
+                float y = (float) (Helper.mc.player.lastTickPosY + (Helper.mc.player.posY - Helper.mc.player.lastTickPosY) * event.getPartialTicks());
+                float z = (float) (Helper.mc.player.lastTickPosZ + (Helper.mc.player.posZ - Helper.mc.player.lastTickPosZ) * event.getPartialTicks());
 
                 points.add(new Point((float) (x), y, (float) (z)));
 
@@ -109,10 +120,10 @@ public class Trails extends Module {
                     Color firstcolor = new Color(onecolor.getColorValue());
                     switch (colorMode.currentMode) {
                         case "Client":
-                            color = ClientHelper.getClientColor();
+                            color = ClientHelper.getClientColor(t.age / 16, 5, t.age, 5);
                             break;
                         case "Astolfo":
-                            color = ColorUtils.astolfo(t.age - t.age, t.age, saturation.getNumberValue(), 4);
+                            color = ColorUtils.astolfo(t.age  - t.age + 1, t.age, this.saturation.getNumberValue(), 16);
                             break;
                         case "Rainbow":
                             color = ColorUtils.rainbow((int) (t.age * 16), (float) 0.5f, 1.0f);
@@ -132,19 +143,19 @@ public class Trails extends Module {
                     Color c = RenderUtils.injectAlpha(color, (int) a);
 
                     glBegin(GL_QUAD_STRIP);
-                    final double x2 = t.x - mc.getRenderManager().renderPosX;
-                    final double y2 = t.y - mc.getRenderManager().renderPosY;
-                    final double z2 = t.z - mc.getRenderManager().renderPosZ;
+                    final double x2 = t.x - Helper.mc.getRenderManager().renderPosX;
+                    final double y2 = t.y - Helper.mc.getRenderManager().renderPosY;
+                    final double z2 = t.z - Helper.mc.getRenderManager().renderPosZ;
 
-                    final double x1 = temp.x - mc.getRenderManager().renderPosX;
-                    final double y1 = temp.y - mc.getRenderManager().renderPosY;
-                    final double z1 = temp.z - mc.getRenderManager().renderPosZ;
+                    final double x1 = temp.x - Helper.mc.getRenderManager().renderPosX;
+                    final double y1 = temp.y - Helper.mc.getRenderManager().renderPosY;
+                    final double z1 = temp.z - Helper.mc.getRenderManager().renderPosZ;
 
                     RenderUtils.glColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 0).getRGB());
-                    glVertex3d(x2, y2 + mc.player.height - 0.1, z2);
+                    glVertex3d(x2, y2 + Helper.mc.player.height - 0.1, z2);
                     RenderUtils.glColor(c.getRGB());
                     glVertex3d(x2, y2 + 0.2, z2);
-                    glVertex3d(x1, y1 + mc.player.height - 0.1, z1);
+                    glVertex3d(x1, y1 + Helper.mc.player.height - 0.1, z1);
                     glVertex3d(x1, y1 + 0.2, z1);
                     glEnd();
                     ++t.age;
