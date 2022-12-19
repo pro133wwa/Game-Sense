@@ -24,6 +24,7 @@ import Game.Sense.client.Helper.Utility.render.cosmetic.CosmeticRender;
 import Game.Sense.client.Helper.Utility.render.cosmetic.impl.DragonWing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
 import java.awt.*;
@@ -45,6 +46,8 @@ public class GameSense {
 
     public FriendManager friendManager;
     public ClickGuiScreen clickGui;
+    private static Logger logger;
+
     public static GameSense instance = new GameSense();
 
     public static double deltaTime() {
@@ -56,7 +59,9 @@ public class GameSense {
     public String version = "0.1";
     public String coder = "UwU_, toperov, DiGGeR";
 
+
     public void init() {
+
 
         time = System.currentTimeMillis();
         Display.setTitle(name + " " + type + " " + version);
