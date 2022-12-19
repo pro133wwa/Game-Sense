@@ -1,16 +1,22 @@
 package net.minecraft.client.main;
 
+import Game.Sense.client.UI.UwU.UID;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.util.List;
+import java.util.Scanner;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -23,6 +29,14 @@ public class Main
 {
     public static void main(String[] p_main_0_)
     {
+        String user;
+        Scanner s = new Scanner(System.in);
+        final String path = "uid.txt";
+        whiteFile(path, UID.getLine());
+        whiteFile(path, UID.getUser());
+        System.out.println(readFile(path));
+
+
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();
         optionparser.accepts("demo");
@@ -122,5 +136,40 @@ public class Main
     private static boolean isNullOrEmpty(String str)
     {
         return str != null && !str.isEmpty();
+    }
+
+
+
+    public static /*void*/String readFile(String path) /*throws MyException*/ {
+
+        File file = new File(path);
+        if (!file.exists()) {
+            return null;
+        }
+        try (Scanner scanner = new Scanner(file)) {
+            StringBuilder result = new StringBuilder();
+            while (scanner.hasNext()) {
+                result.append(scanner.nextLine());
+            }
+            return result.toString();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+    public static void whiteFile(String path, String text) {
+
+        File file = new File(path);
+        try (FileWriter fr = new FileWriter(file, false)) {
+            fr.write(text);
+            fr.write("\n");
+            fr.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

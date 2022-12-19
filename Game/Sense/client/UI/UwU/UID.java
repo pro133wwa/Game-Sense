@@ -1,8 +1,14 @@
 package Game.Sense.client.UI.UwU;
 
+
+import java.io.File;
+
 public class UID {
     public static String login;
-    public static String uid;
+    public static int uid = 0;
+    public static String line = "";
+    public static String user = "";
+
     public static String subDate;
     public static String vkID;
 
@@ -10,8 +16,17 @@ public class UID {
         return login;
     }
 
-    public static String getUid() {
-        return uid;
+    public static int getUid() {
+
+        return uid + 1;
+    }
+
+    public static String getUser() {
+        return user;
+    }
+
+    public static String getLine() {
+        return line = String.valueOf(getUid());
     }
 
     public static String getSubDate() {
