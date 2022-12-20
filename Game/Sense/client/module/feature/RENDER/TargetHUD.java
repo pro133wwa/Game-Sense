@@ -36,7 +36,7 @@ public class TargetHUD extends Module {
     public static TimerHelper thudTimer = new TimerHelper();
     private float healthBarWidth;
     private ArrayList<Particles> particles = new ArrayList<>();
-    public ListSetting targetHudMode = new ListSetting("TargetHUD Mode", "Style", () -> true, "Style", "Nurik","Celestial");
+    public ListSetting targetHudMode = new ListSetting("TargetHUD Mode", "Nurik", () -> true,  "Nurik","Celestial");
     public static ListSetting thudColorMode = new ListSetting("TargetHUD Color", "Astolfo", () -> true, "Astolfo", "Rainbow", "Client", "Custom");
     public BooleanSetting particles2 = new BooleanSetting("Particles", thudColorMode.currentMode.equals("Custom"), () -> targetHudMode.currentMode.equals("Style") && thudColorMode.currentMode.equals("Custom"));
     public static ColorSetting targetHudColor = new ColorSetting("THUD Color", Color.PINK.getRGB(), () -> thudColorMode.currentMode.equals("Custom"));
@@ -45,7 +45,7 @@ public class TargetHUD extends Module {
 
     public TargetHUD() {
         super("TargetHUD", ModuleCategory.RENDER);
-        addSettings(targetHudMode, thudColorMode, particles2, targetHudColor, shadowThud, blurThud);
+        addSettings(targetHudMode);
     }
 
     @EventTarget
@@ -329,8 +329,13 @@ public class TargetHUD extends Module {
                                 GL11.glPopMatrix();
                                 GlStateManager.bindTexture(0);
                                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
-                                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
-                            }
+                                    if (Button.hitBox.getBoolValue()){
+                                        RoundedUtil.drawRound(x, y, dth.getWidth(), dth.getHeight(), 2, new Color(35, 35, 35, 150));
+                                    }
+                                    if (Button.kur.getBoolValue()){
+                                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                                    }
+                                }
                             }
                         } catch (Exception exception) {
                         }
