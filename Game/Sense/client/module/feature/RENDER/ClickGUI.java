@@ -26,6 +26,8 @@ public class ClickGUI extends Module {
     public static ColorSetting color;
 
     public static ColorSetting outlinecolor;
+    public static ListSetting glowMode = new ListSetting("Glow Mode", "Static", () -> glowGUI.getBoolValue(), "Gradient", "Static");
+    public static ColorSetting glowColor;
     public static ColorSetting bgonecolor;
     public static ColorSetting bgtwocolor;
     public static ListSetting mode = new ListSetting("Mode", "Rockstar Styled", () -> true, "Rockstar", "Rockstar Styled", "Rockstar New");
@@ -36,10 +38,11 @@ public class ClickGUI extends Module {
         super("ClickGUI", "Меню чита", ModuleCategory.RENDER);
         setBind(Keyboard.KEY_RSHIFT);
         color = new ColorSetting("Text Color", new Color(255, 255, 255, 255).getRGB(), () -> true);
+        glowColor = new ColorSetting("Glow Color", new Color(255, 255, 255, 255).getRGB(), () -> glowGUI.getBoolValue());
         outlinecolor = new ColorSetting("Outline Color", new Color(255, 255, 255, 255).getRGB(), () -> true);
         bgonecolor = new ColorSetting("Gui Color 1", new Color(255, 0, 0, 255).getRGB(), () -> true);
         bgtwocolor = new ColorSetting("Gui Color 2", new Color(0, 44, 255, 255).getRGB(), () -> true);
-        addSettings(color, bgonecolor, bgtwocolor, glowGUI);
+        addSettings(color, bgonecolor, bgtwocolor, glowGUI, glowColor, glowMode);
 
     }
 

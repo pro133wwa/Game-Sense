@@ -66,6 +66,7 @@ public class TimerSmart extends Module {
                 float y = dt.getY();
                 float x = dt.getX();
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RoundedUtil.drawRound(x, y, dt.getWidth(), dt.getHeight(), 2, new Color(35, 35, 35, 150));
                     RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
                 }
                 }
@@ -90,6 +91,7 @@ public class TimerSmart extends Module {
                 float y = dd.getY();
                 float x = dd.getX();
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RoundedUtil.drawRound(x, y, dd.getWidth(), dd.getHeight(), 2, new Color(35, 35, 35, 150));
                     RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
                 }
             }
@@ -110,6 +112,7 @@ public class TimerSmart extends Module {
                 float y = dt.getY();
                 float x = dt.getX();
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    RoundedUtil.drawRound(x, y, dt.getWidth(), dt.getHeight(), 2, new Color(35, 35, 35, 150));
                     RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
                 }
 

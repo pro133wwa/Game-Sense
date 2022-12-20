@@ -64,6 +64,7 @@ public final class Panel extends DraggablePanel {
         float top2 = y + 13.0f;
 
         Color color = new Color(ClickGUI.color.getColorValue());
+        Color colorGUI = new Color(ClickGUI.glowColor.getColorValue());
 
         float extendedHeight = 2;
         Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
@@ -82,7 +83,12 @@ public final class Panel extends DraggablePanel {
         Color rainbowColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 0,threecolor,threecolor);
 
         if(ClickGUI.glowGUI.getBoolValue()){
-            RenderUtils.drawBlurredShadow(x - 5f,y - 5f,width + 10,headerHeight-extendedHeight + 10,25,gradientColor1);
+            if(ClickGUI.glowMode.currentMode.equals("Gradient")){
+                RenderUtils.drawBlurredShadow(x - 5f,y - 5f,width + 10,headerHeight-extendedHeight + 10,25,gradientColor1);
+            }
+            if(ClickGUI.glowMode.currentMode.equals("Static")){
+                RenderUtils.drawBlurredShadow(x - 5f,y - 5f,width + 10,headerHeight-extendedHeight + 10,25, colorGUI);
+            }
         }
 
 
