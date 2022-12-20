@@ -168,4 +168,24 @@ public class RenderHelper
     public static void drawRectBetter(double x, double y, double width, double height, int color) {
         drawRect(x, y, x + width, y + height, color);
     }
+    public static void color(float red, float green, float blue, float alpha) {
+        GlStateManager.color(red, green, blue, alpha);
+    }
+
+    public static void color(float red, float green, float blue) {
+        RenderHelper.color(red, green, blue, 1.0f);
+    }
+    public static void color(int hexColor) {
+        float red = (float)(hexColor >> 16 & 0xFF) / 255.0f;
+        float green = (float)(hexColor >> 8 & 0xFF) / 255.0f;
+        float blue = (float)(hexColor & 0xFF) / 255.0f;
+        float alpha = (float)(hexColor >> 24 & 0xFF) / 255.0f;
+        GlStateManager.color(red, green, blue, alpha);
+    }
+    public static void color(Color color) {
+        if (color == null) {
+            color = Color.white;
+        }
+        RenderHelper.color((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+    }
 }

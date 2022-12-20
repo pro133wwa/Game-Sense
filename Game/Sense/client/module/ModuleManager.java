@@ -130,7 +130,8 @@ public class ModuleManager {
         features.add(new DamageParticles());
         features.add(new SwingAnimations());
         features.add(new WorldFeatures());
-        features.add(new JumpCircle());
+        features.add(new JumpCircles());
+        features.add(new ArmorHUD());
         //features.add(new EntityESP());
         features.add(new Chams());
         features.add(new FullBright());
