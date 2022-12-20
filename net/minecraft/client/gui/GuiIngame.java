@@ -78,6 +78,7 @@ public class GuiIngame extends Gui {
     private static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation("textures/gui/widgets.png");
     private static final ResourceLocation PUMPKIN_BLUR_TEX_PATH = new ResourceLocation("textures/misc/pumpkinblur.png");
     private final Random rand = new Random();
+    public static float progress;
     private final Minecraft mc;
     private final RenderItem itemRenderer;
 
