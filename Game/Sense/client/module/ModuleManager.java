@@ -80,6 +80,7 @@ public class ModuleManager {
         features.add(new AirJump());
         features.add(new Flight());
         features.add(new Button());
+        features.add(new Radar());
         features.add(new Sprint());
         features.add(new Speed());
         features.add(new Jesus());
