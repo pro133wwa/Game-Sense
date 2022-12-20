@@ -9,6 +9,8 @@ import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.Helper.Utility.other.ChatUtils;
 import net.minecraft.network.play.client.CPacketPlayer;
 
+import java.util.Random;
+
 
 public class KTLeave extends Module
 {
@@ -17,14 +19,18 @@ public class KTLeave extends Module
         super("KTLeave", "", ModuleCategory.MOVEMENT);
     }
 
+    public static int generateRandomNumber(int n) {
+        return new Random().nextInt(n + 1);
+    }
+
 
     @EventTarget
     public void onUpdate(final EventUpdate event) {
-        float endX = 15900;
-        float endZ = -1000;
-        float endY = 70;
+        int endX = generateRandomNumber(10000);
+        int endZ = generateRandomNumber(10000);
+        int endY = 200;
         if(mc.player.isSneaking() && mc.player.ticksExisted % 8 == 0) {
-            ChatUtils.addChatMessage("  Вы телепортированы на:" + endX + " " + endY + " " + endZ);
+            ChatUtils.addChatMessage(endX + "-X   " + endY + "-Y   " + endZ + "-Z   ");
             if (mc.player.posX != endX && mc.player.posZ != endZ) {
                 mc.player.motionY = 0.05f;
                 mc.player.connection.sendPacket(new CPacketPlayer.Position(endX + 0.5, endY, endZ - 0.5, false));
