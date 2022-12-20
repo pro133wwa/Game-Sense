@@ -84,7 +84,7 @@ public class ModuleManager {
         features.add(new Jesus());
         features.add(new Strafe());
         features.add(new Timer());
-        features.add(new WaterDisabler());
+        //features.add(new WaterDisabler());
         //features.add(new NoWeb());
         //features.add(new ElytraFly());
 
