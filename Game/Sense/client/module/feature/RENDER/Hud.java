@@ -181,10 +181,10 @@ public class Hud extends Module {
             Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);
 
 
-            RenderUtils.drawBlurredShadow(dsi.getX(), dsi.getY(), 145, 115, 25, new Color(255, 255, 255));
+            RenderUtils.drawBlurredShadow(dsi.getX(), dsi.getY(), 145, 135, 25, new Color(255, 255, 255));
             //RoundedUtil.drawRoundOutline(dsi.getX(),dsi.getY(), 140, 105, 10,3,new Color(0,0,0, 0), new Color(255, 255, 255));
             //RoundedUtil.drawGradientRound(dsi.getX(), dsi.getY(), 130,56,10, ClientHelper.getClientColor(getY(), getY(), 20), new Color(208, 208, 208), new Color(190, 190, 190), ClientHelper.getClientColor(getY(), getY(), 20));
-            RoundedUtil.drawGradientRound(dsi.getX(), dsi.getY(), 145, 115, 4, ColorUtils2.applyOpacity(gradientColor4, .85f), gradientColor1, gradientColor3, gradientColor2);
+            RoundedUtil.drawGradientRound(dsi.getX(), dsi.getY(), 145, 135, 4, ColorUtils2.applyOpacity(gradientColor4, .85f), gradientColor1, gradientColor3, gradientColor2);
 
 
             mc.rubik_18.drawString(ChatFormatting.WHITE + GameSense.instance.name + ": ", dsi.getX() + 5, dsi.getY() + 7.3f, -1);
