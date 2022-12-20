@@ -60,13 +60,13 @@ public class KillAura extends Module {
     public static NumberSetting pitchHead = new NumberSetting("Pitch Head", 0.35f, 0.1f, 1.2f, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
     public BooleanSetting rayCast = new BooleanSetting("RayCast", "Проверяет навелась ли ротация на хит-бокс энтити", false, () -> true);
     public static BooleanSetting walls = new BooleanSetting("Walls", "Позволяет бить сквозь стены", true, () -> true);
-    public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "Бьет в нужный момент для крита", false, () -> true);
+    public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "Бьет в нужный момент для крита", true, () -> true);
     public BooleanSetting spaceOnly = new BooleanSetting("Space Only", "Only Crits будут работать если зажат пробел", false, () -> onlyCritical.getBoolValue());
     public NumberSetting criticalFallDistance = new NumberSetting("Critical Fall Distance", "Регулировка дистанции до земли для крита", 0.2F, 0.08F, 1F, 0.01f, () -> onlyCritical.getBoolValue());
-    public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "Отжимает щит во время удара, помогает обойти Matrix", false, () -> true);
+    public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "Отжимает щит во время удара, помогает обойти Matrix", true, () -> true);
     public NumberSetting fixerDelay = new NumberSetting("Fixer Delay", "Регулировка как долго щит будет отжмиматься (чем больше, тем щит будет дольше отжиматься)", 150.0f, 0.0f, 600.0f, 10.0f, () -> shieldFixer.getBoolValue());
-    public BooleanSetting shieldDesync = new BooleanSetting("Shield Desync", false, () -> true);
-    public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "Автоматически ломает щит противнику", false, () -> true);
+    public BooleanSetting shieldDesync = new BooleanSetting("Shield Desync", true, () -> true);
+    public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "Автоматически ломает щит противнику", true, () -> true);
     public static BooleanSetting breakNotifications = new BooleanSetting("Break Notifications", true, () -> shieldBreaker.getBoolValue());
     public static BooleanSetting silentMove = new BooleanSetting("SilentMove", false, () -> true);
     public static MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets", new BooleanSetting("Players", true), new BooleanSetting("Mobs"), new BooleanSetting("Animals"), new BooleanSetting("Villagers"), new BooleanSetting("Invisibles", true));
