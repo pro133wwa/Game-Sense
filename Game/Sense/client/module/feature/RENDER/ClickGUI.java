@@ -39,7 +39,7 @@ public class ClickGUI extends Module {
         outlinecolor = new ColorSetting("Outline Color", new Color(255, 255, 255, 255).getRGB(), () -> true);
         bgonecolor = new ColorSetting("Gui Color 1", new Color(255, 0, 0, 255).getRGB(), () -> true);
         bgtwocolor = new ColorSetting("Gui Color 2", new Color(0, 44, 255, 255).getRGB(), () -> true);
-        addSettings(color, backGroundColor, bgonecolor, bgtwocolor, glowGUI);
+        addSettings(color, bgonecolor, bgtwocolor, glowGUI);
 
     }
 
