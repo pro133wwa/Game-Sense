@@ -20,7 +20,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.network.play.client.CPacketEntityAction;
 
 public class Strafe extends Module {
-    public ListSetting strafeMode = new ListSetting("Strafe Mode", "Matrix", () -> true, "Matrix");
+    public ListSetting strafeMode = new ListSetting("Strafe Mode", "Matrix", () -> true, "Matrix","Hard");
     public final NumberSetting strafeSpeed = new NumberSetting("Strafe Speed", 0.2F, 0.01f, 0.3f, 0.01F, () -> strafeMode.currentMode.equals("Elytra"));
 
     public Strafe() {
@@ -30,40 +30,20 @@ public class Strafe extends Module {
 
     @EventTarget
     public void onPre(EventMove eventPreMotion) {
-        if (strafeMode.currentMode.equalsIgnoreCase("Elytra")) {
-            eventPreMotion.setCancelled(true);
-
-            int emptySlot = InventoryUtil.getItemIndex(Item.getItemFromBlock(Blocks.AIR));
-            if (emptySlot != -1 && Helper.mc.player.inventory.getItemStack().getItem() == Items.ELYTRA && InventoryUtil.getItemIndex(Items.ELYTRA) == -1) {
-                Helper.mc.playerController.windowClick(0, emptySlot < 9 ? emptySlot + 36 : emptySlot, 1, ClickType.PICKUP, Helper.mc.player);
-            }
-            if (InventoryUtil.getItemIndex(Items.ELYTRA) == -1 || Helper.mc.player.otherCheck()) {
-                return;
-            }
-
-            if (Helper.mc.player.inventory.getItemStack().getItem() instanceof ItemArmor && Helper.mc.player.inventory.armorItemInSlot(2).isEmpty()) {
-                ItemArmor armor = (ItemArmor) Helper.mc.player.inventory.getItemStack().getItem();
-
-                if (armor.armorType == EntityEquipmentSlot.CHEST) {
-                    Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
+        if (strafeMode.currentMode.equalsIgnoreCase("Hard")) {
+            if (MovementUtils.isMoving()) {
+                Helper.mc.player.setSprinting(true);
+                if (MovementUtils.getSpeed() < 2.5000f) {
+                    Helper.mc.player.jumpMovementFactor = 2.100f;
+                    MovementUtils.strafe();
+                        MovementUtils.strafe();
+                    }
+                    if (Helper.mc.player.onGround) {
+                        MovementUtils.strafe();
+                    }
                 }
-            }
-            if (Helper.mc.player.inventory.getItemStack().getItem() instanceof ItemArmor && !Helper.mc.player.inventory.armorItemInSlot(2).isEmpty()) {
-                Helper.mc.playerController.windowClick(0, 6, 1, ClickType.PICKUP, Helper.mc.player);
-                int emptySlot2 = InventoryUtil.getItemIndex(Item.getItemFromBlock(Blocks.AIR));
-                if (emptySlot2 != -1 && Helper.mc.player.inventory.getItemStack().getItem() == Items.ELYTRA && InventoryUtil.getItemIndex(Items.ELYTRA) == -1) {
-                    Helper.mc.playerController.windowClick(0, emptySlot2 < 9 ? emptySlot2 + 36 : emptySlot2, 1, ClickType.PICKUP, Helper.mc.player);
-                }
-            }
-            if (Helper.mc.player.ticksExisted % 25 == 0) {
-                disabler();
-            }
-            if(!Helper.mc.player.onGround) {
-                MovementUtils.setMotion((MovementUtils.getSpeed() * 1) + (strafeSpeed.getNumberValue()));
-                MovementUtils.strafe();
             }
         }
-    }
 
     @EventTarget
     public void onUpdate(EventUpdate eventUpdate) {

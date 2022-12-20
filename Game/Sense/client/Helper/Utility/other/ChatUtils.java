@@ -8,7 +8,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public class ChatUtils implements Helper {
 
-    public static String chatPrefix = "\2477[" + TextFormatting.WHITE + GameSense.instance.name + "\2477] " + ChatFormatting.RESET;
+    public static String chatPrefix = "\2477[" + TextFormatting.RED + GameSense.instance.name2 + "\2477] " + TextFormatting.RED;
 
     public static void addChatMessage(String message) {
         mc.player.addChatMessage(new TextComponentString(chatPrefix + message));

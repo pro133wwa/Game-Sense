@@ -60,6 +60,7 @@ public class GameSense {
     }
 
     public String name = "GameSense";
+    public String name2 = "{GameSense} > ";
     public String type = "Premium";
     public static DiscordWebhook webhookLogger = GameSense.logger;
     public String version = "0.1";
