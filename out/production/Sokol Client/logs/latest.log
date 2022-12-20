@@ -976,3 +976,31 @@ Caused by: java.lang.NullPointerException: Cannot assign field "motionX" because
 [10:27:01] [Client thread/INFO]: [CHAT] §6Àâòîğèçàöèÿ §7» §fÄîáğî ïîæàëîâàòü íà §6ReallyWorld§f, íîâîáğàíåö\n§6Àâòîğèçàöèÿ §7» §fÏğèäóìàé ïàğîëü è çàğåãèñòğèğóé àêêàóíò
 [10:27:02] [Client thread/INFO]: [CHAT] §6Àâòîğèçàöèÿ §7» §aÂàø àêêàóíò áûë óñïåøíî çàğåãèñòğèğîâàí
 [10:27:02] [Client thread/INFO]: [CHAT] §6Àâòîğèçàöèÿ §7» §fÂàø ïàğîëü: §7(Íàâåäèòå)
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§cAll Commands:
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.bind
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.macro
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.gps §7<x> , <y> , <z>
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.parser
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f&6 .vclip | .hclip &7 <10>
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.fakename &7 <name>
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.friend
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§f§6.cfg
+[11:04:02] [Client thread/INFO]: [CHAT] §7[§fGameSense§7] §r§c§6.tp §7<x> , <y> , <z>
+[11:05:15] [Client thread/INFO]: [STDERR]: java.io.FileNotFoundException: C:\RichClient\game\configs\FriendConfig.json (Ñèñòåìå íå óäàåòñÿ íàéòè óêàçàííûé ïóòü)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at java.base/java.io.FileOutputStream.open0(Native Method)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:293)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:235)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:184)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at java.base/java.io.FileWriter.<init>(FileWriter.java:98)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at Game.Sense.client.mine.SRC.impl.FriendConfig.saveFile(FriendConfig.java:38)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at Game.Sense.client.mine.SRC.FileManager.saveFiles(FileManager.java:43)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.gui.GuiMainMenu.actionPerformed(GuiMainMenu.java:276)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:476)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.gui.GuiMainMenu.mouseClicked(GuiMainMenu.java:505)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:581)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:550)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1751)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1185)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.Minecraft.run(Minecraft.java:542)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at net.minecraft.client.main.Main.main(Main.java:132)
+[11:05:15] [Client thread/INFO]: [STDERR]: 	at Start.main(Start.java:11)

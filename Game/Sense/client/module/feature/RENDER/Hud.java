@@ -284,10 +284,12 @@ public class Hud extends Module {
             } else if (ClickGUI.mode.getCurrentMode().equalsIgnoreCase("Rockstar Styled")) {
                 Color l1 = ClientHelper.getClientColor().brighter();
                 Color l2 = ClientHelper.getClientColor();
+                RenderUtils.drawBlurredShadow(x2, y2, 100, 15 + height - 0.5f, 25, new Color(50, 50, 50));
                 RoundedUtil.drawRound(x2, y2, 100, 15 + height - 0.5f, 2, new Color(50, 50, 50));
                 Gui.drawRect(x2 + 1, y2 - 12 + 13 + 14, x2 + 2.5f + 15, y2 - 12 + 12 + 5 + 14, new Color(50, 50, 50).getRGB());
                 mc.rubik_18.drawString("Зелья", x2 + 5, y2 + 4, -1);
                 RenderUtils.drawRect2(x2 + 3, y2 + 13, 94, 0.5f, Color.white.getRGB());
+
             }
 
             if (potions.isEmpty()) {
