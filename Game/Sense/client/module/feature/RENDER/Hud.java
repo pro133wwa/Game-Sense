@@ -97,6 +97,8 @@ public class Hud extends Module {
                 dwm.setWidth(134);
 
                 dwm.setHeight(15);
+                int x = (int) dwm.getX();
+                int y = (int) dwm.getY();
 
                 GLUtils.INSTANCE.rescale(this.scale);
 
@@ -117,16 +119,24 @@ public class Hud extends Module {
 
                 float headerHeight = 0;
 
-                RoundedUtil.drawGradientRound(dwm.getX() + 7, dwm.getY() + 6, dwm.getWidth(), dwm.getHeight(), 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
+                RoundedUtil.drawGradientRound(dwm.getX() + 7, dwm.getY() + 1, dwm.getWidth(), dwm.getHeight(), 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
 
-                RoundedUtil.drawGradientRound(dwm.getX() + 8, dwm.getY() + 7, dwm.getWidth() - 2, dwm.getHeight() - 2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker(), gradientColor1.darker(), gradientColor3.darker(), gradientColor2.darker());
+                RoundedUtil.drawGradientRound(dwm.getX() + 8, dwm.getY() + 2, dwm.getWidth() - 2, dwm.getHeight() - 2, 6.0f, ColorUtils2.applyOpacity(gradientColor4, 10.85f).darker(), gradientColor1.darker(), gradientColor3.darker(), gradientColor2.darker());
 
-                RenderUtils.drawBlurredShadow(dwm.getX() + 4.9f, dwm.getY() + 5.9f, dwm.getWidth(), dwm.getHeight(), 12, new Color(152, 152, 152, 111));
+                RenderUtils.drawBlurredShadow(dwm.getX() + 4.9f, dwm.getY() + 1.9f, dwm.getWidth(), dwm.getHeight(), 12, new Color(152, 152, 152, 111));
 
-                Minecraft.getMinecraft().rubik_17.drawStringWithShadow("", dwm.getX() + 13, dwm.getY() + 11.0f, -1);
+                Minecraft.getMinecraft().rubik_17.drawStringWithShadow("", dwm.getX() + 13, dwm.getY() + 6.0f, -1);
 
-                Minecraft.getMinecraft().rubik_17.drawString(time, (float) (dwm.getX() + 11 + Minecraft.getMinecraft().rubik_17.getStringWidth("")), (float) (dwm.getY() + 11.0), -1);
+                Minecraft.getMinecraft().rubik_17.drawString(time, (float) (dwm.getX() + 11 + Minecraft.getMinecraft().rubik_17.getStringWidth("")), (float) (dwm.getY() + 6.0), -1);
+                if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                    if (Button.hitBox.getBoolValue()){
+                        RoundedUtil.drawRound(x, y, dwm.getWidth(), dwm.getHeight(), 2, new Color(35, 35, 35, 150));
+                    }
+                    if (Button.kur.getBoolValue()){
+                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    }
 
+                }
                 GLUtils.INSTANCE.rescaleMC();
 
             } else if (waterMarkMode.currentMode.equals("Akrien")) {
@@ -147,8 +157,10 @@ public class Hud extends Module {
         }
         if (sessionInfo.getBoolValue()) {
             DraggableSessionInfo dsi = (DraggableSessionInfo) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableSessionInfo.class);
-            dsi.setWidth(130);
-            dsi.setHeight(56);
+            dsi.setWidth(145);
+            dsi.setHeight(135);
+            int x = (int) dsi.getX();
+            int y = (int) dsi.getY();
             GLUtils.INSTANCE.rescale(scale);
             String server = mc.isSingleplayer() ? "Одиночный режим" : mc.getCurrentServerData() != null ? mc.getCurrentServerData().serverIP.toLowerCase() : "null";
             String name = GameSense.instance.featureManager.getFeature(NameProtect.class).isEnabled() && NameProtect.myName.getBoolValue() ? "" + "Protected" : " " + mc.player.getName();
@@ -200,6 +212,15 @@ public class Hud extends Module {
             mc.rubik_18.drawString("Coder: " + ChatFormatting.WHITE + GameSense.instance.coder, dsi.getX() + 5, dsi.getY() + 105, -1);
             mc.rubik_18.drawString("UID: " + ChatFormatting.WHITE + UID.getLine(), dsi.getX() + 5, dsi.getY() + 115, -1);
             mc.rubik_18.drawString("User: " + ChatFormatting.WHITE + UID.getUser(), dsi.getX() + 5, dsi.getY() + 125, -1);
+            if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                if (Button.hitBox.getBoolValue()){
+                    RoundedUtil.drawRound(x, y, dsi.getWidth(), dsi.getHeight(), 2, new Color(35, 35, 35, 150));
+                }
+                if (Button.kur.getBoolValue()){
+                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                }
+
+            }
             GLUtils.INSTANCE.rescaleMC();
 
         }
@@ -261,7 +282,7 @@ public class Hud extends Module {
         if (potions.getBoolValue()) {
             DraggablePotionHUD dph = (DraggablePotionHUD) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggablePotionHUD.class);
             dph.setWidth(100);
-            dph.setHeight(100);
+            dph.setHeight(50);
             int x2 = dph.getX();
             int y2 = dph.getY();
             int x = dph.getX();

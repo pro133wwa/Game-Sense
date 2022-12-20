@@ -50,7 +50,7 @@ public class TimerSmart extends Module {
             if (smart.getBoolValue()) {
                 DraggableTimer dt = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
 
-                dt.setWidth(150);
+                dt.setWidth(125);
                 dt.setHeight(25);
                 Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
                 Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
@@ -59,10 +59,10 @@ public class TimerSmart extends Module {
                 Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor, twocolor);
                 Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);/* 61 */
 
-                    RoundedUtil.drawGradientRound((dt.getX() - 50), dt.getY(), (100.0F - Timer.ticks * 2.0F), 10.0f, 4, gradientColor1.brighter(), gradientColor2.brighter(), gradientColor3.brighter(), gradientColor4.brighter());
-                    mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - Timer.ticks * 2.0F, 1) + "%", dt.getX(), (dt.getY() + 2), -1);
+                    RoundedUtil.drawGradientRound((dt.getX()), dt.getY(), (100.0F - Timer.ticks * 2.0F), 10.0f, 4, gradientColor1.brighter(), gradientColor2.brighter(), gradientColor3.brighter(), gradientColor4.brighter());
+                    mc.sfui18.drawCenteredString("" + MathematicHelper.round(100.0F - Timer.ticks * 2.0F, 1) + "%", dt.getX() + 50, (dt.getY() + 2), -1);
                     //RenderUtils.drawRect2(dt.getX()-26, (dt.getY() + 14),52,11,Color.BLACK.getRGB());
-                    mc.sfui18.drawCenteredString("Smart Timer", dt.getX(), (dt.getY() + 16), -1);
+                    mc.sfui18.drawCenteredString("Smart Timer", dt.getX() + 50, (dt.getY() + 16), -1);
                 float y = dt.getY();
                 float x = dt.getX();
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
@@ -79,7 +79,7 @@ public class TimerSmart extends Module {
         if(SmartMode.currentMode.equals("Type_2")){
             if (smart.getBoolValue()) {
                 DraggableTimer dd = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
-                dd.setWidth((int) 153.0f);
+                dd.setWidth((int) 50);
                 dd.setHeight((int) 42.0f);
                 float end;
                 RenderUtils.drawBlurredShadow(dd.getX(), dd.getY(), 42.0f, 42.0f, 5, new Color(7, 7, 7, 203));
@@ -110,15 +110,15 @@ public class TimerSmart extends Module {
         if(SmartMode.currentMode.equals("Type_3")){
             if (smart.getBoolValue()) {
                 DraggableTimer dt = (DraggableTimer) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableTimer.class);
-                dt.setWidth(150);
+                dt.setWidth(75);
                 dt.setHeight(25);
-                RenderUtils.drawBlurredShadow((float) (dt.getX() - 55), (float) (dt.getY()), 60.0f, 12f, 20, new Color(7, 7, 7, 255));
-                RenderUtils.drawBlurredShadow((float) (dt.getX() - 49.8), (float) (dt.getY()), 50.0f, 11.9f, 0, new Color(7, 7, 7, 255));
-                RenderUtils.drawBlurredShadow(dt.getX() - 37, dt.getY() - -11, 26.0f, 10.0f, 3, new Color(7, 7, 7, 255));
-                mc.rubik_18.drawCenteredString("timer", dt.getX() - 24, dt.getY() - -14, ClientHelper.getClientColor().getRGB());
+                RenderUtils.drawBlurredShadow((float) (dt.getX() - 5), (float) (dt.getY()), 60.0f, 12f, 20, new Color(7, 7, 7, 255));
+                RenderUtils.drawBlurredShadow((float) (dt.getX() + 0.2f), (float) (dt.getY()), 50.0f, 11.9f, 0, new Color(7, 7, 7, 255));
+                RenderUtils.drawBlurredShadow(dt.getX() + 13, dt.getY() - -11, 26.0f, 10.0f, 3, new Color(7, 7, 7, 255));
+                mc.rubik_18.drawCenteredString("timer", dt.getX() + 26, dt.getY() - -14, ClientHelper.getClientColor().getRGB());
 
-                RenderUtils.drawGradientRected(dt.getX() - 50, dt.getY(), 50.0f - (float) Timer.ticks * 1.0f, 12.0, ClientHelper.getClientColor().getRGB(), ClientHelper.getClientColor().brighter().getRGB());
-                Timer.mc.sfui18.drawCenteredString(MathematicHelper.round(100 - (float) Timer.ticks * 2.0f, 1) + "%", dt.getX() - 24, dt.getY() - -3, -1);
+                RenderUtils.drawGradientRected(dt.getX(), dt.getY(), 50.0f - (float) Timer.ticks * 1.0f, 12.0, ClientHelper.getClientColor().getRGB(), ClientHelper.getClientColor().brighter().getRGB());
+                Timer.mc.sfui18.drawCenteredString(MathematicHelper.round(100 - (float) Timer.ticks * 2.0f, 1) + "%", dt.getX() + 26, dt.getY() - -3, -1);
                 float y = dt.getY();
                 float x = dt.getX();
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {

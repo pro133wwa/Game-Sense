@@ -1,5 +1,6 @@
 package Game.Sense.client.module.feature.RENDER;
 
+import Game.Sense.client.GameSense;
 import Game.Sense.client.UI.Settings.impl.BooleanSetting;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
@@ -13,5 +14,9 @@ public class Button extends Module {
         addSettings(kur, hitBox);
     }
 
-
+    @Override
+    public void onEnable() {
+        GameSense.instance.featureManager.getFeature(Button.class).setEnabled(false);
+        super.onEnable();
+    }
 }
