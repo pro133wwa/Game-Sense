@@ -1,5 +1,6 @@
 package Game.Sense.client.module.feature.AAA;
 
+import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
 import Game.Sense.client.module.Module;
@@ -20,7 +21,7 @@ public class AutoWin extends Module {
     @EventTarget
     public void onUpdate(EventUpdate eventUpdate) {
         if ((KillAura.target.getHealth() <= 0.0f || KillAura.target.isDead) && KillAura.target instanceof EntityPlayer) {
-            String[] messages = new String[]{"не позорься , ты пролузал фри софту - SokolClient","Хуесос,ну как? Тебя отымели с SokolClient!"};
+            String[] messages = new String[]{"не позорься , ты пролузал фри софту - " + GameSense.instance.name,"Хуесос,ну как? Тебя отымели с " + GameSense.instance.name + "!"};
             String finalText = messages[new Random().nextInt(messages.length)];
             if (timerHelper.hasReached(200)) {
                 mc.player.sendChatMessage("/tell " + KillAura.target.getName() + " ," + " " + finalText);

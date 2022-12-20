@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 public class BindCommand extends CommandAbstract {
 
     public BindCommand() {
-        super("bind", "bind", "§6.bind" + ChatFormatting.RED + " add " + "§7<name> §7<key> " + TextFormatting.RED + "\n" + "[" + TextFormatting.WHITE + "SOKOL CLIENT" + TextFormatting.GRAY + "] " + "§6.bind " + ChatFormatting.RED + "remove " + "§7<name> §7<key> " + "\n" + "[" + TextFormatting.WHITE + "SOKOL CLIENT" + TextFormatting.GRAY + "] " + "§6.bind " + ChatFormatting.RED + "list ", "bind");
+        super("bind", "bind", "§6.bind" + ChatFormatting.RED + " add " + "§7<name> §7<key> " + TextFormatting.RED + "\n" + "[" + TextFormatting.WHITE + GameSense.instance.name + TextFormatting.GRAY + "] " + "§6.bind " + ChatFormatting.RED + "remove " + "§7<name> §7<key> " + "\n" + "[" + TextFormatting.WHITE + GameSense.instance.name + TextFormatting.GRAY + "] " + "§6.bind " + ChatFormatting.RED + "list ", "bind");
     }
 
     @Override

@@ -768,7 +768,7 @@ public class GuiIngame extends Gui {
             int l = scaledRes.getScaledWidth() - 3 + 2;
             drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             if (GameSense.instance.featureManager.getFeature(NameProtect.class).isEnabled() && NameProtect.scoreboardSpoof.getBoolValue()) {
-                this.getFontRenderer().drawString(s1.replace(Minecraft.getMinecraft().player.getName().substring(0, 2), TextFormatting.WHITE + "SOKOL CLIENT                                                                                                "), l1, k, 553648127);
+                this.getFontRenderer().drawString(s1.replace(Minecraft.getMinecraft().player.getName().substring(0, 2), TextFormatting.WHITE + GameSense.instance.name +"                                                                                                "), l1, k, 553648127);
             } else {
                 this.getFontRenderer().drawString(s1, l1, k, 553648127);
             }

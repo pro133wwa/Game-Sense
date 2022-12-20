@@ -78,7 +78,7 @@ public class Hud extends Module {
                 Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);
                 RoundedUtil.drawGradientRound(5, 6, 115, 16, 8, gradientColor1, gradientColor2, gradientColor3, gradientColor4);
                 RenderUtils.drawBlurredShadow(5, 6, 123, 18, 50, gradientColor1);
-                mc.nurik.drawString(ChatFormatting.WHITE + "sokol recode | delay: 20 | 0.1", 10, 11, new Color(255, 255, 255).getRGB());
+                mc.nurik.drawString(ChatFormatting.WHITE + GameSense.instance.name + " | delay: 20 | 0.1", 10, 11, new Color(255, 255, 255).getRGB());
             } else if (waterMarkMode.currentMode.equals("Simple")) {
                 DraggableWaterMark dwm = (DraggableWaterMark) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableWaterMark.class);
                 dwm.setWidth(150);
@@ -284,22 +284,24 @@ public class Hud extends Module {
             } else if (ClickGUI.mode.getCurrentMode().equalsIgnoreCase("Rockstar Styled")) {
                 Color l1 = ClientHelper.getClientColor().brighter();
                 Color l2 = ClientHelper.getClientColor();
-                RoundedUtil.drawRound(x2, y2, 100, 15 + height - 0.5f, 5, new Color(40, 40, 40));
-                Gui.drawRect(x2 + 1, y2 - 12 + 13 + 14, x2 + 2.5f + 15, y2 - 12 + 12 + 5 + 14, new Color(40, 40, 40).getRGB());
-                mc.rubik_18.drawString("Зелья", x2 + 35, y2 + 4, -1);
+                RoundedUtil.drawRound(x2, y2, 100, 15 + height - 0.5f, 2, new Color(50, 50, 50));
+                Gui.drawRect(x2 + 1, y2 - 12 + 13 + 14, x2 + 2.5f + 15, y2 - 12 + 12 + 5 + 14, new Color(50, 50, 50).getRGB());
+                mc.rubik_18.drawString("Зелья", x2 + 5, y2 + 4, -1);
+                RenderUtils.drawRect2(x2 + 3, y2 + 13, 94, 0.5f, Color.white.getRGB());
             }
 
             if (potions.isEmpty()) {
                 if (mode.getCurrentMode().equalsIgnoreCase("Rockstar Styled")) {
-                    mc.rubik_18.drawString("Пусто!", x2 + 4, y2 + height + 6.5f, Color.GRAY.getRGB());
+                    mc.rubik_18.drawString("", x2 + 4, y2 + height + 6.5f, Color.GRAY.getRGB());
                 } else {
-                    mc.rubik_18.drawString("Пусто!", x2 + 5, y2 + height + 6, Color.GRAY.getRGB());
+                    mc.rubik_18.drawString("", x2 + 5, y2 + height + 6, Color.GRAY.getRGB());
                 }
                 height = 12;
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
                     RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
                 }
             } else {
+
                 for (PotionEffect potion : potions) {
                     Potion effect = Potion.getPotionById(CustomColors.getPotionId(potion.getEffectName()));
                     String level = I18n.format(effect.getName());
@@ -328,7 +330,9 @@ public class Hud extends Module {
 
 
                     height = potions.size() * 12;
-
+                    if (mc.player != null && mc.currentScreen instanceof GuiChat) {
+                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    }
                     if (mc.world == null) {
                         potions.remove(potions.indexOf(potion));
                     }
