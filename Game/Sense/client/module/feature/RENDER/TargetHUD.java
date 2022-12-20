@@ -277,8 +277,12 @@ public class TargetHUD extends Module {
                     }
                 }
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
-                    RoundedUtil.drawRound(x, y, dth.getWidth(), dth.getHeight(), 2, new Color(35, 35, 35, 150));
-                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    if (Button.hitBox.getBoolValue()){
+                        RoundedUtil.drawRound(x, y, dth.getWidth(), dth.getHeight(), 2, new Color(35, 35, 35, 150));
+                    }
+                    if (Button.kur.getBoolValue()){
+                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    }
                 }
             }
         } else if (targetHudMode.currentMode.equals("Celestial")) {

@@ -300,8 +300,13 @@ public class Hud extends Module {
                 }
                 height = 12;
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
-                    RoundedUtil.drawRound(x2, y2, dph.getWidth(), dph.getHeight(), 2, new Color(35, 35, 35, 150));
-                    RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    if (Button.hitBox.getBoolValue()){
+                        RoundedUtil.drawRound(x2, y2, dph.getWidth(), dph.getHeight(), 2, new Color(35, 35, 35, 150));
+                    }
+                    if (Button.kur.getBoolValue()){
+                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                    }
+
                 }
             } else {
 
@@ -334,8 +339,13 @@ public class Hud extends Module {
 
                     height = potions.size() * 12;
                     if (mc.player != null && mc.currentScreen instanceof GuiChat) {
-                        RoundedUtil.drawRound(x2, y2, dph.getWidth(), dph.getHeight(), 2, new Color(35, 35, 35, 150));
-                        RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                        if (Button.hitBox.getBoolValue()){
+                            RoundedUtil.drawRound(x2, y2, dph.getWidth(), dph.getHeight(), 2, new Color(35, 35, 35, 150));
+                        }
+                        if (Button.kur.getBoolValue()){
+                            RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
+                        }
+
                     }
                     if (mc.world == null) {
                         potions.remove(potions.indexOf(potion));
