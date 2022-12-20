@@ -18,6 +18,7 @@ public class ClickGUI extends Module {
     public static ListSetting girlmode = new ListSetting("Anime Mode", "Girl", () -> girl.getBoolValue(), "Girl", "Rem", "Gachi", "Violet", "Kirshtein", "002");
     public static ListSetting panelMode = new ListSetting("Panel Mode", "Rect", () -> girl.getBoolValue(), "Rect", "Blur");
     public static BooleanSetting glow = new BooleanSetting("Glow", true, () -> !potato_mode.getBoolValue());
+    public static BooleanSetting glowGUI = new BooleanSetting("Glow", false, () -> true);
     public static BooleanSetting particles = new BooleanSetting("Particles", false, () -> !potato_mode.getBoolValue());
 
     public static BooleanSetting blur = new BooleanSetting("Blur", false, () -> !potato_mode.getBoolValue());
@@ -38,7 +39,7 @@ public class ClickGUI extends Module {
         outlinecolor = new ColorSetting("Outline Color", new Color(255, 255, 255, 255).getRGB(), () -> true);
         bgonecolor = new ColorSetting("Gui Color 1", new Color(255, 0, 0, 255).getRGB(), () -> true);
         bgtwocolor = new ColorSetting("Gui Color 2", new Color(0, 44, 255, 255).getRGB(), () -> true);
-        addSettings(color, backGroundColor, bgonecolor, bgtwocolor);
+        addSettings(color, backGroundColor, bgonecolor, bgtwocolor, glowGUI);
 
     }
 

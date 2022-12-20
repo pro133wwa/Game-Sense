@@ -81,7 +81,10 @@ public final class Panel extends DraggablePanel {
         Color rainbowColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 0,threecolor,threecolor);
         Color rainbowColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 0,threecolor,threecolor);
 
-        //RenderUtils.drawBlurredShadow(x,y+0.5f,width,headerHeight-extendedHeight,18,gradientColor1);
+        if(ClickGUI.glowGUI.getBoolValue()){
+            RenderUtils.drawBlurredShadow(x - 5f,y - 5f,width + 10,headerHeight-extendedHeight + 10,25,gradientColor1);
+        }
+
 
         RoundedUtil.drawGradientRound(x-1f, y - 0.7f,   width+2f, headerHeight - extendedHeight+2f, 6f,gradientColor1.brighter().brighter(),gradientColor2.brighter().brighter(),gradientColor3.brighter().brighter(),gradientColor4.brighter().brighter());
         RoundedUtil.drawGradientRound(x, y + 0.5f,   width, headerHeight - extendedHeight, 6f,gradientColor1,gradientColor2,gradientColor3,gradientColor4);
