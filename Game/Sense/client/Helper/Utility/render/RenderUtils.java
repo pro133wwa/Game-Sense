@@ -33,6 +33,7 @@ public class RenderUtils implements Helper {
     protected static float zLevel;
     public static Frustum frustum = new Frustum();
     private static ShaderGroup blurShader;
+    private static final ShaderUtil roundedGradientShader = new ShaderUtil("roundedRectGradient");
 
     private static Framebuffer buffer;
     private static int lastScale;
@@ -1241,7 +1242,69 @@ public class RenderUtils implements Helper {
         shader = new ResourceLocation("shaders/post/blur.json");
         blurSpotCache = new HashMap();
     }
+    public static void drawCircle1(float x, float y, float start, float end, float radius, float width, boolean filled, Color color) {
+        GlStateManager.color(0.0F, 0.0F, 0.0F, 0.0F);
+        if (start > end) {
+            float endOffset = end;
+            end = start;
+            start = endOffset;
+        }
 
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        setColor(color.getRGB());
+        GL11.glEnable(2848);
+        GL11.glLineWidth(width);
+        GL11.glBegin(3);
+
+        float sin;
+        float cos;
+        float i;
+        for(i = end; i >= start; i -= 4.0F) {
+            cos = (float)(Math.cos((double)i * Math.PI / 180.0) * (double)radius * 1.0);
+            sin = (float)(Math.sin((double)i * Math.PI / 180.0) * (double)radius * 1.0);
+            GL11.glVertex2f(x + cos, y + sin);
+        }
+
+        GL11.glEnd();
+        GL11.glDisable(2848);
+        GL11.glEnable(2848);
+        GL11.glBegin(filled ? 6 : 3);
+
+        for(i = end; i >= start; i -= 4.0F) {
+            cos = (float)Math.cos((double)i * Math.PI / 180.0) * radius;
+            sin = (float)Math.sin((double)i * Math.PI / 180.0) * radius;
+            GL11.glVertex2f(x + cos, y + sin);
+        }
+
+        GL11.glEnd();
+        GL11.glDisable(2848);
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+    }
+    public static void drawGradientRound(float x, float y, float width, float height, float radius, Color bottomLeft, Color topLeft, Color bottomRight, Color topRight) {
+        resetColor();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770, 771);
+        roundedGradientShader.init();
+        setupRoundedRectUniforms(x, y, width, height, radius, roundedGradientShader);
+        roundedGradientShader.setUniformf("color1", new float[]{(float)bottomLeft.getRed() / 255.0F, (float)bottomLeft.getGreen() / 255.0F, (float)bottomLeft.getBlue() / 255.0F, (float)bottomLeft.getAlpha() / 255.0F});
+        roundedGradientShader.setUniformf("color2", new float[]{(float)topLeft.getRed() / 255.0F, (float)topLeft.getGreen() / 255.0F, (float)topLeft.getBlue() / 255.0F, (float)topLeft.getAlpha() / 255.0F});
+        roundedGradientShader.setUniformf("color3", new float[]{(float)bottomRight.getRed() / 255.0F, (float)bottomRight.getGreen() / 255.0F, (float)bottomRight.getBlue() / 255.0F, (float)bottomRight.getAlpha() / 255.0F});
+        roundedGradientShader.setUniformf("color4", new float[]{(float)topRight.getRed() / 255.0F, (float)topRight.getGreen() / 255.0F, (float)topRight.getBlue() / 255.0F, (float)topRight.getAlpha() / 255.0F});
+        ShaderUtil.drawQuads(x - 1.0F, y - 1.0F, width + 2.0F, height + 2.0F);
+        roundedGradientShader.unload();
+        GlStateManager.disableBlend();
+    }
+    private static void setupRoundedRectUniforms(float x, float y, float width, float height, float radius, ShaderUtil roundedTexturedShader) {
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        roundedTexturedShader.setUniformf("location", new float[]{x * (float)sr.getScaleFactor(), (float)Minecraft.getMinecraft().displayHeight - height * (float)sr.getScaleFactor() - y * (float)sr.getScaleFactor()});
+        roundedTexturedShader.setUniformf("rectSize", new float[]{width * (float)sr.getScaleFactor(), height * (float)sr.getScaleFactor()});
+        roundedTexturedShader.setUniformf("radius", new float[]{radius * (float)sr.getScaleFactor()});
+    }
+    public static void resetColor() {
+    }
     public static void roundedBorder(float x, float y, float x2, float y2, float radius, int color) {
         float left = x;
         float top = y;

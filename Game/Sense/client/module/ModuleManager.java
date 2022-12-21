@@ -24,6 +24,8 @@ public class ModuleManager {
         features.add(new ModuleList());
         features.add(new Notifications());
         features.add(new TargetHUD());
+        features.add(new MatrixExploitFly());
+        features.add(new ClickTP());
         features.add(new NoOverlay());
         features.add(new ShulkerViewer());
         features.add(new TimerSmart());

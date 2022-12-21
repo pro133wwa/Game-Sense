@@ -14,7 +14,15 @@ import java.awt.*;
 public class ClickGUI extends Module {
     public static BooleanSetting girl = new BooleanSetting("Anime", false, () -> true);
     public static BooleanSetting potato_mode = new BooleanSetting("Potato Mode", false, () -> true);
-    public static ListSetting backGroundColor = new ListSetting("Background Color", "Static", () -> !potato_mode.getBoolValue(), "Astolfo", "Rainbow", "Static");
+    public static ListSetting backGroundColor = new ListSetting("BG Color", "Static", () -> {
+        return !potato_mode.getBoolValue();
+    }, new String[]{"Astolfo", "Rainbow", "Static"});
+    public static ListSetting theme = new ListSetting("Theme", "Dark", () -> {
+        return true;
+    }, new String[]{"Dark"});
+    public static BooleanSetting descriptions = new BooleanSetting("???????", false, () -> {
+        return !theme.currentMode.equals("Weird");
+    });
     public static ListSetting girlmode = new ListSetting("Anime Mode", "Girl", () -> girl.getBoolValue(), "Girl", "Rem", "Gachi", "Violet", "Kirshtein", "002");
     public static ListSetting panelMode = new ListSetting("Panel Mode", "Rect", () -> girl.getBoolValue(), "Rect", "Blur");
     public static BooleanSetting glow = new BooleanSetting("Glow", true, () -> !potato_mode.getBoolValue());
@@ -29,6 +37,7 @@ public class ClickGUI extends Module {
     public static ListSetting glowMode = new ListSetting("Glow Mode", "Static", () -> glowGUI.getBoolValue(), "Gradient", "Static");
     public static ColorSetting glowColor;
     public static ColorSetting bgonecolor;
+
     public static ColorSetting bgtwocolor;
     public static ListSetting mode = new ListSetting("Mode", "Rockstar Styled", () -> true, "Rockstar", "Rockstar Styled", "Rockstar New");
     public static NumberSetting speed = new NumberSetting("Speed", 35, 10, 100, 1, () -> true);
@@ -42,7 +51,7 @@ public class ClickGUI extends Module {
         outlinecolor = new ColorSetting("Outline Color", new Color(255, 255, 255, 255).getRGB(), () -> true);
         bgonecolor = new ColorSetting("Gui Color 1", new Color(255, 0, 0, 255).getRGB(), () -> true);
         bgtwocolor = new ColorSetting("Gui Color 2", new Color(0, 44, 255, 255).getRGB(), () -> true);
-        addSettings(color, bgonecolor, bgtwocolor, glowGUI, glowColor, glowMode);
+        addSettings(color, bgonecolor, bgtwocolor, glowGUI, glowColor, glowMode, backGroundColor);
 
     }
 
