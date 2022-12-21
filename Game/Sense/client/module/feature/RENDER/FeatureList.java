@@ -65,10 +65,10 @@ public class FeatureList extends Module {
                 if (feature.animYto > 0.01f) {
                     if (feature.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && feature.getCategory() == ModuleCategory.RENDER || onlyBinds.getBoolValue() && feature.getBind() == 0)
                         continue;
-                    stringWidth = this.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) + 3;
-                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,ClientHelper.getClientColor(y, yTotal, 123).getRGB());
-                    Helper.mc.rubik_15.drawString(feature.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.rubik_15.getStringWidth(feature.getLabel().toLowerCase()) - 4f, y + Helper.mc.rubik_15.getFontHeight() + (float)offset - 4, -1);
-                    RenderUtils.drawRect4(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.WHITE.getRGB());
+                    stringWidth = this.mc.rubik_16.getStringWidth(feature.getLabel().toLowerCase()) + 3;
+                    RenderUtils.drawRect(displayWidth + 50 - Helper.mc.rubik_16.getStringWidth(feature.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float)offset + 8.2f,ClientHelper.getClientColor(y, yTotal, 123).getRGB());
+                    Helper.mc.rubik_16.drawString(feature.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.rubik_16.getStringWidth(feature.getLabel().toLowerCase()) - 4f, y + Helper.mc.rubik_16.getFontHeight() + (float)offset - 4, -1);
+                    RenderUtils.drawRect(displayWidth + 49, y, displayWidth +51.5f, y + 8.2f + (float)offset, Color.WHITE.getRGB());
 
                     y += 8 * feature.animYto;
                 }
