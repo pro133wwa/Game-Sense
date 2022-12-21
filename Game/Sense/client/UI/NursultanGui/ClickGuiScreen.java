@@ -1,5 +1,6 @@
 package Game.Sense.client.UI.NursultanGui;
 
+import Game.Sense.client.UI.UwU.ImageButton;
 import Game.Sense.client.module.feature.RENDER.ClickGUI;
 import Game.Sense.client.UI.Minecraft.particle.ParticleUtils;
 import Game.Sense.client.Helper.Utility.math.animations.Animation;
@@ -13,6 +14,7 @@ import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.UI.NursultanGui.component.Component;
 import Game.Sense.client.UI.NursultanGui.component.ExpandableComponent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,10 @@ public class ClickGuiScreen extends GuiScreen {
     public ScreenHelper screenHelper;
     public boolean exit = false;
     public ModuleCategory type;
+    protected ArrayList<ImageButton> imageButtons = new ArrayList();
     private Component selectedPanel;
     private Animation initAnimation;
+    public static GuiScreen oldScreen;
     private static ResourceLocation ANIME_GIRL;
     public static GuiSearcher search;
 
@@ -39,7 +43,9 @@ public class ClickGuiScreen extends GuiScreen {
             selectedPanel = new Game.Sense.client.UI.NursultanGui.Panel(type, x, y);
             x += width + 125;
         }
+
         this.screenHelper = new ScreenHelper(0, 0);
+        oldScreen = this;
     }
 
     @Override
@@ -48,6 +54,9 @@ public class ClickGuiScreen extends GuiScreen {
         ScaledResolution sr = new ScaledResolution(mc);
         initAnimation = new DecelerateAnimation(600, 1);
         this.screenHelper = new ScreenHelper(0, 0);
+        this.imageButtons.clear();
+
+        this.imageButtons.add(new ImageButton(new ResourceLocation("celestial/config.png"), sr.getScaledWidth() - this.mc.robotoRegularFontRender.getStringWidth("Wellcome") - 89, sr.getScaledHeight() - this.mc.robotoRegularFontRender.getFontHeight() - 55, 50, 50, "", 22));
         search = new GuiSearcher(1337, this.mc.fontRendererObj, sr.getScaledWidth() / 2 + 320, 8080, 150, 18);
         super.initGui();
     }
@@ -85,7 +94,11 @@ public class ClickGuiScreen extends GuiScreen {
             }
             RenderUtils.drawImage(new ResourceLocation("rich/anime/" + animeGirlStr + ".png"), (float) (sr.getScaledWidth() - 280), (float) (sr.getScaledHeight() - 380 * initAnimation.getOutput()), 280, 380);
         }
-
+        for (ImageButton imageButton : this.imageButtons) {
+            imageButton.draw(mouseX, mouseY, Color.WHITE);
+            if (!Mouse.isButtonDown(0)) continue;
+            imageButton.onClick(mouseX, mouseY);
+        }
         //mc.neverlose900_18.drawStringWithShadow("This is free - " + "BETA", 2, sr.getScaledHeight() - 10, new Color(255, 255, 255).getRGB());
         //mc.neverlose900_18.drawStringWithShadow("UID " + "Free", sr.getScaledWidth() - mc.neverlose900_18.getStringWidth("UID " + "Free") - 4, sr.getScaledHeight() - 9, new Color(255, 255, 255).getRGB());
         search.drawTextBox();
@@ -95,6 +108,16 @@ public class ClickGuiScreen extends GuiScreen {
 
         for (Panel panel : components) {
             panel.drawComponent(sr, mouseX, (int) (mouseY));
+            for (ImageButton imageButton : this.imageButtons) {
+                imageButton.draw(mouseX, mouseY, Color.WHITE);
+                if (!Mouse.isButtonDown(0)) continue;
+                imageButton.onClick(mouseX, mouseY);
+            }
+        }
+        for (ImageButton imageButton : this.imageButtons) {
+            imageButton.draw(mouseX, mouseY, Color.WHITE);
+            if (!Mouse.isButtonDown(0)) continue;
+            imageButton.onClick(mouseX, mouseY);
         }
         updateMouseWheel();
         super.drawScreen(mouseX, mouseY, partialTicks);

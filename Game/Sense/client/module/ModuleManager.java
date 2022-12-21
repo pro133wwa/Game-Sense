@@ -30,6 +30,7 @@ public class ModuleManager {
         features.add(new GappleSlot());
         features.add(new ClickGUI());
         features.add(new Hud());
+        features.add(new ContainerBlur());
         //features.add(new StaffList());
         /* MISC */
         features.add(new MiddleClickFriend());

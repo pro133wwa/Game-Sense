@@ -62,7 +62,7 @@ public class MCFontRenderer extends CFont {
         fontRenderer.drawString(text, x, y, color);
     }
 
-    public static void drawStringWithOutline(net.minecraft.client.gui.FontRenderer fontRenderer, String text, float x, float y, int color) {
+    public static void drawStringWithOutline(Game.Sense.client.UI.UwU.font.MCFontRenderer fontRenderer, String text, float x, float y, int color) {
         fontRenderer.drawString(text, x - 1, y, Color.BLACK.getRGB());
         fontRenderer.drawString(text, x + 1, y, Color.BLACK.getRGB());
         fontRenderer.drawString(text, x, y - 1, Color.BLACK.getRGB());

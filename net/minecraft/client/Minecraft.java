@@ -322,6 +322,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     public MCFontRenderer neverlose500_19;
     public MCFontRenderer neverlose500_20;
     public MCFontRenderer neverlose500_18;
+    public MCFontRenderer robotoRegularFontRender;
     public FontRenderer standardGalacticFontRenderer;
     @Nullable
 
@@ -634,6 +635,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
         this.neverlose900_20 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose900.ttf"), 20.0f, 0), true, true);
         this.neverlose900_25 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose900.ttf"), 25, 0), true, true);
         this.neverlose900_30 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose900.ttf"), 40, 0), true, true);
+        this.robotoRegularFontRender = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/robotoregular.ttf"), 19.0f, 0), true, true);
         this.rubik_30 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/rubik.ttf"), 30.0f, 0), true, true);
         this.rubik_18 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/rubik.ttf"), 18.0f, 0), true, true);
         this.rubik_17 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/rubik.ttf"), 17.0f, 0), true, true);

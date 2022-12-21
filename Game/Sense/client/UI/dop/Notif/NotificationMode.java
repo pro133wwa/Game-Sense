@@ -5,7 +5,8 @@ import java.awt.*;
 public enum NotificationMode {
     SUCCESS("Success", new Color(0, 255, 0), "a"),
     WARNING("WARNING", new Color(255, 128, 0), "b"),
-    INFO("Information",new Color(255, 255, 255), "c");
+    INFO("Information",new Color(255, 255, 255), "c"),
+    ERROR("Errors",new Color(255, 0, 0), "d");
 
     private final String iconString;
     private final String titleString;
