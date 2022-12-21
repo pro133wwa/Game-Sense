@@ -13,13 +13,18 @@ import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 
-public class StaffAlert extends Module {
-    private boolean isJoined;
+import java.util.ArrayList;
 
+import static Game.Sense.client.Helper.Utility.Helper.mc;
+
+public class StaffAlert extends Module {
     public StaffAlert() {
-        super("StaffAlert", ModuleCategory.PLAYER);
+        super("StaffAlert", "????????? ? ??????/??????? ?? ???????",  ModuleCategory.PLAYER);
     }
 
+    public static ArrayList<EntityPlayer> staff = new ArrayList();
+
+    private boolean isJoined;
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         SPacketPlayerListItem packetPlayInPlayerListItem;
@@ -31,10 +36,19 @@ public class StaffAlert extends Module {
     @EventTarget
     public void onUpdate(EventUpdate event) {
         for (EntityPlayer staffPlayer : GuiPlayerTabOverlay.getPlayers()) {
-            if (staffPlayer == null || staffPlayer == mc.player || !staffPlayer.getDisplayName().getUnformattedText().contains("HELPER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ST.HELPER") && !staffPlayer.getDisplayName().getUnformattedText().contains("MODER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ST.MODER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ADMIN") && !staffPlayer.getDisplayName().getUnformattedText().contains("Админ") && !staffPlayer.getDisplayName().getUnformattedText().contains("Хелпер") && !staffPlayer.getDisplayName().getUnformattedText().contains("Модер") || staffPlayer.ticksExisted >= 10 || !this.isJoined)
+            if (staffPlayer == null || staffPlayer == mc.player || !staffPlayer.getDisplayName().getUnformattedText().contains("HELPER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ST.HELPER") && !staffPlayer.getDisplayName().getUnformattedText().contains("MODER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ST.MODER") && !staffPlayer.getDisplayName().getUnformattedText().contains("ADMIN") && !staffPlayer.getDisplayName().getUnformattedText().contains("?????") && !staffPlayer.getDisplayName().getUnformattedText().contains("??????") && !staffPlayer.getDisplayName().getUnformattedText().contains("?????") || staffPlayer.ticksExisted >= 10 || !this.isJoined)
                 continue;
-            ChatUtils.addChatMessage(ChatFormatting.WHITE + "Администратор " + ChatFormatting.RESET + staffPlayer.getDisplayName().getUnformattedText() + ChatFormatting.WHITE + " зашел на сервер / вышел из ваниша");
-            NotificationRenderer.queue("§6Staff Alert", ChatFormatting.WHITE + "Администратор " + ChatFormatting.RESET + staffPlayer.getDisplayName().getUnformattedText() + ChatFormatting.WHITE + " зашел на сервер / вышел из ваниша", 5, NotificationMode.WARNING);
+            for (EntityPlayer s : staff) {
+                if (s.getName().equalsIgnoreCase(staffPlayer.getName())) {
+                    return;
+                }
+            }
+            if (mc.world == null || mc.player == null) {
+                staff.remove(staffPlayer);
+            } else {
+                staff.add(staffPlayer);
+            }
+            ChatUtils.addChatMessage(ChatFormatting.WHITE + "????????????? " + ChatFormatting.RESET + staffPlayer.getDisplayName().getUnformattedText() + ChatFormatting.WHITE + " ????? ?? ?????? / ????? ?? ??????");
             this.isJoined = false;
         }
     }

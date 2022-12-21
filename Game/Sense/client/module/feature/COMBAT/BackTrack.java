@@ -27,12 +27,12 @@ public class BackTrack extends Module {
     public static List<Vec3d> positions = new ArrayList<>();
     private final Deque<Packet<?>> packets = new ArrayDeque<>();
     private int ticks;
-    private final NumberSetting amount = new NumberSetting("????", 20, 1, 100, 1, () -> true);
+    private final NumberSetting amount = new NumberSetting("BackTrack", 20, 1, 100, 1, () -> true);
     private final NumberSetting forward = new NumberSetting("Forward", 20, 1, 100, 1, () -> true);
 
     public BackTrack() {
         super("BackTrack", "new", ModuleCategory.COMBAT);
-        health = new NumberSetting("????????", 15, 1, 20, 1, () -> true);
+        health = new NumberSetting("BackTrack", 15, 1, 20, 1, () -> true);
         addSettings( amount);
     }
 
