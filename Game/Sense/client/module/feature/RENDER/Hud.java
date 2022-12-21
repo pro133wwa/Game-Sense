@@ -296,28 +296,26 @@ public class Hud extends Module {
             GlStateManager.enableAlpha();
             List<PotionEffect> potions = new ArrayList<>(mc.player.getActivePotionEffects());
             potions.sort(Comparator.comparingDouble(effect -> mc.fontRendererObj.getStringWidth((Objects.requireNonNull(Potion.getPotionById(CustomColors.getPotionId(effect.getEffectName()))).getName()))));
-            if (ClickGUI.mode.currentMode.equalsIgnoreCase("Rockstar New")) {
-                RoundedUtil.drawHorizontalGradientOutlinedRoundedRectWithGlow(x2, y2, 100, 15 + height, 5, 1, 15, ClientHelper.getClientColor(), ClientHelper.getClientColor().darker());
-                mc.rubik_18.drawCenteredString("Зелья", x2 + 50, y2 + 3, -1);
-            } else if (ClickGUI.mode.currentMode.equalsIgnoreCase("Rockstar")) {
-                RoundedUtil.drawGradientRound(x2, y2, 100, 15 + height, 5, ClientHelper.getClientColor(), ClientHelper.getClientColor(), ClientHelper.getClientColor().darker(), ClientHelper.getClientColor().darker());
-                mc.rubik_18.drawCenteredString("Зелья", x2 + 50, y2 + 3, -1);
-            } else if (ClickGUI.mode.getCurrentMode().equalsIgnoreCase("Rockstar Styled")) {
-                Color l1 = ClientHelper.getClientColor().brighter();
-                Color l2 = ClientHelper.getClientColor();
-                RenderUtils.drawBlurredShadow(x2, y2, 100, 15 + height - 0.5f, 25, new Color(50, 50, 50));
-                RoundedUtil.drawRound(x2, y2, 100, 15 + height - 0.5f, 2, new Color(50, 50, 50));
-                Gui.drawRect(x2 + 1, y2 - 12 + 13 + 14, x2 + 2.5f + 15, y2 - 12 + 12 + 5 + 14, new Color(50, 50, 50).getRGB());
-                mc.rubik_18.drawString("Зелья", x2 + 5, y2 + 4, -1);
-                RenderUtils.drawRect2(x2 + 3, y2 + 13, 94, 0.5f, Color.white.getRGB());
 
-            }
+
+
+            Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
+            Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
+            Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0, onecolor, twocolor);
+            Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90, onecolor, twocolor);
+            Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor, twocolor);
+            Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);
+
+
+            RoundedUtil.drawGradientRound(x2, y2, 100, 15 + height, 5, ColorUtils2.applyOpacity(gradientColor4, .85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
+            mc.rubik_18.drawCenteredString("Зелья", x2 + 50, y2 + 3, -1);
+            RenderUtils.drawRect2(x2,y2+11,dph.getWidth(),0.5f,Color.WHITE.getRGB());
 
             if (potions.isEmpty()) {
                 if (mode.getCurrentMode().equalsIgnoreCase("Rockstar Styled")) {
-                    mc.rubik_18.drawString("", x2 + 4, y2 + height + 6.5f, Color.GRAY.getRGB());
+                    mc.rubik_18.drawString("", x2 + 4, y2 + height + 6.5f, Color.WHITE.getRGB());
                 } else {
-                    mc.rubik_18.drawString("", x2 + 5, y2 + height + 6, Color.GRAY.getRGB());
+                    mc.rubik_18.drawString("", x2 + 5, y2 + height + 6, Color.WHITE.getRGB());
                 }
                 height = 12;
                 if (mc.player != null && mc.currentScreen instanceof GuiChat) {
@@ -347,13 +345,13 @@ public class Hud extends Module {
                     } else if (potion.getDuration() < 400) {
                         getPotionColor = new Color(231, 143, 32).getRGB();
                     } else if (potion.getDuration() > 400) {
-                        getPotionColor = Color.GRAY.getRGB();
+                        getPotionColor = Color.WHITE.getRGB();
                     }
 
                     String durationString = Potion.getDurationString(potion);
 
 
-                    mc.rubik_18.drawString(level, x2 + 5, y2 + ((potions.indexOf(potion) + 1) * 12) + 6, Color.GRAY.getRGB());
+                    mc.rubik_18.drawString(level, x2 + 5, y2 + ((potions.indexOf(potion) + 1) * 12) + 6, Color.WHITE.getRGB());
 
                     mc.rubik_18.drawString(durationString, x2 + 95 - mc.rubik_18.getStringWidth(durationString), y2 + ((potions.indexOf(potion) + 1) * 12) + 6, getPotionColor);
 
