@@ -62,10 +62,10 @@ public class GameSense {
     public String name = "GameSense";
     public String name2 = "{GameSense} > ";
     public String type = "Premium";
-    public static DiscordWebhook webhookLogger = GameSense.logger;
+    //public static DiscordWebhook webhookLogger = GameSense.logger;
     public String version = "0.1";
     public String coder = "UwU_, toperov, DiGGeR";
-    public static DiscordWebhook logger = new DiscordWebhook("https://discord.com/api/webhooks/978740462162673665/OwZ7X2hfh-OuPAh5rJ4-6vfxFsHuoO40KuWYPI7NxqpG0OiDstLL9Kq0aRJnEaRrjxch");
+    //public static DiscordWebhook logger = new DiscordWebhook("https://discord.com/api/webhooks/978740462162673665/OwZ7X2hfh-OuPAh5rJ4-6vfxFsHuoO40KuWYPI7NxqpG0OiDstLL9Kq0aRJnEaRrjxch");
 
 
 //    public static void ChatEvent(ClientChatEvent event) throws IOException {
