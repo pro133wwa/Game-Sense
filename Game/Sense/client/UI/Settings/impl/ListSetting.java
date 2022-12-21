@@ -20,7 +20,14 @@ public class ListSetting extends Setting {
         setVisible(visible);
         addSettings(this);
     }
-
+    public ListSetting(String name, String currentMode, String... options)
+    {
+        this.name = name;
+        this.modes = Arrays.asList(options);
+        this.index = this.modes.indexOf(currentMode);
+        this.currentMode = this.modes.get(this.index);
+        this.setVisible(() -> true);
+    }
     public String getCurrentMode() {
         return currentMode;
     }
@@ -38,3 +45,4 @@ public class ListSetting extends Setting {
         return this.modes.get(this.index);
     }
 }
+

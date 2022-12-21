@@ -297,6 +297,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     public MCFontRenderer neverlose500_14;
     public MCFontRenderer tahoma;
     public MCFontRenderer tahoma16;
+    public MCFontRenderer mntsb_15;
 
     public MCFontRenderer neverlose500_15;
     public MCFontRenderer neverlose900_20;
@@ -316,6 +317,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     public MCFontRenderer neverlose900_14;
     public MCFontRenderer neverlose900_30;
     public MCFontRenderer neverlose900_25;
+    public MCFontRenderer mntsb_14;
     public MCFontRenderer neverlose900_13;
     public MCFontRenderer neverlose500_16;
     public MCFontRenderer neverlose500_17;
@@ -617,6 +619,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
         this.poppins = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/poppins.ttf"), 15.0f, 0), true, true);
         this.gui = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/gui.ttf"), 16.0f, 0), true, true);
         this.nurik = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/nurik.ttf"), 17.0f, 0), true, true);
+        this.mntsb_15 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose500.ttf"), 13.0f, 0), true, true);
+        this.mntsb_14 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose500.ttf"), 13.0f, 0), true, true);
         this.neverlose500_13 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose500.ttf"), 13.0f, 0), true, true);
         this.neverlose500_14 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose500.ttf"), 14.0f, 0), true, true);
         this.neverlose500_15 = new MCFontRenderer(FontUtil.getFontFromTTF(new ResourceLocation("font/neverlose500.ttf"), 15.0f, 0), true, true);

@@ -1,6 +1,7 @@
 package Game.Sense.client.module.feature.RENDER;
 
 import Game.Sense.client.GameSense;
+import Game.Sense.client.UI.UwU.PaletteHelper;
 import Game.Sense.client.mine.drag.component.impl.DragModuleList;
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.render.EventRender2D;
@@ -31,26 +32,24 @@ public class ModuleList extends Module {
     public static ColorSetting twoColor = new ColorSetting("Two Color", new Color(0xFFFFFF).getRGB(), () -> colorList.currentMode.equals("Custom"));
     public BooleanSetting onlyBinds = new BooleanSetting("Only Binds", false, () -> true);
     public BooleanSetting noVisualModules = new BooleanSetting("No Visual", true, () -> true);
+
     public ModuleList() {
         super("ModuleList", "Показывает список включанных модулей на экране", ModuleCategory.RENDER);
-        addSettings(colorList,oneColor,twoColor, noVisualModules, onlyBinds);
+        addSettings(colorList, oneColor, twoColor, noVisualModules, onlyBinds);
     }
 
 
     @EventTarget
     public void Event2D(EventRender2D event) {
         if (!isEnabled()) return;
-
         DragModuleList di = (DragModuleList) GameSense.instance.draggableHUD.getDraggableComponentByClass(DragModuleList.class);
         di.setWidth(145);
         di.setHeight(100);
         int stringWidth;
         List<Module> activeModules = GameSense.instance.featureManager.getAllFeatures();
-        activeModules.sort(Comparator.comparingDouble(s -> -Helper.mc.rubik_13.getStringWidth(s.getLabel().toLowerCase())));
+        activeModules.sort(Comparator.comparingDouble(s -> -Helper.mc.mntsb_15.getStringWidth(s.getLabel().toLowerCase())));
         float displayWidth = di.getX();
         float y = di.getY();
-        float x = di.getX();
-            RenderUtils.drawImage(new ResourceLocation("GameSense/Kur.png"), x, y, 50, 50, Color.WHITE);
         ScaledResolution rs = new ScaledResolution(this.mc);
         int width = GameSense.scale.calc(rs.getScaledWidth());
         int height = GameSense.scale.calc(rs.getScaledHeight());
@@ -58,8 +57,9 @@ public class ModuleList extends Module {
         boolean reverseY = y > (float) (height / 2);
         int yTotal = 0;
         int offset = 1;
+
         for (int i = 0; i < GameSense.instance.featureManager.getAllFeatures().size(); ++i) {
-            yTotal += Helper.mc.rubik_13.getFontHeight() + 3;
+            yTotal += Helper.mc.mntsb_15.getFontHeight() + 3;
         }
         if (reverse) {
             for (Module module : activeModules) {
@@ -67,9 +67,11 @@ public class ModuleList extends Module {
                 if (module.animYto > 0.01f) {
                     if (module.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && module.getCategory() == ModuleCategory.RENDER || onlyBinds.getBoolValue() && module.getBind() == 0)
                         continue;
-                    stringWidth = this.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) + 3;
-                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float) offset + 8.2f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 20), 255).getRGB());
+                    stringWidth = this.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) + 3;
+                    RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float) offset + 8.2f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 5), 255).getRGB());
+                    Helper.mc.mntsb_15.drawString(module.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) - 4f, y + Helper.mc.mntsb_14.getFontHeight() + (float) offset - 4, -1);
                     RenderUtils.drawRect4(displayWidth + 49, y, displayWidth + 51.5f, y + 8.2f + (float) offset, Color.WHITE.getRGB());
+
                     y += 8 * module.animYto;
                 }
 
@@ -85,19 +87,20 @@ public class ModuleList extends Module {
                 if (module.animYto > 0.01f) {
                     if (module.getSuffix().equals("ClickGui") || noVisualModules.getBoolValue() && module.getCategory() == ModuleCategory.RENDER || onlyBinds.getBoolValue() && module.getBind() == 0)
                         continue;
-                    stringWidth = this.mc.rubik_13.getStringWidth(module.getLabel().toLowerCase()) + 3;
+                    stringWidth = this.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) + 3;
                     GlStateManager.pushMatrix();
                     RenderUtils.drawBlurredShadow(displayWidth - 2, y + (float) offset - 3.5f + 2, stringWidth + 5f, 10, 5, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), 150));
                     GL11.glTranslated(1, y, 1);
                     GL11.glTranslated(-1, -y, 1);
                     RenderUtils.drawRect(displayWidth, y - 0.5f - 2 + offset + 2, displayWidth + (float) stringWidth + 3.5f, y + (float) offset + 8.0f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 10), (int) (animYto * 255)).getRGB());
-                    this.mc.rubik_13.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float) offset + 2, Color.WHITE.getRGB());
+                    this.mc.mntsb_15.drawString(module.getLabel().toLowerCase(), displayWidth + 3.5f, y + (float) offset + 2, Color.WHITE.getRGB());
                     RenderUtils.drawRect(displayWidth - 1.5f, y - 0.5f - 2 + offset + 2, displayWidth + 1, y + (float) offset + 8f, Color.WHITE.getRGB());
                     GlStateManager.popMatrix();
 
-                    y += 8 * module.animYto * offset;
-
                 }
+
+                y += 8 * module.animYto * offset;
+
             }
         }
     }

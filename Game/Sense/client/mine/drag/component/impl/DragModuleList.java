@@ -3,6 +3,7 @@ package Game.Sense.client.mine.drag.component.impl;
 import Game.Sense.client.GameSense;
 import Game.Sense.client.mine.drag.component.DraggableComponent;
 import Game.Sense.client.module.feature.RENDER.FeatureList;
+import Game.Sense.client.module.feature.RENDER.ModuleList;
 
 
 public class DragModuleList extends DraggableComponent {
@@ -13,6 +14,6 @@ public class DragModuleList extends DraggableComponent {
 
     @Override
     public boolean allowDraw() {
-        return GameSense.instance.featureManager.getFeature(FeatureList.class).isEnabled();
+        return GameSense.instance.featureManager.getFeature(ModuleList.class).isEnabled();
     }
 }

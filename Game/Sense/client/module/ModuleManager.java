@@ -21,7 +21,7 @@ public class ModuleManager {
     public ModuleManager() {
 
         /* HUD */
-        features.add(new FeatureList());
+        features.add(new ModuleList());
         features.add(new Notifications());
         features.add(new TargetHUD());
         features.add(new NoOverlay());
