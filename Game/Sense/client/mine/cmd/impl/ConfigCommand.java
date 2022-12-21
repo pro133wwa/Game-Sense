@@ -59,7 +59,7 @@ public class ConfigCommand extends CommandAbstract {
                         ChatUtils.addChatMessage(ChatFormatting.RED + config.getName());
                     }
                 } else if (args.length == 2 && upperCase.equalsIgnoreCase("DIR")) {
-                    File file = new File("C:\\RichClient\\game\\configs", "configs");
+                    File file = new File("C:\\GameSense\\game\\configs", "configs");
                     Sys.openURL(file.getAbsolutePath());
                 }
             } else {

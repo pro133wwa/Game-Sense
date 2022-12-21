@@ -91,7 +91,7 @@ public class GuiConfig
             }
         }
         if (button.id == 5) {
-            File file = new File(this.mc.debug + "\\GameSense\\game\\configs", "configs");
+            File file = new File("C:\\GameSense\\game\\configs", "configs");
             Sys.openURL(file.getAbsolutePath());
         }
         super.actionPerformed(button);
