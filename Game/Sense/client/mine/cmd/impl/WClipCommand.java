@@ -18,7 +18,7 @@ public class WClipCommand
     Minecraft mc = Minecraft.getMinecraft();
 
     public WClipCommand() {
-        super("clip", "", "", "wclip");
+        super("clip", "", "", "wDisabler");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class WClipCommand
             float y;
             float oldPos;
             if (args2.length > 1) {
-                if (args2[0].equalsIgnoreCase("wclip")) {
+                if (args2[0].equalsIgnoreCase("wDisabler")) {
                     try {
 
                         //ChatUtils.addChatMessage("vclipped " + Double.valueOf(args2[1]) + " blocks.");

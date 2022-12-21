@@ -17,9 +17,8 @@ public class WaterDisabler extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdate event) {
-            mc.player.sendChatMessage(".wclip 85");
-            mc.player.sendChatMessage("пробую");
-            mc.player.sendChatMessage(".wclip 5");
+            mc.player.sendChatMessage(".wDisabler 85");
+            mc.player.sendChatMessage(".wDisabler 5");
             GameSense.instance.featureManager.getFeature(WaterDisabler.class).setEnabled(false);
     }
 

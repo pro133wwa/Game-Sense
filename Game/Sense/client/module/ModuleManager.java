@@ -31,6 +31,7 @@ public class ModuleManager {
         features.add(new ClickGUI());
         features.add(new Hud());
         features.add(new ContainerBlur());
+        features.add(new BackTrack());
         //features.add(new StaffList());
         /* MISC */
         features.add(new MiddleClickFriend());

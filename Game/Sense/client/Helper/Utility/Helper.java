@@ -16,7 +16,7 @@ public interface Helper {
     TimerHelper timerHelper = new TimerHelper();
     ScaledResolution sr = new ScaledResolution(mc);
 
-    default void sendPacket(Packet<?> packet) {
+    static void sendPacket(Packet<?> packet) {
         mc.player.connection.sendPacket(packet);
     }
 
