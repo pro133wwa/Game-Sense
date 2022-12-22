@@ -618,14 +618,14 @@ public class GuiIngame extends Gui {
                 if (!itemstack.func_190926_b()) {
                     if (enumhandside == EnumHandSide.LEFT) {
                         // this.drawTexturedModalRect(i - 91 - 29, (float) (sr.getScaledHeight() - 23 - Feature.deltaTime()) - 14 * progress, 24, 22, 29, 24);
-                        if (ClickGUI.panelMode.getCurrentMode().equals("Blue")) {
+                        if (Hud.thema.getCurrentMode().equals("Blue")) {
                             RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  12, new Color(20, 20, 20, 190));
                             RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(27, 28, 44), ClientHelper.getClientColor());
                         }
-                        if (ClickGUI.panelMode.getCurrentMode().equals("Black")) {
+                        if (Hud.thema.getCurrentMode().equals("Black")) {
                             RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  12, new Color(20, 20, 20, 190));
                             RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(0, 0, 0), ClientHelper.getClientColor());
-                        }            if (ClickGUI.panelMode.getCurrentMode().equals("Violet")) {
+                        }            if (Hud.thema.getCurrentMode().equals("Violet")) {
                             RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20, 12, new Color(20, 20, 20, 190));
                             RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(44, 28, 44), ClientHelper.getClientColor());
                         }

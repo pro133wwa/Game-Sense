@@ -1354,5 +1354,5 @@ public class RenderUtils implements Helper {
     public static int rgba1(int r, int g, int b, int a) {
         return a << 24 | r << 16 | g << 8 | b;
     }
-    
+
 }
