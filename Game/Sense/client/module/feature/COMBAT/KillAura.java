@@ -6,6 +6,8 @@ import Game.Sense.client.Helper.events.impl.packet.EventReceivePacket;
 import Game.Sense.client.Helper.events.impl.packet.EventSendPacket;
 import Game.Sense.client.Helper.events.impl.player.EventPreMotion;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
+import Game.Sense.client.UI.NursultanGui.component.PropertyComponent;
+import Game.Sense.client.UI.NursultanGui.component.impl.BooleanSettingComponent;
 import Game.Sense.client.UI.UwU.InventoryUtil;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
@@ -21,247 +23,280 @@ import Game.Sense.client.Helper.Utility.math.KillauraUtils;
 import Game.Sense.client.Helper.Utility.math.RotationHelper;
 import Game.Sense.client.Helper.Utility.math.TimerHelper;
 import Game.Sense.client.Helper.Utility.movement.MovementUtils;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.network.play.client.CPacketEntityAction;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
-import net.minecraft.network.play.client.CPacketPlayerDigging;
-import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Mouse;
 
 public class KillAura extends Module {
-    /*  42 */   public static TimerHelper timerHelper = new TimerHelper();
-    /*     */   public static float yaw;
-    /*     */   public float pitch;
-    /*  45 */   public float pitch2;
-    /*     */   private int notiTicks;
-    /*     */   public static boolean isAttacking;
-    /*  48 */   TimerHelper shieldFixerTimer = new TimerHelper();
-    /*  49 */   public float yaw2;
-    /*     */   public static boolean isBreaked;
-    /*     */   public static EntityLivingBase target;
-    /*  52 */   public static ListSetting rotationMode = new ListSetting("Rotation Mode", "Matrix", () -> Boolean.valueOf(true), "Vanilla", "Matrix", "Sunrise", "Snap", "Custom");
-    /*  53 */   public static ListSetting typeMode = new ListSetting("Type Mode", "Single", () -> Boolean.valueOf(true), "Single", "Switch");
-    /*  54 */   public static ListSetting sortMode = new ListSetting("Priority Mode", "Distance", () -> Boolean.valueOf(typeMode.currentMode.equalsIgnoreCase("Switch")), "Distance", "Health", "Crosshair", "Higher Armor", "Lowest Armor");
-    /*  55 */   public static NumberSetting fov = new NumberSetting("FOV", "Позволяет редактировать радиус в котором вы можете ударить игрока", 180.0F, 0.0F, 180.0F, 1.0F, () -> Boolean.valueOf(true));
-    /*  56 */   public static NumberSetting attackCoolDown = new NumberSetting("Attack CoolDown", "Редактирует скорость удара", 0.85F, 0.1F, 1.0F, 0.01F, () -> Boolean.valueOf(!rotationMode.currentMode.equals("Snap")));
-    /*  57 */   public static NumberSetting range = new NumberSetting("AttackRange", "Дистанция в которой вы можете ударить игрока", 3.6F, 3.0F, 6.0F, 0.01F, () -> Boolean.valueOf(true));
-    /*  58 */   public static NumberSetting yawrandom = new NumberSetting("Yaw Random", 1.6F, 0.1F, 20.0F, 0.01F, () -> Boolean.valueOf(rotationMode.currentMode.equals("Custom")));
-    /*  59 */   public static NumberSetting pitchRandom = new NumberSetting("Pitch Random", 1.6F, 0.1F, 20.0F, 0.01F, () -> Boolean.valueOf(rotationMode.currentMode.equals("Custom")));
-    /*  60 */   public static BooleanSetting staticPitch = new BooleanSetting("Static Pitch", false, () -> Boolean.valueOf(rotationMode.currentMode.equals("Custom")));
-    /*  61 */   public static NumberSetting pitchHead = new NumberSetting("Pitch Head", 0.35F, 0.1F, 1.2F, 0.01F, () -> Boolean.valueOf(rotationMode.currentMode.equals("Custom")));
-    /*  62 */   public BooleanSetting rayCast = new BooleanSetting("RayCast", "Проверяет навелась ли ротация на хит-бокс энтити", false, () -> Boolean.valueOf(true));
-    /*  63 */   public static BooleanSetting walls = new BooleanSetting("Walls", "Позволяет бить сквозь стены", true, () -> Boolean.valueOf(true));
-    /*  64 */   public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "Бьет в нужный момент для крита", false, () -> Boolean.valueOf(true));
-    /*  65 */   public BooleanSetting spaceOnly = new BooleanSetting("Space Only", "Only Crits будут работать если зажат пробел", false, () -> Boolean.valueOf(onlyCritical.getBoolValue()));
-    /*  66 */   public NumberSetting criticalFallDistance = new NumberSetting("Critical Fall Distance", "Регулировка дистанции до земли для крита", 0.2F, 0.08F, 1.0F, 0.01F, () -> Boolean.valueOf(onlyCritical.getBoolValue()));
-    /*  67 */   public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "Отжимает щит во время удара, помогает обойти Matrix", false, () -> Boolean.valueOf(true));
-    /*  68 */   public NumberSetting fixerDelay = new NumberSetting("Fixer Delay", "Регулировка как долго щит будет отжмиматься (чем больше, тем щит будет дольше отжиматься)", 150.0F, 0.0F, 600.0F, 10.0F, () -> Boolean.valueOf(shieldFixer.getBoolValue()));
-    /*  69 */   public BooleanSetting shieldDesync = new BooleanSetting("Shield Desync", false, () -> Boolean.valueOf(true));
-    /*  70 */   public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "Автоматически ломает щит противнику", false, () -> Boolean.valueOf(true));
-    /*  71 */   public static BooleanSetting breakNotifications = new BooleanSetting("Break Notifications", true, () -> Boolean.valueOf(shieldBreaker.getBoolValue()));
-    /*  72 */   public static BooleanSetting silentMove = new BooleanSetting("SilentMove", false, () -> Boolean.valueOf(true));
-    /*  73 */   //public static MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets", new BooleanSettingComponent[] { new BooleanSettingComponent("Players", true), new BooleanSettingComponent("Mobs"), new BooleanSettingComponent("Animals"), new BooleanSettingComponent("Villagers"), new BooleanSettingComponent("Invisibles", true) });
-    /* 74 */    public static BooleanSetting Players = new BooleanSetting("Players",true);
-    /* 75 */    public static BooleanSetting Mobs = new BooleanSetting("Mobs",true);
-    public static BooleanSetting Villagers = new BooleanSetting("Villagers",true);
-    public static BooleanSetting Animals = new BooleanSetting("Animals",true);
-    public static BooleanSetting Invisibles = new BooleanSetting("Invisibles",true);
+    public static TimerHelper timerHelper = new TimerHelper();
 
-    /*     */   public KillAura() {
-        /*  76 */     super("Attack Aura", "Автоматически аттакует энтити", ModuleCategory.COMBAT);
-        /*  77 */     addSettings(rotationMode, typeMode, sortMode, Players, Mobs, Villagers, Animals, Invisibles, fov, attackCoolDown, range, rayCast, yawrandom, pitchRandom, pitchHead, staticPitch, walls, onlyCritical, spaceOnly, criticalFallDistance, shieldBreaker, breakNotifications, shieldFixer, fixerDelay, shieldDesync, silentMove);
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onSendPacket(EventSendPacket event) {
-        /*  83 */     if (event.getPacket() instanceof CPacketUseEntity) {
-            /*  84 */       CPacketUseEntity cPacketUseEntity = (CPacketUseEntity)event.getPacket();
-            /*     */
-            /*  86 */       if (cPacketUseEntity.getAction() == CPacketUseEntity.Action.INTERACT) {
-                /*  87 */         event.setCancelled(true);
-                /*     */       }
-            /*     */
-            /*  90 */       if (cPacketUseEntity.getAction() == CPacketUseEntity.Action.INTERACT_AT) {
-                /*  91 */         event.setCancelled(true);
-                /*     */       }
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onPreAttack(EventPreMotion event) {
-        /*  98 */     String mode = rotationMode.getOptions();
-        /*     */
-        /* 100 */     setSuffix("" + mode);
-        /*     */
-        /* 102 */
+    private int notiTicks;
+    public static boolean isAttacking;
+    TimerHelper shieldFixerTimer = new TimerHelper();
+    public static float yawStatic, pitchStatic;
+    public static boolean isBreaked;
+    public static EntityLivingBase target;
+    public static ListSetting clickMode = new ListSetting("Click Mode", "1.9", () -> true, "1.9", "1.8");
+    public static NumberSetting minAPS = new NumberSetting("Min APS", "Минимальное количество кликов в секунду", 12.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
+    public static NumberSetting maxAPS = new NumberSetting("Max APS", "Максимальное количество кликов в секунду", 13.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
+    public static ListSetting rotationMode = new ListSetting("Rotation Mode", "Matrix", "Vanilla", "Matrix", "Sunrise", "Snap", "Custom");
+    public static ListSetting typeMode = new ListSetting("Type Mode", "Single", "Single", "Switch");
+    public static BooleanSetting silent = new BooleanSetting("Silent Aura", true);
+    public static ListSetting sortMode = new ListSetting("Priority Mode", "Distance", () -> typeMode.currentMode.equalsIgnoreCase("Switch"), "Distance", "Health", "Crosshair", "Higher Armor", "Lowest Armor");
+    public static NumberSetting fov = new NumberSetting("FOV", "Позволяет редактировать радиус в котором вы можете ударить игрока", 180, 0, 180, 1);
+    public static NumberSetting attackCoolDown = new NumberSetting("Attack CoolDown", "Редактирует скорость удара", 0.85F, 0.1F, 1F, 0.01F, () -> !rotationMode.currentMode.equals("Snap") && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting range = new NumberSetting("AttackRange", "Дистанция в которой вы можете ударить игрока", 3.6F, 3, 6, 0.01f);
+    public static NumberSetting preAimRange = new NumberSetting("Pre Aim Range", "Игрок будет наводиться до атаки", 0.0f, 0.0f, 4.0f, 0.1f, () -> !rotationMode.currentMode.equals("Vanilla"));
+    public static NumberSetting yawrandom = new NumberSetting("Yaw Random", 1.6f, 0.1f, 20, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
+    public static NumberSetting pitchRandom = new NumberSetting("Pitch Random", 1.6f, 0.1f, 20, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
+    public static BooleanSetting staticPitch = new BooleanSetting("Static Pitch", false, () -> rotationMode.currentMode.equals("Custom"));
+    public static NumberSetting pitchHead = new NumberSetting("Pitch Head", 0.35f, 0.1f, 1.2f, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
+    public BooleanSetting rayCast = new BooleanSetting("RayCast", "Проверяет навелась ли ротация на хит-бокс энтити", true);
+    public static BooleanSetting walls = new BooleanSetting("Walls", "Позволяет бить сквозь стены", true);
+    public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "Бьет в нужный момент для крита", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting spaceOnly = new BooleanSetting("Space Only", "Only Crits будут работать если зажат пробел", false, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting checkCrystals = new BooleanSetting("Check Crystal", "Only Crits не будут работать когда рядом кристал", false, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting radiusCrystals = new NumberSetting("Distance to Crystal", 3, 1, 8, 1, () -> checkCrystals.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting criticalFallDistance = new NumberSetting("Critical Fall Distance", "Регулировка дистанции до земли для крита", 0.2F, 0.08F, 1F, 0.01f, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "Отжимает щит во время удара, помогает обойти Matrix", false, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public NumberSetting fixerDelay = new NumberSetting("Fixer Delay", "Регулировка как долго щит будет отжмиматься (чем больше, тем щит будет дольше отжиматься)", 150.0f, 0.0f, 600.0f, 10.0f, () -> shieldFixer.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting shieldDesync = new BooleanSetting("Shield Desync", false, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "Автоматически ломает щит противнику", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting breakNotifications = new BooleanSetting("Break Notifications", true, () -> shieldBreaker.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting silentMove = new BooleanSetting("SilentMove", false);
+    public static MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets", new BooleanSetting("Players", true), new BooleanSetting("Mobs"), new BooleanSetting("Animals"), new BooleanSetting("Villagers"), new BooleanSetting("Invisibles", true));
+
+    public KillAura() {
+        super("KillAura", "Автоматически аттакует энтити", ModuleCategory.COMBAT);
+        addSettings(rotationMode, typeMode, sortMode, clickMode, minAPS, maxAPS, targetsSetting, fov, attackCoolDown, range, preAimRange, silent, rayCast, yawrandom, pitchRandom, pitchHead, staticPitch, walls, onlyCritical, spaceOnly, checkCrystals, radiusCrystals, criticalFallDistance, shieldBreaker, breakNotifications, shieldFixer, fixerDelay, shieldDesync, silentMove);
+    }
+
+    @EventTarget
+    public void onFix(EventSendPacket event) {
+        /* INTERACT FIX */
+        if (target == null) return;
+
+        if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
+            event.setCancelled(true);
+        }
+
+        if (event.getPacket() instanceof CPacketUseEntity) {
+            CPacketUseEntity packetUseEntity = (CPacketUseEntity) event.getPacket();
+            if ((packetUseEntity.getAction() == CPacketUseEntity.Action.INTERACT) || (packetUseEntity.getAction() == CPacketUseEntity.Action.INTERACT_AT)) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventTarget
+    public void onEventPre(EventPreMotion event) {
+        String mode = rotationMode.getOptions();
+        setSuffix("" + mode);
+        /* Sorting */
         target = KillauraUtils.getSortEntities();
-        /*     */
-        /*     */
-        /* 105 */     if (target == null) {
-            /*     */       return;
-            /*     */     }
-        /*     */
-        /*     */
-        /* 110 */     if (!rotationMode.currentMode.equals("Snap") && !RotationHelper.isLookingAtEntity(false, yaw, pitch, 0.12F, 0.12F, 0.12F, target, range.getNumberValue()) && rayCast.getBoolValue()) {
-            /*     */       return;
-            /*     */     }
-        /*     */
-        /*     */
-        /* 115 */     Minecraft.player.jumpTicks = 0;
-        /* 116 */     BlockPos blockPos = new BlockPos(Minecraft.player.posX, Minecraft.player.posY - 0.1D, Minecraft.player.posZ);
-        /* 117 */     Block block = Minecraft.world.getBlockState(blockPos).getBlock();
-        /* 118 */     float f2 = Minecraft.player.getCooledAttackStrength(0.5F);
-        /* 119 */     boolean flag = (f2 > 0.9F);
-        /* 120 */     if (!flag && onlyCritical.getBoolValue())
-            /*     */       return;
-        /* 122 */     if (Minecraft.gameSettings.keyBindJump.isKeyDown() || !spaceOnly.getBoolValue()) {
-            /* 123 */       if (MovementUtils.airBlockAboveHead()) {
-                /* 124 */         if (Minecraft.player.fallDistance < criticalFallDistance.getNumberValue() && !(block instanceof net.minecraft.block.BlockLiquid) && onlyCritical.getBoolValue() && !Minecraft.player.isRiding() && !Minecraft.player.isOnLadder() && !Minecraft.player.isInLiquid() && !Minecraft.player.isInWeb) {
-                    /* 125 */           Minecraft.player.connection.sendPacket(new CPacketEntityAction(Minecraft.player, CPacketEntityAction.Action.STOP_SPRINTING));
-                    /*     */           return;
-                    /*     */         }
-                /* 128 */       } else if (Minecraft.player.fallDistance > 0.0F && !Minecraft.player.onGround && onlyCritical.getBoolValue() && !Minecraft.player.isRiding() && !Minecraft.player.isOnLadder() && !Minecraft.player.isInLiquid() && !Minecraft.player.isInWeb) {
-                /* 129 */         Minecraft.player.connection.sendPacket(new CPacketEntityAction(Minecraft.player, CPacketEntityAction.Action.STOP_SPRINTING));
-                /*     */         return;
-                /*     */       }
-            /*     */     }
-        /* 133 */     if (rotationMode.currentMode.equals("Snap") && Minecraft.player.getCooledAttackStrength(0.0F) >= attackCoolDown.getNumberValue()) {
-            /* 134 */       float[] rots1 = RotationHelper.getRotations(target);
-            /* 135 */       Minecraft.player.rotationYaw = rots1[0];
-            /* 136 */       Minecraft.player.rotationPitch = rots1[1];
-            /*     */     }
-        /* 138 */     KillauraUtils.attackEntity(target);
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onRotations(EventPreMotion event) {
-        /* 144 */     String mode = rotationMode.getOptions();
-        /*     */
-        /* 146 */     if (target == null) {
-            /*     */       return;
-            /*     */     }
-        /*     */
-        /* 150 */     if (!target.isDead) {
-            /*     */
-            /* 152 */       float[] matrix = RotationHelper.getRotations(target);
-            /* 153 */       float[] fake = RotationHelper.getFakeRotations(target);
-            /*     */
-            /* 155 */       float[] custom = RotationHelper.getCustomRotations(target);
-            /*     */
-            /* 157 */       if (mode.equalsIgnoreCase("Matrix")) {
-                /* 158 */         event.setYaw(matrix[0]);
-                /* 159 */         event.setPitch(matrix[1]);
-                /* 160 */
-                yaw = matrix[0];
-                /* 161 */         pitch = matrix[1];
-                /* 162 */         Minecraft.player.renderYawOffset = matrix[0];
-                /* 163 */         Minecraft.player.rotationYawHead = matrix[0];
-                /* 164 */         Minecraft.player.rotationPitchHead = matrix[1];
-                /* 165 */       } else if (mode.equalsIgnoreCase("Sunrise")) {
-                /* 166 */         yaw2 = GCDFix.getFixedRotation(MathHelper.Rotate(yaw2, matrix[0], 40.0F, 50.0F));
-                /* 167 */         pitch2 = GCDFix.getFixedRotation(MathHelper.Rotate(pitch2, matrix[1], 0.35F, 2.1F));
-                /* 168 */         event.setYaw(yaw2);
-                /* 169 */         event.setPitch(pitch2);
-                /* 170 */
-                yaw = yaw2;
-                /* 171 */         pitch = pitch2;
-                /* 172 */         Minecraft.player.renderYawOffset = fake[0];
-                /* 173 */         Minecraft.player.rotationYawHead = fake[0];
-                /* 174 */         Minecraft.player.rotationPitchHead = fake[1];
-                /* 175 */       } else if (mode.equalsIgnoreCase("Custom")) {
-                /* 176 */         event.setYaw(custom[0]);
-                /* 177 */         event.setPitch(custom[1]);
-                /* 178 */
-                yaw = custom[0];
-                /* 179 */         pitch = custom[1];
-                /* 180 */         Minecraft.player.renderYawOffset = custom[0];
-                /* 181 */         Minecraft.player.rotationYawHead = custom[0];
-                /* 182 */         Minecraft.player.rotationPitchHead = custom[1];
-                /*     */       }
+        /* хуйня ебаная */
+        if (target == null) {
+            return;
+        }
+        /* RayCast */
+        if (!RotationHelper.isLookingAtEntity(false, yawStatic, pitchStatic, 0.06f, 0.06f, 0.06f, target, range.getCurrentValue() + preAimRange.getCurrentValue())) {
+            return;
+        }
+        /* Only Critical */
+        if (!(!mc.gameSettings.keyBindJump.isKeyDown() && spaceOnly.getCurrentValue() || KillauraUtils.checkCrystal() && checkCrystals.getCurrentValue() || mc.player.capabilities.isFlying)) {
+            if (MovementUtils.airBlockAboveHead()) {
+                if (!(mc.player.fallDistance >= criticalFallDistance.getCurrentValue() || !onlyCritical.getCurrentValue() || mc.player.isRiding() || mc.player.isOnLadder() || mc.player.isInLiquid() || mc.player.isInWeb)) {
+                    return;
+                }
+            } else if (!(!(mc.player.fallDistance > 0.0f) || mc.player.onGround || !onlyCritical.getCurrentValue() || mc.player.isRiding() || mc.player.isOnLadder() || mc.player.isInLiquid() || mc.player.isInWeb)) {
+                return;
+            }
+        }
 
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onAttackSilent(EventAttackSilent eventAttackSilent) {
-        /* 191 */
-        isAttacking = true;
-        /* 192 */     if (Minecraft.player.isBlocking() && shieldFixerTimer.hasReached(fixerDelay.getNumberValue()) && Minecraft.player.getHeldItem(EnumHand.OFF_HAND).getItem() instanceof net.minecraft.item.ItemShield && shieldFixer.getBoolValue()) {
-            /* 193 */       Minecraft.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, new BlockPos(900, 900, 900), EnumFacing.UP));
-            /* 194 */       Minecraft.playerController.processRightClick(Minecraft.player, Minecraft.world, EnumHand.OFF_HAND);
-            /* 195 */       shieldFixerTimer.reset();
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onUpdate(EventUpdate event) {
-        /* 203 */     if (shieldDesync.getBoolValue() && Minecraft.player.isBlocking() && target != null && Minecraft.player.ticksExisted % 8 == 0) {
-            /* 204 */       Minecraft.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, new BlockPos(900, 900, 900), EnumFacing.DOWN));
-            /* 205 */       Minecraft.playerController.processRightClick(Minecraft.player, Minecraft.world, EnumHand.OFF_HAND);
-            /*     */     }
-        /* 207 */     if (shieldFixer.getBoolValue()) {
-            /* 208 */       if (target.getHeldItemMainhand().getItem() instanceof net.minecraft.item.ItemAxe) {
-                /* 209 */         if (Minecraft.gameSettings.keyBindUseItem.isKeyDown()) {
-                    /* 210 */           Minecraft.gameSettings.keyBindUseItem.pressed = false;
-                    /*     */         }
-                /*     */       } else {
-                /* 213 */         Minecraft.gameSettings.keyBindUseItem.pressed = Mouse.isButtonDown(1);
-                /*     */       }
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */   @EventTarget
-    /*     */   public void onSound(EventReceivePacket sound) {
-        /* 220 */     if (breakNotifications.getBoolValue() &&
-                /* 221 */       sound.getPacket() instanceof SPacketEntityStatus) {
-            /* 222 */       SPacketEntityStatus sPacketEntityStatus = (SPacketEntityStatus)sound.getPacket();
-            /* 223 */       if (sPacketEntityStatus.getOpCode() == 30 &&
-                    /* 224 */         sPacketEntityStatus.getEntity(Minecraft.world) == target) {
-                /* 225 */         if (notiTicks < 2) {
-                    /* 226 */
-                    NotificationRenderer.queue(TextFormatting.GREEN + "Shield-Breaker", "Successfully destroyed " + target.getName() + " shield", 2, NotificationMode.SUCCESS);
-                    /*     */         } else {
-                    /* 228 */           notiTicks = 0;
-                    /*     */         }
-                /*     */       }
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */
-    /*     */   public static void BreakShield(EntityLivingBase tg) {
-        /* 237 */     if (InventoryUtil.doesHotbarHaveAxe() && shieldBreaker.getBoolValue()) {
-            /* 238 */       int item = InventoryUtil.getAxe();
-            /* 239 */       if (InventoryUtil.getAxe() >= 0 && tg instanceof EntityPlayer && tg.isHandActive() && tg.getActiveItemStack().getItem() instanceof net.minecraft.item.ItemShield) {
-                /* 240 */         Minecraft.player.connection.sendPacket(new CPacketHeldItemChange(item));
-                /* 241 */         Minecraft.playerController.attackEntity(Minecraft.player, target);
-                /* 242 */         Minecraft.player.swingArm(EnumHand.MAIN_HAND);
-                /* 243 */         Minecraft.player.connection.sendPacket(new CPacketHeldItemChange(Minecraft.player.inventory.currentItem));
-                /*     */       }
-            /*     */     }
-        /*     */   }
-    /*     */
-    /*     */
-    /*     */   public void onDisable() {
-        /* 250 */
+        KillauraUtils.attackEntity(target);
+
+    }
+
+    public float prevYaw, prevPitch;
+
+    @EventTarget
+    public void onRotations(EventPreMotion event) {
+
+        String mode = rotationMode.getOptions();
+
+        if (target == null) {
+            return;
+        }
+
+        if (!target.isDead) {
+
+            /* ROTATIONS */
+            float[] sunrise = getSunriseRots(target);
+            float[] matrix = getRotations(target);
+
+            float[] fake = RotationHelper.getRotationsA(target);
+
+            float[] custom = RotationHelper.getCustomRotations(target);
+
+            if (mode.equalsIgnoreCase("Matrix")) {
+                if (silent.getCurrentValue()) {
+                    event.setYaw(matrix[0]);
+                    event.setPitch(matrix[1]);
+                    yawStatic = matrix[0];
+                    pitchStatic = matrix[1];
+                    mc.player.renderYawOffset = matrix[0];
+                    mc.player.rotationYawHead = matrix[0];
+                    mc.player.rotationPitchHead = matrix[1];
+                } else {
+                    mc.player.rotationYaw = matrix[0];
+                    mc.player.rotationPitch = matrix[1];
+                }
+            } else if (mode.equalsIgnoreCase("Sunrise")) {
+                if (silent.getCurrentValue()) {
+                    event.setYaw(sunrise[0]);
+                    event.setPitch(sunrise[1]);
+                    yawStatic = sunrise[0];
+                    pitchStatic = sunrise[1];
+                    mc.player.renderYawOffset = sunrise[0];
+                    mc.player.rotationYawHead = sunrise[0];
+                    mc.player.rotationPitchHead = sunrise[1];
+                } else {
+                    mc.player.rotationYaw = sunrise[0];
+                    mc.player.rotationPitch = sunrise[1];
+                }
+
+            } else if (mode.equalsIgnoreCase("Custom")) {
+                if (silent.getCurrentValue()) {
+                    event.setYaw(custom[0]);
+                    event.setPitch(custom[1]);
+                    mc.player.renderYawOffset = custom[0];
+                    mc.player.rotationYawHead = custom[0];
+                    mc.player.rotationPitchHead = custom[1];
+                } else {
+                    mc.player.rotationYaw = fake[0];
+                    mc.player.rotationPitch = fake[1];
+                }
+            }
+
+        } else {
+            yawStatic = mc.player.rotationYaw;
+            pitchStatic = mc.player.rotationPitch;
+        }
+    }
+
+    private static double getDist(Entity entity) {
+        Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.posY - mc.player.posY + mc.player.getEyeHeight(), 0, entity.height), 0));
+        return mc.player.getPositionVector().add(new Vec3d(0, mc.player.height / 2, 0)).distanceTo(vec);
+    }
+
+    public static float[] getRotations(Entity entity) {
+        Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.getEyeHeight() * (getDist(entity) / (range.getCurrentValue() + entity.width)), 0.2, mc.player.getEyeHeight()), 0));
+        double diffX = vec.x - mc.player.posX;
+        double diffY = vec.y - (mc.player.posY + mc.player.getEyeHeight());
+        double diffZ = vec.z - mc.player.posZ;
+        double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
+        float yawTo = (float) ((Math.toDegrees(Math.atan2(diffZ, diffX)) - 90) + GCDFix.getFixedRotation((float) (Math.sin(System.currentTimeMillis() / 30) * 2)));
+        float pitchTo = (float) (-(Math.toDegrees(Math.atan2(diffY, dist))) + GCDFix.getFixedRotation((float) (Math.cos(System.currentTimeMillis() / 30) * 2)));
+        yawTo = mc.player.rotationYaw + GCDFix.getFixedRotation(MathHelper.wrapDegrees(yawTo - mc.player.rotationYaw));
+        pitchTo = mc.player.rotationPitch + GCDFix.getFixedRotation(MathHelper.wrapDegrees(pitchTo - mc.player.rotationPitch));
+        pitchTo = MathHelper.clamp(pitchTo, -90, 90);
+        yawStatic = GCDFix.getFixedRotation(MathHelper.Rotate(yawStatic, yawTo, 90, 90));
+        pitchStatic = GCDFix.getFixedRotation(MathHelper.Rotate(pitchStatic, pitchTo, 1, 12));
+        return new float[]{yawStatic, pitchStatic};
+    }
+
+    public static float[] getSunriseRots(Entity entity) {
+        Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.getEyeHeight() * (getDist(entity) / (range.getCurrentValue() + entity.width)), 0.2, mc.player.getEyeHeight()), 0));
+        double diffX = vec.x - mc.player.posX;
+        double diffY = vec.y - (mc.player.posY + mc.player.getEyeHeight());
+        double diffZ = vec.z - mc.player.posZ;
+        double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
+        float yawTo = (float) ((Math.toDegrees(Math.atan2(diffZ, diffX)) - 90) + GCDFix.getFixedRotation((float) (Math.sin(System.currentTimeMillis() / 30) * 2)));
+        float pitchTo = (float) (-(Math.toDegrees(Math.atan2(diffY, dist))) + GCDFix.getFixedRotation((float) (Math.cos(System.currentTimeMillis() / 30) * 2)));
+        yawTo = mc.player.rotationYaw + GCDFix.getFixedRotation(MathHelper.wrapDegrees(yawTo - mc.player.rotationYaw));
+        pitchTo = mc.player.rotationPitch + GCDFix.getFixedRotation(MathHelper.wrapDegrees(pitchTo - mc.player.rotationPitch));
+        pitchTo = MathHelper.clamp(pitchTo, -90, 90);
+        yawStatic = GCDFix.getFixedRotation(MathHelper.Rotate(yawStatic, yawTo, 89, 89));
+        pitchStatic = GCDFix.getFixedRotation(MathHelper.Rotate(pitchStatic, pitchTo, 1f, 3f));
+        return new float[]{yawStatic, pitchStatic};
+    }
+
+    @EventTarget
+    public void onAttackSilent(EventAttackSilent eventAttackSilent) {
+        /* SHIELD Fix */
+        if (mc.player.isBlocking() && this.shieldFixerTimer.hasReached(fixerDelay.getCurrentValue()) && mc.player.getHeldItem(EnumHand.OFF_HAND).getItem() instanceof ItemShield && shieldFixer.getCurrentValue()) {
+            mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, new BlockPos(900, 900, 900), EnumFacing.UP));
+            mc.playerController.processRightClick(mc.player, mc.world, EnumHand.OFF_HAND);
+            this.shieldFixerTimer.reset();
+        }
+    }
+
+
+    @EventTarget
+    public void onUpdate(EventUpdate event) {
+        if (target == null) {
+            return;
+        }
+        /* SHIELD Desync */
+        if (shieldDesync.getCurrentValue() && mc.player.isBlocking() && target != null && mc.player.ticksExisted % 8 == 0) {
+            mc.player.stopActiveHand();
+        }
+        if (shieldFixer.getCurrentValue()) {
+            if (target.getHeldItemMainhand().getItem() instanceof ItemAxe) {
+                if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                    mc.player.stopActiveHand();
+                }
+            }
+        }
+    }
+
+    @EventTarget
+    public void onSound(EventReceivePacket sound) {
+        if (breakNotifications.getCurrentValue()) {
+            if (sound.getPacket() instanceof SPacketEntityStatus) {
+                SPacketEntityStatus sPacketEntityStatus = (SPacketEntityStatus) sound.getPacket();
+                if (sPacketEntityStatus.getOpCode() == 30) {
+                    if (sPacketEntityStatus.getEntity(mc.world) == target) {
+                        if (notiTicks < 2) {
+                            NotificationRenderer.queue(TextFormatting.GREEN + "Shield-Breaker", "Successfully destroyed " + target.getName() + " shield", 2, NotificationMode.SUCCESS);
+                        } else {
+                            notiTicks = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void BreakShield(EntityLivingBase tg) {
+        if (InvenotryUtil.doesHotbarHaveAxe() && shieldBreaker.getCurrentValue()) {
+            int item = InvenotryUtil.getAxe();
+            if (InvenotryUtil.getAxe() >= 0 && tg instanceof EntityPlayer && tg.isHandActive() && tg.getActiveItemStack().getItem() instanceof ItemShield) {
+                mc.player.connection.sendPacket(new CPacketHeldItemChange(item));
+                mc.playerController.attackEntity(mc.player, target);
+                mc.player.swingArm(EnumHand.MAIN_HAND);
+                mc.player.connection.sendPacket(new CPacketHeldItemChange(mc.player.inventory.currentItem));
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
         target = null;
-        /* 251 */     super.onDisable();
-        /*     */   }
-    /*     */ }
+        super.onDisable();
+    }
+}
