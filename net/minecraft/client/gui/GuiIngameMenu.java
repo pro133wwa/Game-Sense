@@ -10,6 +10,7 @@ import net.minecraft.realms.RealmsBridge;
 public class GuiIngameMenu extends GuiScreen
 {
     private int saveStep;
+
     private int visibleTime;
 
     /**

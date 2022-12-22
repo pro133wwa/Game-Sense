@@ -17,7 +17,6 @@ import Game.Sense.client.Helper.Utility.math.TPSUtils;
 import Game.Sense.client.Helper.Utility.render.*;
 import Game.Sense.client.Helper.Utility.render.ColorUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.potion.Potion;
@@ -29,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
-import static Game.Sense.client.module.feature.MOVEMENT.Jesus.mode;
 
 public class Hud extends Module {
     public static BooleanSetting waterMark = new BooleanSetting("WaterMark", true, () -> true);
@@ -41,9 +39,11 @@ public class Hud extends Module {
     public static BooleanSetting armor = new BooleanSetting("Armor Status", true, () -> true);
 
     public static BooleanSetting potions = new BooleanSetting("Potion Info", true, () -> true);
-    int x2,y2;
     int height;
     public static float progress;
+    public static ListSetting thema = new ListSetting("theme", "Blue", () -> {
+        return true;
+    }, new String[]{"Blue", "Black", "Violet",});
     private long lastMS;
     public static boolean a = false;
     public static ListSetting mode = new ListSetting("Mode", "Rockstar Styled", () -> true, "Rockstar", "Rockstar Styled", "Rockstar New");
@@ -54,7 +54,7 @@ public class Hud extends Module {
 
     public Hud() {
         super("Hud", "Показывает информацию на экране", ModuleCategory.RENDER);
-        addSettings(sessionInfo, potions, armor);
+        addSettings(sessionInfo, potions, armor,thema);
     }
 
     @EventTarget

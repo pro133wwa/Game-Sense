@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class FeatureList extends Module {
-    public static ListSetting colorList = new ListSetting("ArrayList Color", "Custom", () -> true, "Custom");
+    public static ListSetting colorList = new ListSetting("ArrayList Color", "Custom", () -> true, "Custom","Astolfo");
     public static ColorSetting oneColor = new ColorSetting("One Color", new Color(0x00FDF5).getRGB(), () -> colorList.currentMode.equals("Custom") || colorList.currentMode.equals("Fade"));
     public static ColorSetting twoColor = new ColorSetting("Two Color", new Color(0xFFFFFF).getRGB(), () -> colorList.currentMode.equals("Custom"));
     public BooleanSetting onlyBinds = new BooleanSetting("Only Binds", false, () -> true);

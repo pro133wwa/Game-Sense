@@ -1,7 +1,6 @@
 package Game.Sense.client.module;
 
 import Game.Sense.client.module.feature.AAA.DeathCoordinates;
-import Game.Sense.client.module.feature.AAA.WaterDisabler;
 import Game.Sense.client.module.feature.ModuleCategory;
 import Game.Sense.client.module.feature.COMBAT.*;
 import Game.Sense.client.module.feature.MOVEMENT.*;
@@ -48,6 +47,8 @@ public class ModuleManager {
         features.add(new BetterChat());
         features.add(new Disabler());
         features.add(new AutoGrief());
+        features.add(new DoubleJump());
+        features.add(new Hotbar());
         /* COMBAT */
         features.add(new AppleGoldenTimer());
         features.add(new TargetStrafe());

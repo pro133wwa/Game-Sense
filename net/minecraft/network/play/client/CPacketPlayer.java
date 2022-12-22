@@ -7,9 +7,9 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 
 public class CPacketPlayer implements Packet<INetHandlerPlayServer>
 {
-    protected double x;
+    public double x;
     public double y;
-    protected double z;
+    public double z;
     protected float yaw;
     protected float pitch;
     public boolean onGround;

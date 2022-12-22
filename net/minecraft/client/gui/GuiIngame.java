@@ -1,11 +1,21 @@
 package net.minecraft.client.gui;
 
+import Game.Sense.client.GameSense;
+import Game.Sense.client.Helper.EventManager;
+import Game.Sense.client.Helper.Utility.render.ClientHelper;
+import Game.Sense.client.Helper.Utility.render.RenderUtils;
+import Game.Sense.client.Helper.events.impl.render.EventRender2D;
+import Game.Sense.client.Helper.events.impl.render.EventRenderScoreboard;
+import Game.Sense.client.Helper.types.EventType;
+import Game.Sense.client.UI.UwU.PaletteHelper;
+import Game.Sense.client.module.feature.RENDER.*;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 
+import java.awt.*;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -13,13 +23,8 @@ import java.util.Map;
 import java.util.Random;
 import javax.annotation.Nullable;
 
-import Game.Sense.client.GameSense;
-import Game.Sense.client.Helper.EventManager;
-import Game.Sense.client.Helper.events.impl.render.EventRender2D;
-import Game.Sense.client.Helper.events.impl.render.EventRenderScoreboard;
-import Game.Sense.client.Helper.types.EventType;
-import Game.Sense.client.module.feature.RENDER.NameProtect;
-import Game.Sense.client.module.feature.RENDER.ScoreboardFeatures;
+
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -31,7 +36,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -78,7 +82,6 @@ public class GuiIngame extends Gui {
     private static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation("textures/gui/widgets.png");
     private static final ResourceLocation PUMPKIN_BLUR_TEX_PATH = new ResourceLocation("textures/misc/pumpkinblur.png");
     private final Random rand = new Random();
-    public static float progress;
     private final Minecraft mc;
     private final RenderItem itemRenderer;
 
@@ -443,8 +446,9 @@ public class GuiIngame extends Gui {
             } else {
                 GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
                 GlStateManager.enableAlpha();
-                this.drawTexturedModalRect(l / 2 - 7, i1 / 2 - 7, 0, 0, 16, 16);
-
+                if (!GameSense.instance.featureManager.getFeature(Crosshair.class).isEnabled()) {
+                    this.drawTexturedModalRect(l / 2 - 7, i1 / 2 - 7, 0, 0, 16, 16);
+                }
                 if (this.mc.gameSettings.attackIndicator == 1) {
                     float f = this.mc.player.getCooledAttackStrength(0.0F);
                     boolean flag = false;
@@ -527,9 +531,7 @@ public class GuiIngame extends Gui {
                     float f = 1.0F;
 
                     if (potioneffect.getIsAmbient()) {
-                        this.drawTexturedModalRect(k, l, 165, 166, 24, 24);
                     } else {
-                        this.drawTexturedModalRect(k, l, 141, 166, 24, 24);
 
                         if (potioneffect.getDuration() <= 200) {
                             int j1 = 10 - potioneffect.getDuration() / 20;
@@ -541,20 +543,53 @@ public class GuiIngame extends Gui {
 
                     if (Reflector.ForgePotion_renderHUDEffect.exists()) {
                         if (potion.hasStatusIcon()) {
-                            this.drawTexturedModalRect(k + 3, l + 3, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18);
                         }
 
                         Reflector.call(potion, Reflector.ForgePotion_renderHUDEffect, k, l, potioneffect, this.mc, f);
                     } else {
-                        this.drawTexturedModalRect(k + 3, l + 3, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18);
                     }
                 }
             }
         }
     }
+    public static float progress;
+    double last = 0;
 
-    protected void renderHotbar(ScaledResolution sr, float partialTicks) {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+
+    protected void renderHotbar(ScaledResolution sr, float partialTicks)
+    {
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer)
+
+
+        if (GameSense.instance.featureManager.getFeature(Hotbar.class).isEnabled()) {
+
+            GlStateManager.pushMatrix();
+            if (Hud.thema.getCurrentMode().equals("Blue")) {
+                RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 12, PaletteHelper.rainbow(1,1,1));
+                RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 5, 0.000000001F, new Color(27, 28, 44), ClientHelper.getClientColor());
+            }
+            if (Hud.thema.getCurrentMode().equals("Black")) {
+                RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 12, PaletteHelper.rainbow(1,1,1));
+                RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 5, 0.000000001F, new Color(0, 0, 0), ClientHelper.getClientColor());
+            }            if (Hud.thema.getCurrentMode().equals("Violet")) {
+                RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 12, PaletteHelper.rainbow(1,1,1));
+                RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 90 - 1 + 1, (float) (sr.getScaledHeight() - 23 + 1 - GameSense.deltaTime()), (sr.getScaledWidth() / 2) + 85 + 3 - ((sr.getScaledWidth() / 2) - 90 - 2), 20, 5, 0.000000001F, new Color(44, 28, 44), ClientHelper.getClientColor());
+            }
+
+            double target = (sr.getScaledWidth() / 2) - 91 + mc.player.inventory.currentItem * 20;
+
+            double delta = (target - last) / Math.max((float) mc.getDebugFPS(), 13) * 4;
+            if (Math.abs(delta) > Math.abs(target - last)) {
+                last = target;
+            } else {
+                last += delta;
+            }
+
+            RenderUtils.drawBlurredShadow((float) last + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 5  - 4), 20, 20,  12, new Color(20, 20, 20, 190));
+            RenderUtils.drawRoundOutline((float) last + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 5  - 4), 20, 20, 5, 0.000000001F, RenderUtils.injectAlpha(ClientHelper.getClientColor(), 55), ClientHelper.getClientColor());
+            GlStateManager.popMatrix();
+        } else if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
             EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
@@ -565,14 +600,39 @@ public class GuiIngame extends Gui {
             int j = 182;
             int k = 91;
             this.zLevel = -90.0F;
-            this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
 
-            if (!itemstack.func_190926_b()) {
-                if (enumhandside == EnumHandSide.LEFT) {
-                    this.drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23, 24, 22, 29, 24);
-                } else {
-                    this.drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23, 53, 22, 29, 24);
+            this.drawTexturedModalRect(i - 91, (float) (sr.getScaledHeight() - 22 - GameSense.deltaTime()), 0, 0, 182, 22);
+            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, (float) (sr.getScaledHeight() - 22  - GameSense.deltaTime()) - 1, 0, 22, 24, 22);
+        }
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
+            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+            ItemStack itemstack = entityplayer.getHeldItemOffhand();
+            EnumHandSide enumhandside = entityplayer.getPrimaryHand().opposite();
+            int i = sr.getScaledWidth() / 2;
+            float f = this.zLevel;
+            this.zLevel = -90.0F;
+
+            if (GameSense.instance.featureManager.getFeature(Hotbar.class).isEnabled()) {
+                if (!itemstack.func_190926_b()) {
+                    if (enumhandside == EnumHandSide.LEFT) {
+                        // this.drawTexturedModalRect(i - 91 - 29, (float) (sr.getScaledHeight() - 23 - Feature.deltaTime()) - 14 * progress, 24, 22, 29, 24);
+                        if (ClickGUI.panelMode.getCurrentMode().equals("Blue")) {
+                            RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  12, new Color(20, 20, 20, 190));
+                            RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(27, 28, 44), ClientHelper.getClientColor());
+                        }
+                        if (ClickGUI.panelMode.getCurrentMode().equals("Black")) {
+                            RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  12, new Color(20, 20, 20, 190));
+                            RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(0, 0, 0), ClientHelper.getClientColor());
+                        }            if (ClickGUI.panelMode.getCurrentMode().equals("Violet")) {
+                            RenderUtils.drawBlurredShadow((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20, 12, new Color(20, 20, 20, 190));
+                            RenderUtils.drawRoundOutline((sr.getScaledWidth() / 2) - 119 - 1 + 1, (float) (sr.getScaledHeight() - 23 - GameSense.deltaTime() + 1), (sr.getScaledWidth() / 2) - ((sr.getScaledWidth() / 2) - 18 - 2), 20,  5, 0.000000001F, new Color(44, 28, 44), ClientHelper.getClientColor());
+                        }
+
+                    } else {
+                        //this.drawTexturedModalRect(i + 91, (float) (sr.getScaledHeight() - 23 - Feature.deltaTime()) - 14 * progress, 53, 22, 29, 24);
+                    }
                 }
             }
 
@@ -580,23 +640,23 @@ public class GuiIngame extends Gui {
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderHelper.enableGUIStandardItemLighting();
+            net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
             CustomItems.setRenderOffHand(false);
 
             for (int l = 0; l < 9; ++l) {
                 int i1 = i - 90 + l * 20 + 2;
                 int j1 = sr.getScaledHeight() - 16 - 3;
-                this.renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l));
+                this.renderHotbarItem(i1, (int) (j1 - GameSense.deltaTime()), partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l));
             }
 
             if (!itemstack.func_190926_b()) {
                 CustomItems.setRenderOffHand(true);
-                int l1 = sr.getScaledHeight() - 16 - 3;
+                int l1 = (int) (sr.getScaledHeight() - 16 - 3 - GameSense.deltaTime());
 
                 if (enumhandside == EnumHandSide.LEFT) {
-                    this.renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack);
+                    this.renderHotbarItem(i - 91 - 26, (int) (l1), partialTicks, entityplayer, itemstack);
                 } else {
-                    this.renderHotbarItem(i + 91 + 10, l1, partialTicks, entityplayer, itemstack);
+                    this.renderHotbarItem(i + 91 + 10, (int) (l1), partialTicks, entityplayer, itemstack);
                 }
 
                 CustomItems.setRenderOffHand(false);
@@ -621,11 +681,12 @@ public class GuiIngame extends Gui {
                 }
             }
 
-            RenderHelper.disableStandardItemLighting();
+            net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
             GlStateManager.disableRescaleNormal();
             GlStateManager.disableBlend();
         }
     }
+
 
     public void renderHorseJumpBar(ScaledResolution scaledRes, int x) {
         this.mc.mcProfiler.startSection("jumpBar");
@@ -767,18 +828,15 @@ public class GuiIngame extends Gui {
             String s2 = TextFormatting.RED + "" + score1.getScorePoints();
             int k = j1 - j * this.getFontRenderer().FONT_HEIGHT;
             int l = scaledRes.getScaledWidth() - 3 + 2;
-            drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             if (GameSense.instance.featureManager.getFeature(NameProtect.class).isEnabled() && NameProtect.scoreboardSpoof.getBoolValue()) {
-                this.getFontRenderer().drawString(s1.replace(Minecraft.getMinecraft().player.getName().substring(0, 2), TextFormatting.WHITE + GameSense.instance.name +"                                                                                                "), l1, k, 553648127);
+                this.getFontRenderer().drawString(s1.replace(Minecraft.getMinecraft().player.getName().substring(0, 2), TextFormatting.DARK_GRAY + "Onion                                                                                                 "), l1, k, 553648127);
             } else {
                 this.getFontRenderer().drawString(s1, l1, k, 553648127);
             }
-            this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 
             if (j == collection.size()) {
                 String s3 = objective.getDisplayName();
-                drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
-                drawRect(l1 - 2, k - 1, l, k, 1342177280);
+                RenderUtils.drawRoundOutline(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l,  10, 2, 0.1F,new Color(20, 21, 30, 150), new Color(20, 21, 30, 100) );
                 this.getFontRenderer().drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - this.getFontRenderer().FONT_HEIGHT, 553648127);
             }
         }
@@ -827,25 +885,7 @@ public class GuiIngame extends Gui {
                 j3 = this.updateCounter % MathHelper.ceil(f + 5.0F);
             }
 
-            this.mc.mcProfiler.startSection("armor");
 
-            for (int k3 = 0; k3 < 10; ++k3) {
-                if (i3 > 0) {
-                    int l3 = l + k3 * 8;
-
-                    if (k3 * 2 + 1 < i3) {
-                        this.drawTexturedModalRect(l3, j2, 34, 9, 9, 9);
-                    }
-
-                    if (k3 * 2 + 1 == i3) {
-                        this.drawTexturedModalRect(l3, j2, 25, 9, 9, 9);
-                    }
-
-                    if (k3 * 2 + 1 > i3) {
-                        this.drawTexturedModalRect(l3, j2, 16, 9, 9, 9);
-                    }
-                }
-            }
 
             this.mc.mcProfiler.endStartSection("health");
 

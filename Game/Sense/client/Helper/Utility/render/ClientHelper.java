@@ -29,7 +29,7 @@ public class ClientHelper implements Helper {
         if (mode.equalsIgnoreCase("Rainbow")) {
             color = ColorUtils.rainbow((int) (1 * 200 * 0.1f), 1, 1.0f);
         } else if (mode.equalsIgnoreCase("Astolfo")) {
-            color = ColorUtils.astolfo((int) yDist, yTotal);
+            color = ColorUtils3.astolfoRainbow(1);
         } else if (mode.equalsIgnoreCase("Custom")) {
             color = ColorUtils.TwoColoreffect(new Color(onecolor.getRGB()), new Color(twoColor.getRGB()), Math.abs(System.currentTimeMillis() / time) / 100.0 + 3.0F * (yDist * 2.55) / 60);
         } else if (mode.equalsIgnoreCase("Fade")) {

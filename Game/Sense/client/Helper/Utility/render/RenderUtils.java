@@ -33,6 +33,7 @@ public class RenderUtils implements Helper {
     protected static float zLevel;
     public static Frustum frustum = new Frustum();
     private static ShaderGroup blurShader;
+    public static ShaderUtil roundedOutlineShader = new ShaderUtil("shaders/roundrectoutline.frag");
     private static final ShaderUtil roundedGradientShader = new ShaderUtil("roundedRectGradient");
 
     private static Framebuffer buffer;
@@ -916,6 +917,20 @@ public class RenderUtils implements Helper {
         RenderUtils.drawRect(x, y, x2, y2, color2);
         RenderUtils.drawBorderedRect(x, y, x2, y2, color1, width);
     }
+    public static void drawRoundOutline(float x, float y, float width, float height, float radius, float outlineThickness, Color color, Color outlineColor) {
+        RenderUtils.resetColor();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770, 771);
+        roundedOutlineShader.init();
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        setupRoundedRectUniforms(x, y, width, height, radius, roundedOutlineShader);
+        roundedOutlineShader.setUniformf("outlineThickness", new float[]{outlineThickness * (float)sr.getScaleFactor()});
+        roundedOutlineShader.setUniformf("color", new float[]{(float)color.getRed() / 255.0F, (float)color.getGreen() / 255.0F, (float)color.getBlue() / 255.0F, (float)color.getAlpha() / 255.0F});
+        roundedOutlineShader.setUniformf("outlineColor", new float[]{(float)outlineColor.getRed() / 255.0F, (float)outlineColor.getGreen() / 255.0F, (float)outlineColor.getBlue() / 255.0F, (float)outlineColor.getAlpha() / 255.0F});
+        ShaderUtil.drawQuads(x - (2.0F + outlineThickness), y - (2.0F + outlineThickness), width + 4.0F + outlineThickness * 2.0F, height + 4.0F + outlineThickness * 2.0F);
+        roundedOutlineShader.unload();
+        GlStateManager.disableBlend();
+    }
 
     public static void drawBorderedRect(double x, double y, double width, double height, int color, double lwidth) {
         RenderUtils.drawHLine(x, y, width, y, (float)lwidth, color);
@@ -1339,4 +1354,5 @@ public class RenderUtils implements Helper {
     public static int rgba1(int r, int g, int b, int a) {
         return a << 24 | r << 16 | g << 8 | b;
     }
+    
 }

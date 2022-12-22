@@ -241,7 +241,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
      */
     private static Minecraft theMinecraft;
     private final DataFixer dataFixer;
-    public PlayerControllerMP playerController;
+    public static PlayerControllerMP playerController;
     private boolean fullscreen;
     private final boolean enableGLErrorChecking = true;
     private boolean hasCrashed;
@@ -263,7 +263,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
      * Instance of PlayerUsageSnooper.
      */
     private final Snooper usageSnooper = new Snooper("client", this, MinecraftServer.getCurrentTimeMillis());
-    public WorldClient world;
+    public static WorldClient world;
     public RenderGlobal renderGlobal;
     private RenderManager renderManager;
     private RenderItem renderItem;
@@ -362,7 +362,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     /**
      * The ray trace hit that the mouse is over.
      */
-    public RayTraceResult objectMouseOver;
+    public static RayTraceResult objectMouseOver;
 
     /**
      * The game settings that currently hold effect.

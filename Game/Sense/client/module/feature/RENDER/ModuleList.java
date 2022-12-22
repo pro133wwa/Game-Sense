@@ -27,7 +27,7 @@ import java.util.List;
 public class ModuleList extends Module {
     public float scale = 2;
 
-    public static ListSetting colorList = new ListSetting("ArrayList Color", "Custom", () -> true, "Custom");
+    public static ListSetting colorList = new ListSetting("ArrayList Color", "Custom", () -> true, "Custom","Astolfo","Rainbow");
     public static ColorSetting oneColor = new ColorSetting("One Color", new Color(0x00FDF5).getRGB(), () -> colorList.currentMode.equals("Custom") || colorList.currentMode.equals("Fade"));
     public static ColorSetting twoColor = new ColorSetting("Two Color", new Color(0xFFFFFF).getRGB(), () -> colorList.currentMode.equals("Custom"));
     public BooleanSetting onlyBinds = new BooleanSetting("Only Binds", false, () -> true);
@@ -69,7 +69,7 @@ public class ModuleList extends Module {
                         continue;
                     stringWidth = this.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) + 3;
                     RenderUtils.drawRect4(displayWidth + 50 - Helper.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) - 5, y, displayWidth + 50, y + (float) offset + 8.2f, RenderUtils.injectAlpha(ClientHelper.getClientColor(y, yTotal, 5), 255).getRGB());
-                    Helper.mc.mntsb_15.drawString(module.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) - 4f, y + Helper.mc.mntsb_14.getFontHeight() + (float) offset - 4, -1);
+                    Helper.mc.mntsb_15.drawString(module.getLabel().toLowerCase(), displayWidth + 50.5f - Helper.mc.mntsb_15.getStringWidth(module.getLabel().toLowerCase()) - 4f, y + Helper.mc.mntsb_14.getFontHeight() + (float) offset - 2, -1);
                     RenderUtils.drawRect4(displayWidth + 49, y, displayWidth + 51.5f, y + 8.2f + (float) offset, Color.WHITE.getRGB());
 
                     y += 8 * module.animYto;

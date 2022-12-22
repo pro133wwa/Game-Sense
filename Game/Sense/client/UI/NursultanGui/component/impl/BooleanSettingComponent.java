@@ -37,19 +37,19 @@ public class BooleanSettingComponent extends Component implements PropertyCompon
             int middleHeight = (int) (this.getHeight() / 1.9F);
             boolean hovered = this.isHovered((double)mouseX, (double)mouseY);
             if (ClickGUI.theme.currentMode.equals("Light")) {
-                this.mc.neverlose500_20.drawString(this.getName(), (float)(x + 3), (float)(y +  middleHeight - 2), Color.BLACK.getRGB());
+                this.mc.rubik_16.drawString(this.getName(), (float)(x + 3), (float)(y +  middleHeight - 2), Color.BLACK.getRGB());
             }
 
             if (ClickGUI.theme.currentMode.equals("Dark")) {
                 if (!hovered) {
-                    this.mc.neverlose500_20.drawString(this.getName().toLowerCase(), (float) (x + 3), (float) (y + middleHeight - 2), Color.LIGHT_GRAY.getRGB());
+                    this.mc.rubik_16.drawString(this.getName().toLowerCase(), (float) (x + 3), (float) (y + middleHeight - 2), Color.LIGHT_GRAY.getRGB());
                 }
                 if (hovered) {
-                    this.mc.neverlose500_20.drawString(this.getName().toLowerCase(), (float) (x + 3), (float) (y + middleHeight - 2), Color.WHITE.getRGB());
+                    this.mc.rubik_16.drawString(this.getName().toLowerCase(), (float) (x + 3), (float) (y + middleHeight - 2), Color.WHITE.getRGB());
                 }
             }
             if (ClickGUI.theme.currentMode.equals("Weird")) {
-                this.mc.neverlose500_20.drawString(this.getName(), (float)(x + 3), (float)(y + middleHeight - 3), Color.WHITE.getRGB());
+                this.mc.rubik_16.drawString(this.getName(), (float)(x + 3), (float)(y + middleHeight - 3), Color.WHITE.getRGB());
             }
 
 
