@@ -257,7 +257,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
      * True if the player is connected to a realms server
      */
     private boolean connectedToRealms;
-    public Timer timer = new Timer(20.0F);
+    public static Timer timer = new Timer(20.0F);
 
     /**
      * Instance of PlayerUsageSnooper.
@@ -367,7 +367,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     /**
      * The game settings that currently hold effect.
      */
-    public GameSettings gameSettings;
+    public static GameSettings gameSettings;
     public CreativeSettings field_191950_u;
 
     /**

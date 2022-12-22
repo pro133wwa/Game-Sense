@@ -2,6 +2,7 @@ package Game.Sense.client.Helper.Utility.movement;
 
 import Game.Sense.client.Helper.events.impl.player.EventMove;
 import Game.Sense.client.Helper.Utility.Helper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 
@@ -169,6 +170,8 @@ public class MovementUtils implements Helper {
 
         return (float) Math.toRadians(rotationYaw);
     }
+
+
     public static void strafe(float speed) {
         if (!MovementUtils.isMoving()) {
             return;

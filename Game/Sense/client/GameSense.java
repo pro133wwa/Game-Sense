@@ -39,7 +39,7 @@ public class GameSense {
     public static ScaleUtils scale = new ScaleUtils(2);
     public Long time;
 
-    public ModuleManager featureManager;
+    public static ModuleManager featureManager;
     public FileManager fileManager;
     public static long playTimeStart = 0;
     public DraggableHUD draggableHUD;
