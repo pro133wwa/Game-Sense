@@ -1,6 +1,7 @@
 package Game.Sense.client.module.feature.MOVEMENT;
 
 import Game.Sense.client.Helper.EventTarget;
+import Game.Sense.client.Helper.Utility.other.ChatUtils;
 import Game.Sense.client.Helper.events.impl.packet.EventReceivePacket;
 import Game.Sense.client.Helper.events.impl.player.EventPreMotion;
 import Game.Sense.client.module.Module;
@@ -12,6 +13,7 @@ import Game.Sense.client.Helper.Utility.movement.MovementUtils;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraft.util.math.MathHelper;
 
@@ -19,7 +21,7 @@ public class Flight extends Module {
     public boolean damage = false;
     public boolean flaging = false;
     public TimerHelper timerHelper = new TimerHelper();
-    public static ListSetting flyMode = new ListSetting("Flight Mode", "Matrix Glide", () -> true, "Vanilla", "Matrix Elytra", "Matrix Glide", "Matrix Pearl","Matrix Jump");
+    public static ListSetting flyMode = new ListSetting("Flight Mode", "Matrix Glide", () -> true, "Vanilla", "Matrix Elytra", "Matrix Glide", "Matrix Pearl","Matrix Jump","тускифлай");
     public final NumberSetting speed = new NumberSetting("Flight Speed", 5F, 0.1F, 15F, 0.1F, () -> flyMode.currentMode.equals("Vanilla") || flyMode.currentMode.equals("Matrix Glide"));
     public final NumberSetting motionY = new NumberSetting("Motion Y", 0.05f, 0.01f, 0.1f, 0.01F, () -> flyMode.currentMode.equals("Matrix Elytra"));
 
@@ -118,10 +120,23 @@ public class Flight extends Module {
                 /*  88 */         this.mc.player.motionY = 1.2f;
                 /*  89 */         MovementUtils.setSpeed(2);
                 /*     */       }
+            else if (mode.equalsIgnoreCase("тускифлай")) {
+
+                if (mc.player.onGround) {
+                    mc.player.jump();
+                    timerHelper.reset();
+                } else if (!mc.player.onGround && timerHelper.hasReached(250)) {
+                    int x = (int) mc.player.posX;
+                    int y = (int) mc.player.posY;
+                    int z = (int) mc.player.posZ;
+                    mc.player.connection.sendPacket(new CPacketPlayer.Position(x + 1, y, z - 1, false));
+                }
+            }
+            }
 
 
         }
-    }
+
 
     @Override
     public void onDisable() {

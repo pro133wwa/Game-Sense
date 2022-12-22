@@ -1,12 +1,17 @@
 package Game.Sense.client.module.feature.RENDER;
 
+import Game.Sense.client.GameSense;
 import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.Utility.render.ClientHelper;
+import Game.Sense.client.Helper.Utility.render.ColorUtils2;
 import Game.Sense.client.Helper.Utility.render.RenderUtils;
+import Game.Sense.client.Helper.Utility.render.RoundedUtil;
 import Game.Sense.client.Helper.events.impl.render.EventRender2D;
 import Game.Sense.client.UI.Settings.impl.NumberSetting;
 import Game.Sense.client.UI.UwU.PaletteHelper;
 import Game.Sense.client.UI.UwU.RectHelper;
+import Game.Sense.client.mine.drag.component.impl.DraggableRadar;
+import Game.Sense.client.mine.drag.component.impl.DraggableWaterMark;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
 import net.minecraft.client.gui.ScaledResolution;
@@ -17,35 +22,40 @@ import java.awt.*;
 
 public class Radar extends Module {
     private final NumberSetting size;
-    private final NumberSetting posx = new NumberSetting("PosX", 860.0f, 0.0f, 900.0f, 1.0f, () -> true);
-    private final NumberSetting posy = new NumberSetting("PosY", 15.0f, 0.0f, 350.0f, 1.0f, () -> true);
+
     public int scale;
 
     public Radar(){
         super("Radar", ModuleCategory.RENDER);
         this.size = new NumberSetting("Size", 100.0f, 30.0f, 300.0f, 1.0f, () -> true);
-        addSettings(posy, posx);
+        addSettings();
     }
 
 
     @EventTarget
     public void onRender2D(EventRender2D event) {
-        double psx = this.posx.getNumberValue();
-        double psy = this.posy.getNumberValue();
+        DraggableRadar dwm = (DraggableRadar) GameSense.instance.draggableHUD.getDraggableComponentByClass(DraggableRadar.class);
+        dwm.setWidth(100);
+        dwm.setHeight(100);
+        double psx = dwm.getX();
+        double psy = dwm.getY();
         ScaledResolution sr = new ScaledResolution(mc);
         this.scale = 2;
         int sizeRect = (int)this.size.getNumberValue();
-        float xOffset = (float)((double)(sr.getScaledWidth() - sizeRect) - psx);
+        float xOffset = (float) psx;
         float yOffset = (float)psy;
         double playerPosX = Radar.mc.player.posX;
         double playerPosZ = Radar.mc.player.posZ;
-        //RectHelper.drawBorderedRect((double)xOffset + 2.5, (double)yOffset + 2.5, (double)(xOffset + (float)sizeRect) - 2.5, (double)(yOffset + (float)sizeRect) - 2.5, 0.5, PaletteHelper.getColor(2), PaletteHelper.getColor(11));
-        //RectHelper.drawBorderedRect(xOffset + 3.0f, yOffset + 3.0f, xOffset + (float)sizeRect - 3.0f, yOffset + (float)sizeRect - 3.0f, 0.2, PaletteHelper.getColor(2), new Color(0, 0, 0, 150).getRGB());
-        //RectHelper.drawRect((double)xOffset + ((double)((float)sizeRect / 2.0f) - 0.5), (double)yOffset + 3.5, (double)xOffset + ((double)((float)sizeRect / 2.0f) + 0.2), (double)(yOffset + (float)sizeRect) - 3.5, PaletteHelper.getColor(155, 100));
-        //RectHelper.drawRect((double)xOffset + 48, (double)yOffset + ((double)((float)sizeRect / 2.0f) - 2), (double)(xOffset + (float)sizeRect) - 48, (double)yOffset + ((double)((float)sizeRect / 2.0f) + 2), new Color(255, 255, 255, 255).getRGB());
-        //RectHelper.drawRectBetter(xOffset + 3.5f, yOffset + 1f, sizeRect - 7, 2.0, ClientHelper.getClientColor().getRGB());
-        RenderUtils.drawSmoothRect(xOffset + 3.0f, yOffset + 3.0f, xOffset + (float)sizeRect - 3.0f, yOffset + (float)sizeRect - 3.0f, new Color(0, 0, 0, 150).getRGB());
-        RenderUtils.drawSmoothRect((double)xOffset + 48.5, (double)yOffset + ((double)((float)sizeRect / 2.0f) - 1.5), (double)(xOffset + (float)sizeRect) - 48.5, (double)yOffset + ((double)((float)sizeRect / 2.0f) + 1.5), new Color(255, 255, 255, 255).getRGB());
+        Color onecolor = new Color(ClickGUI.bgonecolor.getColorValue());
+        Color twocolor = new Color(ClickGUI.bgtwocolor.getColorValue());
+        Color gradientColor1 = ColorUtils2.interpolateColorsBackAndForth(15, 0, onecolor, twocolor);
+        Color gradientColor2 = ColorUtils2.interpolateColorsBackAndForth(15, 90, onecolor, twocolor);
+        Color gradientColor3 = ColorUtils2.interpolateColorsBackAndForth(15, 180, onecolor, twocolor);
+        Color gradientColor4 = ColorUtils2.interpolateColorsBackAndForth(15, 270, onecolor, twocolor);
+        RoundedUtil.drawGradientRound(xOffset + 3.0f, yOffset + 3.0f, dwm.getWidth(), dwm.getHeight(),4,ColorUtils2.applyOpacity(gradientColor4, 10.85f).brighter(), gradientColor1.brighter(), gradientColor3.brighter(), gradientColor2.brighter());
+        mc.rubik_18.drawCenteredString("Radar",dwm.getX()+25,dwm.getY()+10,Color.WHITE.getRGB());
+        RenderUtils.drawRect2(dwm.getX()+2,dwm.getY()+50,dwm.getWidth()+2,0.5f, Color.white.getRGB());
+        RenderUtils.drawRect2(dwm.getX()+52,dwm.getY()+2,0.5f,dwm.getHeight()+2, Color.white.getRGB());
         for (Entity entity : Radar.mc.world.loadedEntityList) {
             EntityPlayer entityPlayer;
             if (!(entity instanceof EntityPlayer) || (entityPlayer = (EntityPlayer)entity) == Radar.mc.player || entityPlayer.isInvisible()) continue;

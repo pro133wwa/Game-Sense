@@ -2,6 +2,7 @@ package Game.Sense.client.mine.drag.component.impl;
 import Game.Sense.client.GameSense;
 import Game.Sense.client.mine.drag.component.DraggableComponent;
 import Game.Sense.client.module.feature.RENDER.Hud;
+import Game.Sense.client.module.feature.RENDER.Radar;
 
 public class DraggableRadar extends DraggableComponent {
     public DraggableRadar() {
@@ -10,6 +11,6 @@ public class DraggableRadar extends DraggableComponent {
 
     @Override
     public boolean allowDraw() {
-        return GameSense.instance.featureManager.getFeature(Hud.class).isEnabled() && Hud.Radar.getBoolValue();
+        return GameSense.instance.featureManager.getFeature(Radar.class).isEnabled();
     }
 }

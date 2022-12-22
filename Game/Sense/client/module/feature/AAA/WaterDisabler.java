@@ -5,9 +5,6 @@ import Game.Sense.client.Helper.EventTarget;
 import Game.Sense.client.Helper.events.impl.player.EventUpdate;
 import Game.Sense.client.module.Module;
 import Game.Sense.client.module.feature.ModuleCategory;
-
-import static java.lang.Thread.sleep;
-
 public class WaterDisabler extends Module {
 
     public WaterDisabler(){
@@ -17,9 +14,10 @@ public class WaterDisabler extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdate event) {
-            mc.player.sendChatMessage(".wDisabler 85");
-            mc.player.sendChatMessage(".wDisabler 5");
+        if(mc.player.isInWater()){
+        mc.player.sendChatMessage(".wDisabler 5");
             GameSense.instance.featureManager.getFeature(WaterDisabler.class).setEnabled(false);
+    }
     }
 
     @Override
