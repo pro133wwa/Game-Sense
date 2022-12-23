@@ -27,6 +27,7 @@ public class ModuleManager {
         features.add(new ClickTP());
         features.add(new NoOverlay());
         features.add(new ShulkerViewer());
+        features.add(new PenisESP());
         features.add(new TimerSmart());
         features.add(new GappleSlot());
         features.add(new ClickGUI());

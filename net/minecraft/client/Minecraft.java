@@ -265,7 +265,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
     private final Snooper usageSnooper = new Snooper("client", this, MinecraftServer.getCurrentTimeMillis());
     public static WorldClient world;
     public RenderGlobal renderGlobal;
-    private RenderManager renderManager;
+    private static RenderManager renderManager;
     private RenderItem renderItem;
     private ItemRenderer itemRenderer;
     public static EntityPlayerSP player;
@@ -3027,9 +3027,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
         return this.blockRenderDispatcher;
     }
 
-    public RenderManager getRenderManager() {
-        return this.renderManager;
+    public static RenderManager getRenderManager() {
+        return renderManager;
     }
+
 
     public RenderItem getRenderItem() {
         return this.renderItem;
