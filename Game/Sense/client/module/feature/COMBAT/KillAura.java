@@ -51,37 +51,37 @@ public class KillAura extends Module {
     public static boolean isBreaked;
     public static EntityLivingBase target;
     public static ListSetting clickMode = new ListSetting("Click Mode", "1.9", () -> true, "1.9", "1.8");
-    public static NumberSetting minAPS = new NumberSetting("Min APS", "Минимальное количество кликов в секунду", 12.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
-    public static NumberSetting maxAPS = new NumberSetting("Max APS", "Максимальное количество кликов в секунду", 13.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
+    public static NumberSetting minAPS = new NumberSetting("Min APS", "??????????? ?????????? ?????? ? ???????", 12.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
+    public static NumberSetting maxAPS = new NumberSetting("Max APS", "???????????? ?????????? ?????? ? ???????", 13.0f, 1.0f, 20.0f, 1.0f, () -> clickMode.currentMode.equals("1.8"), NumberSetting.NumberType.APS);
     public static ListSetting rotationMode = new ListSetting("Rotation Mode", "Matrix", "Vanilla", "Matrix", "Sunrise", "Snap", "Custom");
     public static ListSetting typeMode = new ListSetting("Type Mode", "Single", "Single", "Switch");
     public static BooleanSetting silent = new BooleanSetting("Silent Aura", true);
     public static ListSetting sortMode = new ListSetting("Priority Mode", "Distance", () -> typeMode.currentMode.equalsIgnoreCase("Switch"), "Distance", "Health", "Crosshair", "Higher Armor", "Lowest Armor");
-    public static NumberSetting fov = new NumberSetting("FOV", "Позволяет редактировать радиус в котором вы можете ударить игрока", 180, 0, 180, 1);
-    public static NumberSetting attackCoolDown = new NumberSetting("Attack CoolDown", "Редактирует скорость удара", 0.85F, 0.1F, 1F, 0.01F, () -> !rotationMode.currentMode.equals("Snap") && clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static NumberSetting range = new NumberSetting("AttackRange", "Дистанция в которой вы можете ударить игрока", 3.6F, 3, 6, 0.01f);
-    public static NumberSetting preAimRange = new NumberSetting("Pre Aim Range", "Игрок будет наводиться до атаки", 0.0f, 0.0f, 4.0f, 0.1f, () -> !rotationMode.currentMode.equals("Vanilla"));
+    public static NumberSetting fov = new NumberSetting("FOV", "????????? ????????????? ?????? ? ??????? ?? ?????? ??????? ??????", 180, 0, 180, 1);
+    public static NumberSetting attackCoolDown = new NumberSetting("Attack CoolDown", "??????????? ???????? ?????", 0.85F, 0.1F, 1F, 0.01F, () -> !rotationMode.currentMode.equals("Snap") && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting range = new NumberSetting("AttackRange", "????????? ? ??????? ?? ?????? ??????? ??????", 3.6F, 3, 6, 0.01f);
+    public static NumberSetting preAimRange = new NumberSetting("Pre Aim Range", "????? ????? ?????????? ?? ?????", 0.0f, 0.0f, 4.0f, 0.1f, () -> !rotationMode.currentMode.equals("Vanilla"));
     public static NumberSetting yawrandom = new NumberSetting("Yaw Random", 1.6f, 0.1f, 20, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
     public static NumberSetting pitchRandom = new NumberSetting("Pitch Random", 1.6f, 0.1f, 20, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
     public static BooleanSetting staticPitch = new BooleanSetting("Static Pitch", false, () -> rotationMode.currentMode.equals("Custom"));
     public static NumberSetting pitchHead = new NumberSetting("Pitch Head", 0.35f, 0.1f, 1.2f, 0.01F, () -> rotationMode.currentMode.equals("Custom"));
-    public BooleanSetting rayCast = new BooleanSetting("RayCast", "Проверяет навелась ли ротация на хит-бокс энтити", true);
-    public static BooleanSetting walls = new BooleanSetting("Walls", "Позволяет бить сквозь стены", true);
-    public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "Бьет в нужный момент для крита", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public BooleanSetting spaceOnly = new BooleanSetting("Space Only", "Only Crits будут работать если зажат пробел", false, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static BooleanSetting checkCrystals = new BooleanSetting("Check Crystal", "Only Crits не будут работать когда рядом кристал", false, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static NumberSetting radiusCrystals = new NumberSetting("Distance to Crystal", 3, 1, 8, 1, () -> checkCrystals.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static NumberSetting criticalFallDistance = new NumberSetting("Critical Fall Distance", "Регулировка дистанции до земли для крита", 0.2F, 0.08F, 1F, 0.01f, () -> onlyCritical.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "Отжимает щит во время удара, помогает обойти Matrix", false, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public NumberSetting fixerDelay = new NumberSetting("Fixer Delay", "Регулировка как долго щит будет отжмиматься (чем больше, тем щит будет дольше отжиматься)", 150.0f, 0.0f, 600.0f, 10.0f, () -> shieldFixer.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting rayCast = new BooleanSetting("RayCast", "????????? ???????? ?? ??????? ?? ???-???? ??????", true);
+    public static BooleanSetting walls = new BooleanSetting("Walls", "????????? ???? ?????? ?????", true);
+    public static BooleanSetting onlyCritical = new BooleanSetting("Only Critical", "???? ? ?????? ?????? ??? ?????", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting spaceOnly = new BooleanSetting("Space Only", "Only Crits ????? ???????? ???? ????? ??????", false, () -> onlyCritical.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting checkCrystals = new BooleanSetting("Check Crystal", "Only Crits ?? ????? ???????? ????? ????? ???????", false, () -> onlyCritical.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting radiusCrystals = new NumberSetting("Distance to Crystal", 3, 1, 8, 1, () -> checkCrystals.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static NumberSetting criticalFallDistance = new NumberSetting("Critical Fall Distance", "??????????? ????????? ?? ????? ??? ?????", 0.2F, 0.08F, 1F, 0.01f, () -> onlyCritical.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public BooleanSetting shieldFixer = new BooleanSetting("ShieldFixer", "???????? ??? ?? ????? ?????, ???????? ?????? Matrix", false, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public NumberSetting fixerDelay = new NumberSetting("Fixer Delay", "??????????? ??? ????? ??? ????? ??????????? (??? ??????, ??? ??? ????? ?????? ??????????)", 150.0f, 0.0f, 600.0f, 10.0f, () -> shieldFixer.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
     public BooleanSetting shieldDesync = new BooleanSetting("Shield Desync", false, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "Автоматически ломает щит противнику", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
-    public static BooleanSetting breakNotifications = new BooleanSetting("Break Notifications", true, () -> shieldBreaker.getBoolValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting shieldBreaker = new BooleanSetting("ShieldBreaker", "????????????? ?????? ??? ??????????", true, () -> clickMode.currentMode.equalsIgnoreCase("1.9"));
+    public static BooleanSetting breakNotifications = new BooleanSetting("Break Notifications", true, () -> shieldBreaker.getCurrentValue() && clickMode.currentMode.equalsIgnoreCase("1.9"));
     public static BooleanSetting silentMove = new BooleanSetting("SilentMove", false);
     public static MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets", new BooleanSetting("Players", true), new BooleanSetting("Mobs"), new BooleanSetting("Animals"), new BooleanSetting("Villagers"), new BooleanSetting("Invisibles", true));
 
     public KillAura() {
-        super("KillAura", "Автоматически аттакует энтити", ModuleCategory.COMBAT);
+        super("KillAura", "????????????? ???????? ??????", ModuleCategory.COMBAT);
         addSettings(rotationMode, typeMode, sortMode, clickMode, minAPS, maxAPS, targetsSetting, fov, attackCoolDown, range, preAimRange, silent, rayCast, yawrandom, pitchRandom, pitchHead, staticPitch, walls, onlyCritical, spaceOnly, checkCrystals, radiusCrystals, criticalFallDistance, shieldBreaker, breakNotifications, shieldFixer, fixerDelay, shieldDesync, silentMove);
     }
 
@@ -108,18 +108,18 @@ public class KillAura extends Module {
         setSuffix("" + mode);
         /* Sorting */
         target = KillauraUtils.getSortEntities();
-        /* хуйня ебаная */
+        /* ????? ?????? */
         if (target == null) {
             return;
         }
         /* RayCast */
-        if (!RotationHelper.isLookingAtEntity(false, yawStatic, pitchStatic, 0.06f, 0.06f, 0.06f, target, range.getCurrentValue() + preAimRange.getCurrentValue())) {
+        if (!RotationHelper.isLookingAtEntity(false, yawStatic, pitchStatic, 0.06f, 0.06f, 0.06f, target, range.getCurrentValueInt() + preAimRange.getCurrentValue())) {
             return;
         }
         /* Only Critical */
         if (!(!mc.gameSettings.keyBindJump.isKeyDown() && spaceOnly.getCurrentValue() || KillauraUtils.checkCrystal() && checkCrystals.getCurrentValue() || mc.player.capabilities.isFlying)) {
             if (MovementUtils.airBlockAboveHead()) {
-                if (!(mc.player.fallDistance >= criticalFallDistance.getCurrentValue() || !onlyCritical.getCurrentValue() || mc.player.isRiding() || mc.player.isOnLadder() || mc.player.isInLiquid() || mc.player.isInWeb)) {
+                if (!(mc.player.fallDistance >= criticalFallDistance.getCurrentValueInt() || !onlyCritical.getCurrentValue() || mc.player.isRiding() || mc.player.isOnLadder() || mc.player.isInLiquid() || mc.player.isInWeb)) {
                     return;
                 }
             } else if (!(!(mc.player.fallDistance > 0.0f) || mc.player.onGround || !onlyCritical.getCurrentValue() || mc.player.isRiding() || mc.player.isOnLadder() || mc.player.isInLiquid() || mc.player.isInWeb)) {
@@ -148,7 +148,7 @@ public class KillAura extends Module {
             float[] sunrise = getSunriseRots(target);
             float[] matrix = getRotations(target);
 
-            float[] fake = RotationHelper.getRotationsA(target);
+            float[] fake = RotationHelper.getRotations(target);
 
             float[] custom = RotationHelper.getCustomRotations(target);
 
@@ -204,10 +204,10 @@ public class KillAura extends Module {
     }
 
     public static float[] getRotations(Entity entity) {
-        Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.getEyeHeight() * (getDist(entity) / (range.getCurrentValue() + entity.width)), 0.2, mc.player.getEyeHeight()), 0));
-        double diffX = vec.x - mc.player.posX;
-        double diffY = vec.y - (mc.player.posY + mc.player.getEyeHeight());
-        double diffZ = vec.z - mc.player.posZ;
+        Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.getEyeHeight() * (getDist(entity) / (range.getCurrentValueInt() + entity.width)), 0.2, mc.player.getEyeHeight()), 0));
+        double diffX = vec.xCoord - mc.player.posX;
+        double diffY = vec.yCoord - (mc.player.posY + mc.player.getEyeHeight());
+        double diffZ = vec.zCoord - mc.player.posZ;
         double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
         float yawTo = (float) ((Math.toDegrees(Math.atan2(diffZ, diffX)) - 90) + GCDFix.getFixedRotation((float) (Math.sin(System.currentTimeMillis() / 30) * 2)));
         float pitchTo = (float) (-(Math.toDegrees(Math.atan2(diffY, dist))) + GCDFix.getFixedRotation((float) (Math.cos(System.currentTimeMillis() / 30) * 2)));
@@ -221,9 +221,9 @@ public class KillAura extends Module {
 
     public static float[] getSunriseRots(Entity entity) {
         Vec3d vec = entity.getPositionVector().add(new Vec3d(0, MathHelper.clamp(entity.getEyeHeight() * (getDist(entity) / (range.getCurrentValue() + entity.width)), 0.2, mc.player.getEyeHeight()), 0));
-        double diffX = vec.x - mc.player.posX;
-        double diffY = vec.y - (mc.player.posY + mc.player.getEyeHeight());
-        double diffZ = vec.z - mc.player.posZ;
+        double diffX = vec.xCoord - mc.player.posX;
+        double diffY = vec.yCoord - (mc.player.posY + mc.player.getEyeHeight());
+        double diffZ = vec.zCoord - mc.player.posZ;
         double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
         float yawTo = (float) ((Math.toDegrees(Math.atan2(diffZ, diffX)) - 90) + GCDFix.getFixedRotation((float) (Math.sin(System.currentTimeMillis() / 30) * 2)));
         float pitchTo = (float) (-(Math.toDegrees(Math.atan2(diffY, dist))) + GCDFix.getFixedRotation((float) (Math.cos(System.currentTimeMillis() / 30) * 2)));
@@ -238,7 +238,7 @@ public class KillAura extends Module {
     @EventTarget
     public void onAttackSilent(EventAttackSilent eventAttackSilent) {
         /* SHIELD Fix */
-        if (mc.player.isBlocking() && this.shieldFixerTimer.hasReached(fixerDelay.getCurrentValue()) && mc.player.getHeldItem(EnumHand.OFF_HAND).getItem() instanceof ItemShield && shieldFixer.getCurrentValue()) {
+        if (mc.player.isBlocking() && this.shieldFixerTimer.hasReached(fixerDelay.getCurrentValueInt()) && mc.player.getHeldItem(EnumHand.OFF_HAND).getItem() instanceof ItemShield && shieldFixer.getCurrentValue()) {
             mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, new BlockPos(900, 900, 900), EnumFacing.UP));
             mc.playerController.processRightClick(mc.player, mc.world, EnumHand.OFF_HAND);
             this.shieldFixerTimer.reset();

@@ -1338,7 +1338,7 @@ public abstract class Entity implements ICommandSender {
             p_191958_3_ = p_191958_3_ * f;
             float yaw = rotationYaw;
             if(GameSense.instance.featureManager.getFeature(KillAura.class).isEnabled() && KillAura.target != null && this instanceof EntityPlayerSP && KillAura.silentMove.getBoolValue() && Minecraft.getMinecraft().player.getDistanceToEntity(KillAura.target) > 1) {
-                yaw = KillAura.yaw;
+                yaw = KillAura.yawStatic;
             }
 
             float f1 = MathHelper.sin(yaw * 0.017453292F);

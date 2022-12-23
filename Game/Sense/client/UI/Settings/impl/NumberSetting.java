@@ -1,6 +1,8 @@
 package Game.Sense.client.UI.Settings.impl;
 
 
+
+
 import Game.Sense.client.UI.Settings.Setting;
 
 import java.util.function.Supplier;
@@ -8,7 +10,7 @@ import java.util.function.Supplier;
 public class NumberSetting extends Setting {
 
     private final NumberType type;
-        private float current, minimum, maximum, increment;
+    private float current, minimum, maximum, increment;
     private String desc;
 
     public NumberSetting(String name, float current, float minimum, float maximum, float increment, Supplier<Boolean> visible) {
@@ -21,6 +23,16 @@ public class NumberSetting extends Setting {
         setVisible(visible);
     }
 
+    public NumberSetting(String name, float current, float minimum, float maximum, float increment) {
+        this.name = name;
+        this.minimum = minimum;
+        this.current = current;
+        this.maximum = maximum;
+        this.increment = increment;
+        this.type = NumberType.DEFAULT;
+        setVisible(() -> true);
+    }
+
     public NumberSetting(String name, float current, float minimum, float maximum, float increment, Supplier<Boolean> visible, NumberType type) {
         this.name = name;
         this.minimum = minimum;
@@ -31,6 +43,15 @@ public class NumberSetting extends Setting {
         setVisible(visible);
     }
 
+    public NumberSetting(String name, float current, float minimum, float maximum, float increment, NumberType type) {
+        this.name = name;
+        this.minimum = minimum;
+        this.current = current;
+        this.maximum = maximum;
+        this.increment = increment;
+        this.type = type;
+        setVisible(() -> true);
+    }
     public NumberSetting(String name, String desc, float current, float minimum, float maximum, float increment, Supplier<Boolean> visible) {
         this.name = name;
         this.desc = desc;
@@ -40,6 +61,17 @@ public class NumberSetting extends Setting {
         this.increment = increment;
         this.type = NumberType.DEFAULT;
         setVisible(visible);
+    }
+
+    public NumberSetting(String name, String desc, float current, float minimum, float maximum, float increment) {
+        this.name = name;
+        this.desc = desc;
+        this.minimum = minimum;
+        this.current = current;
+        this.maximum = maximum;
+        this.increment = increment;
+        this.type = NumberType.DEFAULT;
+        setVisible(() -> true);
     }
 
     public NumberSetting(String name, String desc, float current, float minimum, float maximum, float increment, Supplier<Boolean> visible, NumberType type) {
@@ -55,6 +87,9 @@ public class NumberSetting extends Setting {
 
     public String getDesc() {
         return desc;
+    }
+    public float getNumberValue() {
+        return this.current;
     }
 
     public void setDesc(String desc) {
@@ -77,7 +112,7 @@ public class NumberSetting extends Setting {
         this.maximum = maximum;
     }
 
-    public float getNumberValue() {
+    public float getCurrentValue() {
         return current;
     }
 
@@ -87,6 +122,10 @@ public class NumberSetting extends Setting {
 
     public float getIncrement() {
         return increment;
+    }
+
+    public int getCurrentValueInt() {
+        return (int) this.current;
     }
 
     public void setIncrement(float increment) {
@@ -99,7 +138,7 @@ public class NumberSetting extends Setting {
 
     public enum NumberType {
 
-        MS("Ms"), APS("Aps"), SIZE("Size"), PERCENTAGE("Percentage"), DISTANCE("Distance"), DEFAULT("");
+        MS("Ms"), APS("Aps"), SIZE("Size"), PERCENTAGE("Percentage"), SEC("Sec"), DISTANCE("Distance"), DEFAULT("");
 
         String name;
 

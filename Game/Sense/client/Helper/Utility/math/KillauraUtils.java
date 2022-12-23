@@ -1,10 +1,12 @@
 package Game.Sense.client.Helper.Utility.math;
 
+
 import Game.Sense.client.GameSense;
-import Game.Sense.client.module.feature.COMBAT.AntiBot;
-import Game.Sense.client.module.feature.COMBAT.KillAura;
-import Game.Sense.client.UI.UwU.NAXNADO.Friend;
 import Game.Sense.client.Helper.Utility.Helper;
+import Game.Sense.client.UI.UwU.NAXNADO.Friend;
+import Game.Sense.client.module.feature.COMBAT.AntiBot;
+import Game.Sense.client.module.feature.COMBAT.AutoTotem;
+import Game.Sense.client.module.feature.COMBAT.KillAura;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
@@ -17,82 +19,78 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class KillauraUtils implements Helper {
     public static TimerHelper timerHelper = new TimerHelper();
     public static TimerHelper oldVersionTimer = new TimerHelper();
 
     public static boolean canAttack(EntityLivingBase player) {
-        for (Friend friend : Scream.instance.friendManager.getFriends()) {
+        for (Friend friend : GameSense.instance.friendManager.getFriends()) {
             if (!player.getName().equals(friend.getName())) {
                 continue;
             }
             return false;
         }
-        if (player instanceof EntitySlime && !KillAura.targetsSetting.getSetting("Mobs").getCurrentValue()) {
+        if (player instanceof EntitySlime && !KillAura.targetsSetting.getSetting("Mobs").getBoolValue()) {
             return false;
         }
-        if (player instanceof EntityMagmaCube && !KillAura.targetsSetting.getSetting("Mobs").getCurrentValue()) {
+        if (player instanceof EntityMagmaCube && !KillAura.targetsSetting.getSetting("Mobs").getBoolValue()) {
             return false;
         }
-        if (player instanceof EntityDragon && !KillAura.targetsSetting.getSetting("Mobs").getCurrentValue()) {
+        if (player instanceof EntityDragon && !KillAura.targetsSetting.getSetting("Mobs").getBoolValue()) {
             return false;
         }
 
         if (player instanceof EntityArmorStand) {
             return false;
         }
-        if (player instanceof EntitySquid && !KillAura.targetsSetting.getSetting("Animals").getCurrentValue()) {
+        if (player instanceof EntitySquid && !KillAura.targetsSetting.getSetting("Animals").getBoolValue()) {
             return false;
         }
-        if ((Scream.instance.featureManager.getFeature(AntiBot.class).isEnabled() && AntiBot.isBotPlayer.contains(player))) {
+        if ((GameSense.instance.featureManager.getFeature(AntiBot.class).isEnabled() && AntiBot.isBotPlayer.contains(player))) {
             return false;
         }
         if (player instanceof EntityPlayer || player instanceof EntityAnimal || player instanceof EntityMob || player instanceof EntityVillager) {
-            if (player instanceof EntityPlayer && !KillAura.targetsSetting.getSetting("Players").getCurrentValue()) {
+            if (player instanceof EntityPlayer && !KillAura.targetsSetting.getSetting("Players").getBoolValue()) {
                 return false;
             }
 
-            if (player instanceof EntityAnimal && !KillAura.targetsSetting.getSetting("Animals").getCurrentValue()) {
+            if (player instanceof EntityAnimal && !KillAura.targetsSetting.getSetting("Animals").getBoolValue()) {
                 return false;
             }
-            if (player instanceof EntityMob && !KillAura.targetsSetting.getSetting("Mobs").getCurrentValue()) {
+            if (player instanceof EntityMob && !KillAura.targetsSetting.getSetting("Mobs").getBoolValue()) {
                 return false;
             }
-            if (player instanceof EntityVillager && !KillAura.targetsSetting.getSetting("Villagers").getCurrentValue()) {
+            if (player instanceof EntityVillager && !KillAura.targetsSetting.getSetting("Villagers").getBoolValue()) {
                 return false;
             }
-            if (player instanceof EntityOcelot && !KillAura.targetsSetting.getSetting("Animals").getCurrentValue()) {
+            if (player instanceof EntityOcelot && !KillAura.targetsSetting.getSetting("Animals").getBoolValue()) {
                 return false;
             }
-            if (player instanceof EntityWolf && !KillAura.targetsSetting.getSetting("Animals").getCurrentValue()) {
+            if (player instanceof EntityWolf && !KillAura.targetsSetting.getSetting("Animals").getBoolValue()) {
                 return false;
             }
 
-            if (player instanceof EntityEnderman && !KillAura.targetsSetting.getSetting("Mobs").; {
+            if (player instanceof EntityEnderman && !KillAura.targetsSetting.getSetting("Mobs").getBoolValue()) {
                 return false;
             }
-            if (player.isInvisible() && !KillAura.targetsSetting.getSetting("Invisibles").getCurrentValue()) {
+            if (player.isInvisible() && !KillAura.targetsSetting.getSetting("Invisibles").getBoolValue()) {
                 return false;
             }
         }
-        if (!canSeeEntityAtFov(player, KillAura.fov.getCurrentValue() * 2)) {
+        if (!canSeeEntityAtFov(player, KillAura.fov.getNumberValue() * 2)) {
             return false;
         }
-        if (!range(player, KillAura.range.getCurrentValue() + KillAura.preAimRange.getCurrentValue())) {
+        if (!range(player, KillAura.range.getNumberValue() + KillAura.preAimRange.getNumberValue())) {
             return false;
         }
 
         if (!player.canEntityBeSeen(mc.player)) {
-            return KillAura.walls.getCurrentValue();
+            return KillAura.walls.getBoolValue();
         }
         return player != mc.player;
     }
@@ -100,17 +98,17 @@ public class KillauraUtils implements Helper {
     public static boolean isBot(EntityLivingBase entity) {
         if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
-            return Scream.instance.featureManager.getFeature(AntiBot.class).isEnabled() && AntiBot.isBotPlayer.contains(player);
+            return GameSense.instance.featureManager.getFeature(AntiBot.class).isEnabled() && AntiBot.isBotPlayer.contains(player);
         }
         return false;
     }
 
     public static boolean checkCrystal() {
-        if (!KillAura.checkCrystals.getCurrentValue()) {
+        if (!KillAura.checkCrystals.getBoolValue()) {
             return false;
         }
         for (Entity entity : AutoTotem.mc.world.loadedEntityList) {
-            if (!(entity instanceof EntityEnderCrystal) || !(AutoTotem.mc.player.getDistanceToEntity(entity) <= KillAura.radiusCrystals.getCurrentValue()))
+            if (!(entity instanceof EntityEnderCrystal) || !(AutoTotem.mc.player.getDistanceToEntity(entity) <= KillAura.radiusCrystals.getNumberValue()))
                 continue;
             return true;
         }
@@ -142,15 +140,15 @@ public class KillauraUtils implements Helper {
         if (target == null || mc.player.getHealth() < 0.0f) {
             return;
         }
-        if (KillAura.preAimRange.getCurrentValue() > 0) {
-            if (mc.player.getDistanceToEntity(target) > KillAura.range.getCurrentValueInt()) {
+        if (KillAura.preAimRange.getNumberValue() > 0) {
+            if (mc.player.getDistanceToEntity(target) > KillAura.range.getNumberValue()) {
                 return;
             }
         }
 
         if (!target.isDead) {
             if (KillAura.clickMode.currentMode.equalsIgnoreCase("1.9")) {
-                float attackDelay = KillAura.attackCoolDown.getCurrentValue();
+                float attackDelay = KillAura.attackCoolDown.getNumberValue();
                 if (mc.player.getCooledAttackStrength(0.5f) >= attackDelay) {
                     mc.playerController.attackEntity(mc.player, target);
                     mc.player.swingArm(EnumHand.MAIN_HAND);
@@ -169,7 +167,7 @@ public class KillauraUtils implements Helper {
     }
 
     public static boolean canApsAttack() {
-        int apsMultiplier = 14 / MathematicHelper.intRandom(KillAura.maxAPS.getCurrentValueInt(), KillAura.minAPS.getCurrentValueInt());
+        int apsMultiplier = (int) (14 / MathematicHelper.round(KillAura.maxAPS.getNumberValue(), KillAura.minAPS.getNumberValue()));
 
         if (oldVersionTimer.hasReached(50 * apsMultiplier)) {
             oldVersionTimer.reset();
@@ -187,7 +185,7 @@ public class KillauraUtils implements Helper {
             }
             EntityLivingBase player = (EntityLivingBase) e;
             if (player.getHealth() > 0.0f && !player.isDead) {
-                if (!(mc.player.getDistanceToEntity(player) <= KillAura.range.getCurrentValue() + KillAura.preAimRange.getCurrentValue()) || !canAttack(player)) {
+                if (!(mc.player.getDistanceToEntity(player) <= KillAura.range.getNumberValue() + KillAura.preAimRange.getNumberValue()) || !canAttack(player)) {
                     continue;
                 }
                 entity.add(player);
@@ -225,7 +223,7 @@ public class KillauraUtils implements Helper {
     public static Entity rayCast(Entity entityIn, double range) {
         Vec3d vec = entityIn.getPositionVector().add(new Vec3d(0, entityIn.getEyeHeight(), 0));
         Vec3d vecPositionVector = mc.player.getPositionVector().add(new Vec3d(0, mc.player.getEyeHeight(), 0));
-        AxisAlignedBB axis = mc.player.getEntityBoundingBox().addCoord(vec.x - vecPositionVector.x, vec.y - vecPositionVector.y, vec.z - vecPositionVector.z).expand(1, 1, 1);
+        AxisAlignedBB axis = mc.player.getEntityBoundingBox().addCoord(vec.xCoord - vecPositionVector.xCoord, vec.yCoord - vecPositionVector.yCoord, vec.zCoord - vecPositionVector.zCoord).expand(1, 1, 1);
         Entity entityRayCast = null;
         for (Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity(mc.player, axis)) {
             if (entity.canBeCollidedWith() && entity instanceof EntityLivingBase) {
