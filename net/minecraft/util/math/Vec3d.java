@@ -79,19 +79,19 @@ public class Vec3d
 
     public Vec3d subtract(double x, double y, double z)
     {
-        return this.addVector(-x, -y, -z);
+        return this.add(-x, -y, -z);
     }
 
     public Vec3d add(Vec3d vec)
     {
-        return this.addVector(vec.xCoord, vec.yCoord, vec.zCoord);
+        return this.add(vec.xCoord, vec.yCoord, vec.zCoord);
     }
 
     /**
      * Adds the specified x,y,z vector components to this vector and returns the resulting vector. Does not change this
      * vector.
      */
-    public Vec3d addVector(double x, double y, double z)
+    public Vec3d add(double x, double y, double z)
     {
         return new Vec3d(this.xCoord + x, this.yCoord + y, this.zCoord + z);
     }
@@ -276,6 +276,10 @@ public class Vec3d
         double d1 = this.yCoord;
         double d2 = this.zCoord * (double)f - this.xCoord * (double)f1;
         return new Vec3d(d0, d1, d2);
+    }
+    public Vec3d addVector(double x, double y, double z)
+    {
+        return new Vec3d(this.xCoord + x, this.yCoord + y, this.zCoord + z);
     }
 
     /**
