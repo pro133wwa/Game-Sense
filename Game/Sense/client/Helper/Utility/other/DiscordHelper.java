@@ -7,7 +7,7 @@ import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 
 public class DiscordHelper implements Helper {
-    private static final String discordID = "b501d74505dbf5681df59274b5bb326becabcdb28374012d9f06d0436675a5e7";
+    private static final String discordID = "1055952140880859216";
     private static final DiscordRichPresence discordRichPresence = new DiscordRichPresence();
     private static final DiscordRPC discordRPC = new DiscordRPC();
 
@@ -16,13 +16,15 @@ public class DiscordHelper implements Helper {
             DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
             DiscordRPC.discordInitialize(discordID, eventHandlers, true, null);
             DiscordHelper.discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
-            DiscordHelper.discordRichPresence.details =   "Premium" + " | " + "b" + GameSense.instance.version;
-            DiscordHelper.discordRichPresence.largeImageKey = "logo";
-            DiscordHelper.discordRichPresence.largeImageText = "rules - is you!";
-            DiscordHelper.discordRichPresence.state = "Playing on: " + mc.getCurrentServerData().serverIP;
+            DiscordHelper.discordRichPresence.details = "Role: " + "Delvoper";
+            DiscordHelper.discordRichPresence.largeImageKey = "https://steamuserimages-a.akamaihd.net/ugc/1699529224113152957/5C738FA2908C3446C9BFB31835A0A83D31AA2D20/?imw=512&amp;&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=false";
+            DiscordHelper.discordRichPresence.largeImageText = "vk.com/HUNNER.cc";
+            DiscordHelper.discordRichPresence.smallImageText = "UID: " + "0 | Name: " + "DiGGeR";
+            DiscordHelper.discordRichPresence.smallImageKey = "https://steamuserimages-a.akamaihd.net/ugc/1699529224113152957/5C738FA2908C3446C9BFB31835A0A83D31AA2D20/?imw=512&amp;&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=false";
+            DiscordHelper.discordRichPresence.state = "Version: " + GameSense.instance.version;
             DiscordRPC.discordUpdatePresence(discordRichPresence);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
