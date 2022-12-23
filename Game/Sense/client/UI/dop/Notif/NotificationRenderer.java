@@ -31,21 +31,18 @@ public final class NotificationRenderer implements Helper {
                 for (Notification notification : NOTIFICATIONS) {
                     better = Minecraft.getMinecraft().neverlose500_18.getStringWidth(notification.getTitle() + " " + notification.getContent());
 
-                    if (!notification.getTimer().hasReached(notification.getTime() / 1)) {
-                        notification.notificationTimeBarWidth = 860;
+                    if (!notification.getTimer().hasReached(notification.getTime() / 2)) {
+                        notification.notificationTimeBarWidth = 126;
                     } else {
-                        notification.notificationTimeBarWidth = MathHelper.EaseOutBack((float) notification.notificationTimeBarWidth, 0, (float) (4 * GameSense.deltaTime()));
+
                     }
 
                     if (!notification.getTimer().hasReached(notification.getTime())) {
-                        notification.x = MathHelper.EaseOutBack((float) notification.x, (float) (notification.sr.getScaledWidth() - better), (float) (5 * GameSense.deltaTime()));
+                        notification.x = sr.getScaledWidth() - 110;
                         notification.y = MathHelper.EaseOutBack((float) notification.y, (float) y, (float) (5 * GameSense.deltaTime()));
                     } else {
-                        notification.x = MathHelper.EaseOutBack((float) notification.x, (float) (notification.sr.getScaledWidth() + 50), (float) (5 * GameSense.deltaTime()));
-                        notification.y = MathHelper.EaseOutBack((float) notification.y, (float) y, (float) (5 * GameSense.deltaTime()));
-                        if (notification.x > notification.sr.getScaledWidth() + 24 && mc.player != null && mc.world != null && !mc.gameSettings.showDebugInfo) {
-                            NOTIFICATIONS.remove(notification);
-                        }
+                        notification.x = sr.getScaledWidth() - 185;
+                        NOTIFICATIONS.remove(notification);
                     }
                     GlStateManager.pushMatrix();
                     GlStateManager.disableBlend();
